@@ -19,7 +19,7 @@
                     <form class="space-y-6" action="{{ route('login') }}" method="POST">
                         @csrf
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">
                                 Email
                             </label>
                             <div class="relative">
@@ -33,7 +33,7 @@
                         </div>
 
                         <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">
                                 Password
                             </label>
                             <div class="relative">
