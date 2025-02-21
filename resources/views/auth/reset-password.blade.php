@@ -12,8 +12,7 @@
                 <input type="hidden" name="token" value="{{ $token }}">
                 <input type="hidden" name="email" value="{{ request()->email }}">
                 <div class="my-5">
-                    <label for="password"
-                        class="block mb-2 text-sm font-medium text-stone-800 dark:text-white">Password</label>
+                    <label for="password" class="block mb-2 text-sm font-medium text-stone-800">Password</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <i class="fa-solid fa-lock text-stone-800"></i>
@@ -27,8 +26,8 @@
                     </div>
                 </div>
                 <div class="mb-5">
-                    <label for="password_confirmation"
-                        class="block mb-2 text-sm font-medium text-stone-800 dark:text-white">Konfirmasi Password</label>
+                    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-stone-800">Konfirmasi
+                        Password</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <i class="fa-solid fa-lock text-stone-800"></i>
