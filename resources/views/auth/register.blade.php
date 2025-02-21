@@ -19,7 +19,7 @@
                     <form class="space-y-5" action="{{ route('register.post') }}" method="POST">
                         @csrf
                         <div>
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">
                                 Nama Lengkap
                             </label>
                             <div class="relative">
@@ -33,7 +33,7 @@
                         </div>
 
                         <div>
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">
                                 Email
                             </label>
                             <div class="relative">
@@ -47,7 +47,7 @@
                         </div>
 
                         <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">
                                 Password
                             </label>
                             <div class="relative">
@@ -61,8 +61,7 @@
                         </div>
 
                         <div>
-                            <label for="password_confirmation"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900">
                                 Konfirmasi Password
                             </label>
                             <div class="relative">
