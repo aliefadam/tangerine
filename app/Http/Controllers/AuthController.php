@@ -25,9 +25,9 @@ class AuthController extends Controller
     public function login_post(Request $request)
     {
         if (Auth::attempt($request->only(["email", "password"]))) {
-            return "SUKSES";
+            return redirect()->route("home");
         } else {
-            return "GAGAL";
+            return back()->with("notification", setNotification("error", "Gagal", "Email atau password salah"));
         }
     }
 

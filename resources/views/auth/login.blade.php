@@ -1,7 +1,7 @@
-@extends('layouts.user')
+@extends('layouts.auth')
 
 @section('content')
-    <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div class="max-w-6xl w-full h-[80vh] flex flex-col lg:flex-row shadow-xl rounded-2xl overflow-hidden bg-white">
             <div class="lg:w-1/2 relative hidden lg:block">
                 <img src="/imgs/room/auth.jpg" alt="Fitness Motivation" class="w-full h-full object-cover" />
@@ -58,7 +58,7 @@
                         </div>
 
                         <button type="submit"
-                            class="text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-3 w-full">
+                            class="text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full">
                             Masuk
                         </button>
                     </form>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="mt-6">
                             <a href="{{ route('login.google') }}"
-                                class="flex items-center justify-center gap-2 w-full py-3 px-4 !rounded-button border border-gray-300 bg-white text-sm rounded-md font-medium text-gray-700 hover:bg-gray-50 transition-colors mx-auto">
+                                class="flex items-center justify-center gap-2 w-full py-2.5 px-4 !rounded-button border border-gray-300 bg-white text-sm rounded-md font-medium text-gray-700 hover:bg-gray-50 transition-colors mx-auto">
                                 <img class="size-4" src="/imgs/google.png" alt="">
                                 Google
                             </a>

@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.auth')
 
 @section('content')
     <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -68,14 +68,14 @@
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                     <i class="fa-solid fa-lock text-gray-500"></i>
                                 </div>
-                                <input type="password_confirmation" id="password_confirmation" name="password_confirmation"
+                                <input type="password" id="password_confirmation" name="password_confirmation"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
                                     placeholder="**********">
                             </div>
                         </div>
 
                         <button type="submit"
-                            class="text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-3 w-full">
+                            class="text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full">
                             Mendaftar
                         </button>
                     </form>

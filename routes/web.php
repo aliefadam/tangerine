@@ -3,14 +3,13 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(["auth", "verified"])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name("home");
+Route::middleware(["auth"])->group(function () {
+    Route::middleware(["verified"])->group(function () {
+        Route::get('/', function () {
+            return view('welcome');
+        })->name("home");
+    });
 
-    Route::get('/email/verify/{id}/{hash}', [AuthController::class, "verify"])->middleware(['signed'])->name('verification.verify');
-    Route::get('/email/verify', [AuthController::class, "verificationNotice"])->middleware('auth')->name('verification.notice');
-    Route::post('/email/verification-notification', [AuthController::class, "sendVerificationEmail"])->middleware(['throttle:6,1'])->name('verification.send');
     Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 });
 
@@ -28,3 +27,7 @@ Route::middleware(["guest"])->group(callback: function () {
     Route::get("/reset-password/{token}", [AuthController::class, "reset_password"])->name("password.reset");
     Route::post("/reset-password", [AuthController::class, "reset_password_post"])->name("password.update");
 });
+
+Route::get('/email/verify/{id}/{hash}', [AuthController::class, "verify"])->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify', [AuthController::class, "verificationNotice"])->middleware('auth')->name('verification.notice');
+Route::post('/email/verification-notification', [AuthController::class, "sendVerificationEmail"])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
