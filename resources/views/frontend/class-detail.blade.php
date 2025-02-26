@@ -87,7 +87,7 @@
                         Choose your plan
                     </label>
                     <select id="plan" name="plan"
-                        class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
                         <option selected>-- Choose --</option>
                         @foreach ($course->courseDetails as $detail)
                             @foreach ($detail->getAttributes() as $column => $value)
@@ -112,7 +112,7 @@
                         Choose your trainer
                     </label>
                     <select id="trainer" name="trainer"
-                        class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
                         <option selected>-- Choose --</option>
                         @foreach ($trainers as $trainer)
                             <option value="{{ $trainer->id }}">{{ $trainer->name }}</option>
