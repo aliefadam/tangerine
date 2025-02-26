@@ -15,7 +15,7 @@
         @csrf
         <div class="bg-white w-1/2 rounded-md shadow-md p-5 mt-5">
             <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Class Name
                 </label>
                 <input type="text" id="name" name="name"
@@ -23,7 +23,7 @@
                     required />
             </div>
             <div class="mb-5">
-                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Class Description
                 </label>
                 <textarea id="description" rows="4" name="description"
@@ -31,7 +31,7 @@
                     placeholder=""></textarea>
             </div>
             <div class="">
-                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Class Image
                 </label>
                 <input

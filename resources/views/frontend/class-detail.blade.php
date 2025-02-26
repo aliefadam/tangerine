@@ -7,7 +7,7 @@
         <div class="absolute inset-0 bg-stone-800/60 bg-opacity-60"></div>
         <div
             class="absolute lg:ps-5 top-0 left-0 right-0 text-white flex flex-col justify-center items-center w-full h-full">
-            <h2 class="text-4xl lg:text-5xl poppins-bold">{{ $course->name }}</h2>
+            <h2 class="text-4xl lg:text-5xl poppins-bold text-center">{{ $course->name }}</h2>
             <p class="text-base lg:text-lg text-white text-center w-[90%] lg:w-[70%]">
                 {{ $course->description }}
             </p>
@@ -83,7 +83,7 @@
             <form method="POST" id="form-membership" action="" class="mt-10 w-full lg:w-1/2 mx-auto space-y-5 pb-20">
                 @csrf
                 <div class="">
-                    <label for="plan" class="text-center block mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="plan" class="text-center block mb-3 text-sm font-medium text-gray-900 ">
                         Choose your plan
                     </label>
                     <select id="plan" name="plan"
@@ -108,7 +108,7 @@
                     </select>
                 </div>
                 <div class="hidden" id="container-trainer">
-                    <label for="trainer" class="text-center block mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="trainer" class="text-center block mb-3 text-sm font-medium text-gray-900 ">
                         Choose your trainer
                     </label>
                     <select id="trainer" name="trainer"

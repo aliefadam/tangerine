@@ -15,7 +15,7 @@
         <form action="{{ route('admin.trainer.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Trainer Name
                 </label>
                 <input type="text" id="name" name="name"
@@ -23,7 +23,7 @@
                     required />
             </div>
             <div class="mb-5">
-                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Description
                 </label>
                 <textarea id="description" name="description" rows="4"
@@ -31,28 +31,28 @@
                     placeholder="" required></textarea>
             </div>
             <div class="mb-5">
-                <label for="facebook_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="facebook_link" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Facebook Link • <span class="text-gray-600 text-xs">Opsional</span>
                 </label>
                 <input type="text" id="facebook_link" name="facebook_link"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
             </div>
             <div class="mb-5">
-                <label for="instagram_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="instagram_link" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Instagtram Link • <span class="text-gray-600 text-xs">Opsional</span>
                 </label>
                 <input type="text" id="instagram_link" name="instagram_link"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
             </div>
             <div class="mb-5">
-                <label for="twitter_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="twitter_link" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Twitter Link • <span class="text-gray-600 text-xs">Opsional</span>
                 </label>
                 <input type="text" id="twitter_link" name="twitter_link"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
             </div>
             <div class="mb-5">
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image">
+                <label class="block mb-2 text-sm font-medium text-gray-900 " for="image">
                     Photo
                 </label>
                 <input

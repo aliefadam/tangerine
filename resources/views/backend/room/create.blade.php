@@ -15,7 +15,7 @@
         <form action="{{ route('admin.room.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-5">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Room Name
                 </label>
                 <input type="text" id="name" name="name"
@@ -23,7 +23,7 @@
                     required />
             </div>
             <div class="mb-5">
-                <label for="capacity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label for="capacity" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Capacity
                 </label>
                 <input type="number" id="capacity" name="capacity"

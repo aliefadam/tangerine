@@ -32,7 +32,7 @@
                             </button>
                             <div id="dropdown-user-popup"
                                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-72 !-translate-x-[250px] !translate-y-[60px] dark:bg-gray-700 dark:divide-gray-600">
-                                <div class="px-4 py-3 text-sm text-gray-900 dark:text-white flex gap-3 items-center">
+                                <div class="px-4 py-3 text-sm text-gray-900  flex gap-3 items-center">
                                     <img src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}"
                                         class="w-10 h-10 rounded-full" alt="">
                                     <div class="">

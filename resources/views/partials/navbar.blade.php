@@ -20,7 +20,7 @@
                     class="{{ request()->routeIs('schedule') ? 'text-stone-900 hover:text-stone-900 poppins-semibold' : 'text-stone-700 hover:text-stone-900 font-medium' }}">Schedule</a>
                 @auth
                     <button id="dropdownAvatarNameButton"Mobile data-dropdown-toggle="dropdownAvatarName"
-                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 dark:hover:text-stone-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 dark:hover:text-stone-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 "
                         type="button">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 me-2 rounded-full"
@@ -37,7 +37,7 @@
                     <!-- Dropdown menu -->
                     <div id="dropdownAvatarName"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44 dark:bg-gray-700 dark:divide-gray-600">
-                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div class="px-4 py-3 text-sm text-gray-900 ">
                             <div class="font-medium">{{ auth()->user()->name }}</div>
                             <div class="truncate py-1">{{ auth()->user()->email }}</div>
                         </div>
@@ -68,7 +68,7 @@
             <div class="flex items-center gap-2 md:hidden">
                 @auth
                     <button id="dropdownAvatarNameButtonMobile" data-dropdown-toggle="dropdownAvatarNameMobile"
-                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 dark:hover:text-stone-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 dark:hover:text-stone-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 "
                         type="button">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 me-2 rounded-full"
@@ -85,7 +85,7 @@
                     <!-- Dropdown menu -->
                     <div id="dropdownAvatarNameMobile"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44 dark:bg-gray-700 dark:divide-gray-600">
-                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div class="px-4 py-3 text-sm text-gray-900 ">
                             <div class="font-medium">{{ auth()->user()->name }}</div>
                             <div class="truncate py-1">{{ auth()->user()->email }}</div>
                         </div>
