@@ -1,33 +1,23 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [FrontendController::class, "home"])->name("home");
+Route::get('/about', [FrontendController::class, "about"])->name("about");
+Route::get('/trainer', [FrontendController::class, "trainer"])->name("trainer");
+Route::get('/classes', [FrontendController::class, "classes"])->name("classes");
+Route::get('/schedule', [FrontendController::class, "schedule"])->name("schedule");
+
 Route::middleware(["auth"])->group(function () {
-    Route::middleware(["verified"])->group(function () {
-        Route::get('/', function () {
-            return view('welcome');
-        })->name("home");
-    });
+    Route::middleware(["verified"])->group(function () {});
 
     Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 });
 
 Route::middleware(["guest"])->group(callback: function () {
-    Route::get('/login', [AuthController::class, "login"])->name("login");
-    Route::post('/login', [AuthController::class, "login_post"])->name("login.post");
-    Route::get("/login/google", [AuthController::class, "redirectToGoogle"])->name("login.google");
-    Route::get("/login/google/callback", [AuthController::class, "handleGoogleCallback"])->name("login.google.callback");
-    Route::get('/register', [AuthController::class, "register"])->name("register");
-    Route::post('/register', [AuthController::class, "register_post"])->name("register.post");
-    Route::get('/register/verify', [AuthController::class, "register_verify"])->name('register.verify');
-    Route::get("/forgot-password", [AuthController::class, "forgot_password"])->name("forgot-password");
-    Route::post("/forgot-password", [AuthController::class, "forgot_password_post"])->name("forgot-password");
-    Route::get("/forgot-password-done", [AuthController::class, "forgot_password_done"])->name("forgot-password-done");
-    Route::get("/reset-password/{token}", [AuthController::class, "reset_password"])->name("password.reset");
-    Route::post("/reset-password", [AuthController::class, "reset_password_post"])->name("password.update");
+    include_once __DIR__ . "/auth.php";
 });
 
-Route::get('/email/verify/{id}/{hash}', [AuthController::class, "verify"])->middleware(['auth', 'signed'])->name('verification.verify');
-Route::get('/email/verify', [AuthController::class, "verificationNotice"])->middleware('auth')->name('verification.notice');
-Route::post('/email/verification-notification', [AuthController::class, "sendVerificationEmail"])->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+include_once __DIR__ . "/verify-email.php";

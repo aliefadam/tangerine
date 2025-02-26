@@ -25,7 +25,12 @@ class AuthController extends Controller
     public function login_post(Request $request)
     {
         if (Auth::attempt($request->only(["email", "password"]))) {
-            return redirect()->route("home");
+            $role = Auth::user()->role;
+            if ($role == "admin") {
+                return redirect()->route("admin.dashboard");
+            } else {
+                return redirect()->route("home");
+            }
         } else {
             return back()->with("notification", setNotification("error", "Gagal", "Email atau password salah"));
         }

@@ -10,7 +10,7 @@
             title: '{{ $title }}',
             text: '{{ $text }}',
             showConfirmButton: true,
-            confirmButtonColor: '#0f766e',
+            // confirmButtonColor: '#0f766e',
         })
     </script>
 @endif
@@ -22,7 +22,7 @@
             title: 'Gagal',
             text: '{{ $errors->first() }}',
             showConfirmButton: true,
-            confirmButtonColor: '#0f766e',
+            // confirmButtonColor: '#0f766e',
         })
     </script>
 @endif

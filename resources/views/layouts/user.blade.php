@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tangerine</title>
+    <title>Tangerine - {{ $title }}</title>
 
     {{-- Poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,16 +31,36 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-regular.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/duotone-light.css">
 
+    {{-- AOS --}}
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    {{-- Flowbite --}}
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+
     {{-- VITE --}}
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 </head>
 
-<body>
-    <div class="app">
+<body class="scrollbar">
+    @include('partials.notification')
+    @include('partials.navbar')
+
+    <div class="app mt-[70px]">
         @yield('content')
     </div>
+
+    @include('partials.footer')
+
+    {{-- AOS --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    {{-- Flowbite --}}
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 
 </html>

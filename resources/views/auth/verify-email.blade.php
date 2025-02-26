@@ -22,5 +22,11 @@
                 </div>
             </div>
         </div>
+        <div class="absolute w-full flex justify-center items-center left-0 right-0 bottom-10">
+            <a href="{{ route('logout') }}" class="">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Keluar
+            </a>
+        </div>
     </form>
 @endsection

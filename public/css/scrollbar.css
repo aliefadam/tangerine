@@ -1,5 +1,5 @@
 .scrollbar::-webkit-scrollbar {
-    width: 7px;
+    width: 8px;
     height: 5px;
 }
 
@@ -8,6 +8,6 @@
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgb(15, 118, 110);
-    outline: 1px solid #0f766e;
+    background-color: oklch(0.374 0.01 67.558);
+    outline: 1px solid oklch(0.374 0.01 67.558);
 }
