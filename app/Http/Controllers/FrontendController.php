@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Trainer;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -10,6 +12,7 @@ class FrontendController extends Controller
     {
         return view('frontend.welcome', [
             "title" => "Home",
+            "courses" => Course::all(),
         ]);
     }
 
@@ -24,6 +27,7 @@ class FrontendController extends Controller
     {
         return view('frontend.trainer', [
             "title" => "Trainer",
+            "trainers" => Trainer::all(),
         ]);
     }
 
@@ -31,6 +35,17 @@ class FrontendController extends Controller
     {
         return view('frontend.classes', [
             "title" => "classes",
+            "courses" => Course::all(),
+        ]);
+    }
+
+    public function class_detail($slug)
+    {
+        $course = Course::firstWhere("slug", $slug);
+        return view('frontend.class-detail', [
+            "title" => "classes",
+            "course" => $course,
+            "trainers" => Trainer::all(),
         ]);
     }
 

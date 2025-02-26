@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Room;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class RoomSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Room::create([
+            "name" => "Room A",
+            "capacity" => 9,
+        ]);
+        Room::create([
+            "name" => "Room B",
+            "capacity" => 9,
+        ]);
+        Room::create([
+            "name" => "Room C",
+            "capacity" => 9,
+        ]);
+    }
+}

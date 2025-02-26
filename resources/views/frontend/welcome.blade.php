@@ -2,12 +2,13 @@
 
 @section('content')
     {{-- Hero --}}
-    <div class="h-[650px] relative">
-        <img src="/imgs/image_5.jpg" class="w-full h-full object-cover">
+    <div class="h-[550px] relative">
+        <img src="/imgs/jumbotron.png" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-stone-800/50 bg-opacity-60"></div>
-        <div class="absolute ps-5 top-0 left-0 text-white flex flex-col justify-center items-center w-full h-full">
+        <div class="absolute ps-5 top-0 left-0 text-white flex flex-col justify-center lg:items-center w-full h-full">
             <h2 class="text-4xl lg:text-5xl poppins-bold">Discover Your Inner Sanctuary</h2>
-            <p class="text-lg text-white">Everyday We Bring Hope and Smile the Patient We Serve</p>
+            <p class="text-lg text-white w-[90%] lg:w-auto">Everyday We Bring Hope and Smile the Patient
+                We Serve</p>
         </div>
     </div>
     {{-- EndHero --}}
@@ -179,48 +180,20 @@
                 Our Classes
             </h1>
             <div class="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <img src="/imgs/classes-1.jpg" class="w-full h-[270px] object-cover rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Private & Group Lessons</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
+                @foreach ($courses as $course)
+                    <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <img src="/uploads/courses/{{ $course->image }}"
+                            class="w-full h-[270px] object-cover rounded-md shadow-md">
+                        <div class="mt-5 text-center">
+                            <h1 class="text-xl text-stone-700 poppins-medium">{{ $course->name }}</h1>
+                            <a href="{{ route('class.detail', $course->slug) }}"
+                                class="block w-fit mt-2 mx-auto text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                                <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i>
+                                View
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="/imgs/classes-2.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga for Pregnants</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="/imgs/classes-3.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga for Beginners</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <img src="/imgs/classes-4.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga Barre</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="/imgs/classes-5.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga Core</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="/imgs/classes-6.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga Restore</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

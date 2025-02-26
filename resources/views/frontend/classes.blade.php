@@ -19,50 +19,23 @@
                 Our Classes
             </h1>
             <div class="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <img src="/imgs/classes-1.jpg" class="w-full h-[270px] object-cover rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Private & Group Lessons</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
+                @foreach ($courses as $course)
+                    <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                        <img src="/uploads/courses/{{ $course->image }}"
+                            class="w-full h-[270px] object-cover rounded-md shadow-md">
+                        <div class="mt-5 text-center">
+                            <h1 class="text-xl text-stone-700 poppins-medium">{{ $course->name }}</h1>
+                            <a href="{{ route('class.detail', $course->slug) }}"
+                                class="block w-fit mt-2 mx-auto text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                                <i class="fa-solid fa-arrow-up-right-from-square mr-1.5"></i>
+                                View
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="/imgs/classes-2.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga for Pregnants</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="/imgs/classes-3.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga for Beginners</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                    <img src="/imgs/classes-4.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga Barre</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="/imgs/classes-5.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga Core</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
-                <div class="" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-                    <img src="/imgs/classes-6.jpg" class="w-full h-[270px] rounded-md shadow-md">
-                    <div class="mt-5 text-center">
-                        <h1 class="text-lg text-stone-700 poppins-medium">Yoga Restore</h1>
-                        <p class="text-sm text-stone-600">Sunday, 01:00 PM - 03:00 PM</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
+    </div>
     </div>
     {{-- End Classes --}}
 @endsection
