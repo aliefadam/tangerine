@@ -82,6 +82,7 @@
             <h1 class="text-3xl text-center text-stone-700 poppins-bold">Become a Membership</h1>
             <form method="POST" id="form-membership" action="" class="mt-10 w-full lg:w-1/2 mx-auto space-y-5 pb-20">
                 @csrf
+                <input type="hidden" name="course_id" value="{{ $course->id }}">
                 <div class="">
                     <label for="plan" class="text-center block mb-3 text-sm font-medium text-gray-900 ">
                         Choose your plan
@@ -97,7 +98,8 @@
                                     @endphp
                                     @if ($value)
                                         <option data-type="{{ $detail->name }}"
-                                            value="{{ $course->name }}#{{ $detail->name }}#{{ $col }}#{{ $value }}">
+                                            value="{{ $detail->id }}#{{ $column }}">
+                                            {{-- value="{{ $course->name }}#{{ $detail->name }}#{{ $col }}#{{ $value }}"> --}}
                                             {{ $detail->name }} - {{ $col }} •
                                             {{ format_rupiah($value) }}
                                         </option>
@@ -107,7 +109,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="hidden" id="container-trainer">
+                {{-- <div class="hidden" id="container-trainer">
                     <label for="trainer" class="text-center block mb-3 text-sm font-medium text-gray-900 ">
                         Choose your trainer
                     </label>
@@ -118,13 +120,17 @@
                             <option value="{{ $trainer->id }}">{{ $trainer->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
                 <div class="">
                     <button type="submit"
                         class="w-full text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                        Continue
+                    </button>
+                    {{-- <button type="submit"
+                        class="w-full text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5">
                         <i class="fa-solid fa-credit-card mr-1.5"></i>
                         Go Payment
-                    </button>
+                    </button> --}}
                 </div>
             </form>
         </div>
@@ -133,19 +139,7 @@
 
 @section('script')
     <script>
-        $("select[name=plan]").change(showTrainer);
         $("#form-membership").submit(submitMembership);
-
-        function showTrainer() {
-            const type = $("select[name=plan] option:selected").data("type");
-            if (type == "Private Class") {
-                $("#container-trainer").show();
-                $("select[name=trainer]").attr("disabled", false);
-            } else {
-                $("#container-trainer").hide();
-                $("select[name=trainer]").attr("disabled", true);
-            }
-        }
 
         function submitMembership(e) {
             e.preventDefault();
@@ -182,7 +176,7 @@
                     });
                 },
                 success: function(response) {
-                    location.reload();
+                    location.href = response.redirect_url;
                 }
             });
         }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\CourseDetail;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MemberController extends Controller
 {
@@ -19,36 +22,31 @@ class MemberController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            $user_id = Auth::user()->id;
-            $trainer_id = $request->trainer;
-            $plan = $request->plan;
-            $plan = explode("#", $request->plan)[0] . " - " . explode("#", $request->plan)[1] . " - "  . explode("#", $request->plan)[2];
-            $total = explode("#", $request->plan)[3];
-            $subscription_date = now();
-            $subscription_expiration_date = now()->addMonths(4);
-            $status = "waiting";
+    public function store(Request $request) {}
 
-            Member::create([
-                'user_id' => $user_id,
-                'trainer_id' => $trainer_id,
-                'plan' => $plan,
-                'total' => $total,
-                'subscription_date' => $subscription_date,
-                'subscription_expiration_date' => $subscription_expiration_date,
-                'status' => $status,
-            ]);
-            DB::commit();
-            notificationFlash("success", "Sukses");
-            return response()->json(["success" => true]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            notificationFlash("error", $e->getMessage());
-            return response()->json(["success" => false]);
-        }
+    public function checkout(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $course_id = $request->course_id;
+        $course_detail_id = explode("#", $request->plan)[0];
+        $course_detail_name = CourseDetail::find($course_detail_id)->name;
+        $course_detail_type = explode("#", $request->plan)[1];
+        $course_label_taken = Course::find($course_id)->name . " - " . $course_detail_name . " - " .  Str::replace("Price", "", Str::headline(str_replace('_', ' ', $course_detail_type)));
+        $total = CourseDetail::find($course_detail_id)[$course_detail_type];
+        session()->put("checkout_{$user_id}", [
+            'user_id' => Auth::user()->id,
+            'trainer_id' => $request->trainer,
+            "course_id" => $course_id,
+            "course_detail_id" => $course_detail_id,
+            "course_detail_name" => $course_detail_name,
+            "course_detail_type" => $course_detail_type,
+            "course_label_taken" => $course_label_taken,
+            "total" => $total,
+        ]);
+
+        return response()->json([
+            "redirect_url" => route("member.checkout"),
+        ]);
     }
 
     public function show($id)

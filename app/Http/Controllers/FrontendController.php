@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Room;
 use App\Models\Trainer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -47,6 +49,24 @@ class FrontendController extends Controller
             "course" => $course,
             "trainers" => Trainer::all(),
         ]);
+    }
+
+    public function checkout()
+    {
+        $user_id = Auth::user()->id;
+        $data = session("checkout_{$user_id}");
+
+        return view("frontend.checkout", [
+            "title" => "Checkout",
+            "data" => $data,
+            "rooms" => Room::all(),
+            "trainers" => Trainer::all(),
+        ]);
+    }
+
+    public function payment_waiting($invoice)
+    {
+        return $invoice;
     }
 
     public function schedule()

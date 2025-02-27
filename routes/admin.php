@@ -59,6 +59,7 @@ Route::middleware(AdminMiddleware::class)->group(function () {
             Route::get("/", [ScheduleController::class, "index"])->name("admin.schedule.index");
             Route::get("/create", [ScheduleController::class, "create"])->name("admin.schedule.create");
             Route::post("/store", [ScheduleController::class, "store"])->name("admin.schedule.store");
+            Route::get("/{date}/show", [ScheduleController::class, "show"])->name("admin.schedule.show");
             Route::get("/edit/{id}", [ScheduleController::class, "edit"])->name("admin.schedule.edit");
             Route::put("/update/{id}", [ScheduleController::class, "update"])->name("admin.schedule.update");
             Route::delete("/destroy/{id}", [ScheduleController::class, "destroy"])->name("admin.schedule.destroy");

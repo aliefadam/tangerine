@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date("date");
             $table->time("time");
             $table->foreignId("room_id");
-            $table->foreignId("class_id");
+            $table->foreignId("course_id");
             $table->foreignId("trainer_id");
             $table->timestamps();
         });

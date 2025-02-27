@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, "home"])->name("home");
@@ -16,7 +17,11 @@ Route::get('/schedule', [FrontendController::class, "schedule"])->name("schedule
 
 Route::middleware(["auth"])->group(function () {
     Route::middleware(["verified"])->group(function () {});
-    Route::post("/membership", [MemberController::class, "store"])->name("member.store");
+
+    Route::post("/membership", [MemberController::class, "checkout"])->name("member");
+    Route::get("/membership/checkout", [FrontendController::class, "checkout"])->name("member.checkout");
+    Route::post("/membership/checkout", [TransactionController::class, "store"])->name("member.checkout.post");
+    Route::post("/payment/waiting/{invoice}", [FrontendController::class, "payment_waiting"])->name("payment.waiting");
 
     include_once __DIR__ . "/admin.php";
     Route::get("/logout", [AuthController::class, "logout"])->name("logout");

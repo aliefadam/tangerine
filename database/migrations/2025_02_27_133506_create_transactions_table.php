@@ -11,17 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("transaction_id");
+            $table->string("invoice");
+            $table->foreignId("user_id");
             $table->foreignId("trainer_id")->nullable();
             $table->foreignId("room_id")->nullable();
             $table->string("plan");
             $table->string("day");
             $table->string("time");
-            $table->dateTime("subscription_date")->nullable();
-            $table->dateTime("subscription_expiration_date")->nullable();
-            $table->string("status");
+            $table->string("payment_status");
+            $table->string("proof_of_payment")->nullable();
+            $table->double("total");
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('transactions');
     }
 };

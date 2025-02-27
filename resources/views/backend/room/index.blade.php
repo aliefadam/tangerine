@@ -22,6 +22,12 @@
                         <th scope="col" class="px-6 py-4">
                             Room Name
                         </th>
+                        <th scope="col" class="px-6 py-4">
+                            Used For
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Image
+                        </th>
                         <th scope="col" class="px-6 py-4 w-[250px]">
                             Capacity
                         </th>
@@ -38,6 +44,13 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $room->name }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $room->used_for }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <img src="/uploads/rooms/{{ $room->image }}"
+                                    class="size-20 object-cover rounded-md shadow-md">
                             </td>
                             <td class="px-6 py-4 w-fit">
                                 {{ $room->capacity }}

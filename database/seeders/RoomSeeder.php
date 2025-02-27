@@ -13,17 +13,38 @@ class RoomSeeder extends Seeder
      */
     public function run(): void
     {
-        Room::create([
-            "name" => "Room A",
-            "capacity" => 9,
-        ]);
-        Room::create([
-            "name" => "Room B",
-            "capacity" => 9,
-        ]);
-        Room::create([
-            "name" => "Room C",
-            "capacity" => 9,
-        ]);
+        // Room::create([
+        //     "name" => "Room A",
+        //     "capacity" => 9,
+        // ]);
+        // Room::create([
+        //     "name" => "Room B",
+        //     "capacity" => 9,
+        // ]);
+        // Room::create([
+        //     "name" => "Room C",
+        //     "capacity" => 9,
+        // ]);
+
+        $rooms = [
+            [
+                "id" => 1,
+                "name" => "Room A",
+                "image" => "ROOM_IMAGE_20250227091321.jpg",
+                "used_for" => "All Classes",
+                "capacity" => "9",
+            ],
+            [
+                "id" => 2,
+                "name" => "Room B",
+                "image" => "ROOM_IMAGE_20250227091159.jpg",
+                "used_for" => "Yoga Only",
+                "capacity" => "9",
+            ]
+        ];
+
+        foreach ($rooms as $room) {
+            Room::create($room);
+        }
     }
 }
