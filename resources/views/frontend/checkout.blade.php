@@ -5,7 +5,7 @@
         @csrf
         <div class="px-5 lg:px-20 py-5 lg:py-10 min-h-screen">
             <div class="w-full lg:w-1/2 mx-auto">
-                <div class="flex justify-center items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400 dark:border-yellow-800"
+                <div class="flex justify-center items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50"
                     role="alert">
                     <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor" viewBox="0 0 20 20">
@@ -31,7 +31,7 @@
                                 <input type="radio" id="hosting-small-{{ $index }}" name="room_id"
                                     value="{{ $room->id }}" class="hidden peer" />
                                 <label for="hosting-small-{{ $index }}"
-                                    class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-2 peer-checked:border-stone-600 dark:peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
+                                    class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-2 peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
                                     <img src="/uploads/rooms/{{ $room->image }}" class="h-[300px] w-full object-cover">
                                     <div class="p-3">
                                         <h1 class="text-center text-stone-700 poppins-medium">{{ $room->name }}</h1>
@@ -51,7 +51,7 @@
                                     <input type="radio" id="trainer-{{ $index }}" name="trainer_id"
                                         value="{{ $trainer->id }}" class="hidden peer" />
                                     <label for="trainer-{{ $index }}"
-                                        class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-2 peer-checked:border-stone-600 dark:peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
+                                        class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-2 peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
                                         <img src="/uploads/trainers/{{ $trainer->image }}"
                                             class="h-[300px] w-full object-cover">
                                         <div class="p-3">

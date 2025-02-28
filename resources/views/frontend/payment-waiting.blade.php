@@ -77,7 +77,7 @@
                 <div class="mx-4 mt-4 bg-white rounded-lg shadow-md p-6 mb-10">
                     @csrf
                     <div class="flex flex-col justify-center items-center">
-                        <label class="block mb-2 text-base font-medium text-gray-900 dark:text-white" for="file_input">
+                        <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">
                             Proof of payment
                         </label>
                         <img src="/uploads/proofs/{{ $transaction->proof_of_payment }}"
@@ -89,7 +89,7 @@
                     <form id="form-proof" action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="flex flex-col justify-center items-center">
-                            <label class="block mb-2 text-base font-medium text-gray-900 dark:text-white" for="file_input">
+                            <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">
                                 Upload proof of payment
                             </label>
                             <input type="file" class="hidden" name="proof_of_payment" id="proof_of_payment">
