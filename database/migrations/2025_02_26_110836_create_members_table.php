@@ -13,15 +13,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("transaction_id");
-            $table->foreignId("trainer_id")->nullable();
-            $table->foreignId("room_id")->nullable();
-            $table->string("plan");
-            $table->string("day");
-            $table->string("time");
-            $table->dateTime("subscription_date")->nullable();
-            $table->dateTime("subscription_expiration_date")->nullable();
-            $table->string("status");
+            $table->foreignId("user_id");
             $table->timestamps();
         });
     }

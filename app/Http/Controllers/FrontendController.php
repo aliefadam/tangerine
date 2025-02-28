@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Room;
 use App\Models\Trainer;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,7 +67,10 @@ class FrontendController extends Controller
 
     public function payment_waiting($invoice)
     {
-        return $invoice;
+        return view("frontend.payment-waiting", [
+            "title" => "Payment Waiting",
+            "transaction" => Transaction::firstWhere("invoice", $invoice)
+        ]);
     }
 
     public function schedule()

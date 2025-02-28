@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Course;
+use App\Models\CourseDetail;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 if (!function_exists("setNotification")) {
     function setNotification($icon, $title, $text)
@@ -67,5 +70,21 @@ if (!function_exists("format_rupiah")) {
     {
         $formattedNumber = number_format($number, 0, ',', '.');
         return 'Rp ' . $formattedNumber;
+    }
+}
+
+if (!function_exists("format_date")) {
+    function format_date($date)
+    {
+        return date('l, d F Y - H:i:s', strtotime($date));
+    }
+}
+
+if (!function_exists("getPlanLabel")) {
+    function getPlanLabel($course_id, $course_detail_id)
+    {
+        $course = Course::find($course_id);
+        $course_detail = CourseDetail::find($course_detail_id);
+        return $course->name . " - " . $course_detail->name;
     }
 }

@@ -21,7 +21,8 @@ Route::middleware(["auth"])->group(function () {
     Route::post("/membership", [MemberController::class, "checkout"])->name("member");
     Route::get("/membership/checkout", [FrontendController::class, "checkout"])->name("member.checkout");
     Route::post("/membership/checkout", [TransactionController::class, "store"])->name("member.checkout.post");
-    Route::post("/payment/waiting/{invoice}", [FrontendController::class, "payment_waiting"])->name("payment.waiting");
+    Route::get("/payment/waiting/{invoice}", [FrontendController::class, "payment_waiting"])->name("payment.waiting");
+    Route::post("/upload/proof", [TransactionController::class, "upload_proof"])->name("payment.upload.proof");
 
     include_once __DIR__ . "/admin.php";
     Route::get("/logout", [AuthController::class, "logout"])->name("logout");

@@ -4,7 +4,7 @@
     <form action="" id="form-checkout">
         @csrf
         <div class="px-5 lg:px-20 py-5 lg:py-10 min-h-screen">
-            <div class="w-1/2 mx-auto">
+            <div class="w-full lg:w-1/2 mx-auto">
                 <div class="flex justify-center items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400 dark:border-yellow-800"
                     role="alert">
                     <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,8 @@
                     <h1 class="text-center text-xl text-stone-700 poppins-semibold">Choose a routine schedule</h1>
                     <div class="grid grid-cols-2 gap-5 mt-10">
                         <div class="">
-                            <label for="day" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="day"
+                                class="text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Day
                             </label>
                             <select id="day" name="day"
@@ -84,7 +85,8 @@
                             </select>
                         </div>
                         <div class="">
-                            <label for="time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="time"
+                                class="text-center block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                 Time
                             </label>
                             <select id="time" name="time"
@@ -137,13 +139,15 @@
                     text: "Please select the room"
                 });
                 return;
-            } else if ($("input[name=trainer_id]:checked").length == 0) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Please select the trainer"
-                });
-                return;
+            } else if ($("input[name=trainer_id]").length != 0) {
+                if ($("input[name=trainer_id]:checked").length == 0) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Please select the trainer"
+                    });
+                    return;
+                }
             } else if (!daySelected) {
                 Swal.fire({
                     icon: "error",
@@ -191,8 +195,8 @@
                     });
                 },
                 success: function(response) {
-                    console.log(response);
-                    // location.href = response.redirect_url;
+                    // console.log(response);
+                    location.href = response.redirect_url;
                 }
             });
         }

@@ -71,5 +71,17 @@ class MenuSeeder extends Seeder
             "route" => "admin.schedule.index",
             "icon" => "fa-regular fa-calendar-days",
         ]);
+
+
+        $newMenu = Menu::create([
+            "role" => "admin",
+            "name" => "transaction",
+        ]);
+        MenuDetail::create([
+            "menu_id" => $newMenu->id,
+            "name" => "transaction",
+            "route" => "admin.transaction.index",
+            "icon" => "fa-regular fa-bag-shopping",
+        ]);
     }
 }

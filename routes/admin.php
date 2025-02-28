@@ -5,9 +5,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberPlanController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,11 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
         Route::prefix("member")->group(function () {
             Route::get("/", [MemberController::class, "index"])->name("admin.member.index");
+            Route::get("/{id}", [MemberController::class, "show"])->name("admin.member.show");
+        });
+
+        Route::prefix("member-plan")->group(function () {
+            Route::get("/{id}", [MemberPlanController::class, "show"])->name("admin.member-plan.show");
         });
 
         Route::prefix("trainer")->group(function () {
@@ -63,6 +70,16 @@ Route::middleware(AdminMiddleware::class)->group(function () {
             Route::get("/edit/{id}", [ScheduleController::class, "edit"])->name("admin.schedule.edit");
             Route::put("/update/{id}", [ScheduleController::class, "update"])->name("admin.schedule.update");
             Route::delete("/destroy/{id}", [ScheduleController::class, "destroy"])->name("admin.schedule.destroy");
+        });
+
+        Route::prefix("transaction")->group(function () {
+            Route::get("/", [TransactionController::class, "index"])->name("admin.transaction.index");
+            Route::get("/show/{id}/detail", [TransactionController::class, "show"])->name("admin.transaction.show");
+            Route::get("/create", [TransactionController::class, "create"])->name("admin.transaction.create");
+            Route::post("/store", [TransactionController::class, "store"])->name("admin.transaction.store");
+            Route::get("/edit/{id}", [TransactionController::class, "edit"])->name("admin.transaction.edit");
+            Route::put("/update/{id}", [TransactionController::class, "update"])->name("admin.transaction.update");
+            Route::delete("/destroy/{id}", [TransactionController::class, "destroy"])->name("admin.transaction.destroy");
         });
 
         Route::get("/change-password", [BackendController::class, "change_password"])->name("admin.change-password");

@@ -33,10 +33,32 @@
                             </button>
                         </div>
                         <div class="mt-2 text-sm">
-                            <span class="text-gray-600">
-                                <i class="fa-regular fa-empty-set"></i>
-                                No schedule yet
-                            </span>
+                            @php
+                                $schedulesSelected = $schedules
+                                    ->where('time', str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+                                    ->all();
+                            @endphp
+                            @if (sizeof($schedulesSelected) == 0)
+                                <span class="text-gray-600">
+                                    <i class="fa-regular fa-empty-set"></i>
+                                    No schedule yet
+                                </span>
+                            @endif
+
+                            @foreach ($schedulesSelected as $schedule)
+                                <div class="p-3 shadow-md bg-stone-50 rounded-md w-fit flex gap-3">
+                                    <div class="">
+                                        <img src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}"
+                                            class="size-[60px] object-cover rounded-full">
+                                    </div>
+                                    <div class="flex flex-col text-stone-800">
+                                        <span class="poppins-medium mb-0.5">{{ $schedule->member->user->name }}</span>
+                                        <span class="text-xs">{{ $schedule->room->name }} -
+                                            {{ $schedule->trainer->name }}</span>
+                                        <span>{{ getPlanLabel($schedule->course_id, $schedule->course_detail_id) }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 @endforeach
@@ -53,7 +75,7 @@
                 <!-- Modal header -->
                 <div
                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 id="title-modal" class="text-base font-semibold text-gray-900 dark:text-white">
                         Add Schedule
                     </h3>
                     <button type="button"
@@ -68,7 +90,11 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form class="p-4 md:p-5">
+                <form class="p-4 md:p-5" id="form-add-schedule">
+                    @csrf
+                    <input type="hidden" name="date">
+                    <input type="hidden" name="time">
+                    <input type="hidden" name="plan">
                     <div class="mb-4">
                         <div class="mb-5">
                             <label for="member_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -76,17 +102,20 @@
                             </label>
                             <select id="member_id" name="member_id"
                                 class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
-                                <option selected="">-- Select --</option>
+                                <option value="" selected>-- Select --</option>
+                                @foreach ($members as $member)
+                                    <option value="{{ $member->id }}">{{ $member->user->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-5">
-                            <label for="course_detail_id"
+                            <label for="member_class_plan"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                Class
+                                Member Class Plan
                             </label>
-                            <select id="course_detail_id" name="course_detail_id"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
-                                <option selected="">-- Please select a member first --</option>
+                            <select id="member_class_plan" name="member_class_plan"
+                                class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
+                                <option value="" selected="">-- Please select a member first --</option>
                             </select>
                         </div>
                         <div class="mb-5">
@@ -95,10 +124,16 @@
                             </label>
                             <select id="trainer_id" name="trainer_id"
                                 class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
-                                <option selected="">-- Select --</option>
-                                @foreach ($trainers as $trainer)
-                                    <option selected="{{ $trainer->id }}">{{ $trainer->name }}</option>
-                                @endforeach
+                                <option selected="">-- Please select a member first --</option>
+                            </select>
+                        </div>
+                        <div class="mb-5">
+                            <label for="room_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Room
+                            </label>
+                            <select id="room_id" name="room_id"
+                                class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
+                                <option selected="">-- Please select a member first --</option>
                             </select>
                         </div>
                     </div>
@@ -114,31 +149,112 @@
 
 @section('script')
     <script>
-        $(".btn-delete").click(deleteTrainer);
+        $(".btn-add-schedule").click(setModal);
+        $("select[name='member_id']").change(getMemberPlan);
+        $("select#member_class_plan").change(getTrainerAndRoom);
+        $("#form-add-schedule").submit(addSchedule);
 
-        function deleteTrainer() {
-            const roomID = $(this).data("room-id");
+        function getMemberPlan() {
+            const memberID = $(this).val();
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: `{{ route('admin.schedule.destroy', ':id') }}`.replace(':id', roomID),
-                        type: 'DELETE',
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                        },
-                        success: function(data) {
-                            location.reload();
-                        },
+            $.ajax({
+                type: "GET",
+                url: "{{ route('admin.member.show', ':id') }}".replace(':id', memberID),
+                success: function(response) {
+                    const plans = response;
+                    $("select#member_class_plan").html(
+                        `<option value="" selected>-- Choose --</option>`
+                    );
+                    plans.forEach((plan) => {
+                        $("select#member_class_plan").append(
+                            `<option value="${plan.id}">${plan.plan}</option>`
+                        );
+                    })
+                    $("select#trainer_id").html(
+                        `<option value="" selected>-- Please select a member class plan first --</option>`
+                    );
+                    $("select#room_id").html(
+                        `<option value="" selected>-- Please select a member class plan first --</option>`
+                    );
+                }
+            });
+        }
+
+        function getTrainerAndRoom() {
+            const memberPlanID = $(this).val();
+            const trainers = @json($trainers);
+            const rooms = @json($rooms);
+            $.ajax({
+                type: "GET",
+                url: "{{ route('admin.member-plan.show', ':id') }}".replace(':id', memberPlanID),
+                success: function(response) {
+                    const roomID = response.room_id;
+                    const trainerID = response.trainer_id;
+                    const plan = response.plan;
+
+                    $("input[name='plan']").val(plan);
+                    $("select#trainer_id").html(
+                        `<option value="" selected>-- Choose --</option>`
+                    );
+                    trainers.forEach((trainer) => {
+                        if (trainer.id == trainerID) {
+                            $("select#trainer_id").append(
+                                `<option value="${trainer.id}" selected>${trainer.name}</option>`
+                            );
+                        } else {
+                            $("select#trainer_id").append(
+                                `<option value="${trainer.id}">${trainer.name}</option>`
+                            );
+                        }
+                    })
+
+                    $("select#room_id").html(
+                        `<option value="" selected>-- Choose --</option>`
+                    );
+
+                    rooms.forEach((room) => {
+                        if (room.id == roomID) {
+                            $("select#room_id").append(
+                                `<option value="${room.id}" selected>${room.name}</option>`
+                            );
+                        } else {
+                            $("select#room_id").append(
+                                `<option value="${room.id}">${room.name}</option>`
+                            );
+                        }
+                    })
+                }
+            });
+
+        }
+
+        function setModal() {
+            const date = $(this).data('date');
+            const time = $(this).data('time');
+            $("#title-modal").html(`Add Schedule - ${time}`);
+            $("input[name='date']").val(date);
+            $("input[name='time']").val(time);
+        }
+
+        function addSchedule(e) {
+            e.preventDefault();
+            const data = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('admin.schedule.store') }}",
+                data: data,
+                beforeSend: function() {
+                    Swal.fire({
+                        title: 'Loading',
+                        text: 'Please wait...',
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
                     });
+                },
+                success: function(response) {
+                    location.reload();
                 }
             });
         }

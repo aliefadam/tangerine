@@ -89,7 +89,7 @@
                     </label>
                     <select id="plan" name="plan"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5">
-                        <option selected>-- Choose --</option>
+                        <option value="" selected>-- Choose --</option>
                         @foreach ($course->courseDetails as $detail)
                             @foreach ($detail->getAttributes() as $column => $value)
                                 @if (!in_array($column, ['id', 'course_id', 'name', 'person_max', 'created_at', 'updated_at']))
@@ -143,6 +143,7 @@
 
         function submitMembership(e) {
             e.preventDefault();
+
             const data = $(this).serialize();
             const isLogin = @json(Auth::check());
 
@@ -158,6 +159,16 @@
                     if (result.isConfirmed) {
                         window.location.href = "/login";
                     }
+                });
+                return;
+            }
+
+            const plan = $("select[name=plan]").val();
+            if (!plan) {
+                Swal.fire({
+                    icon: "error",
+                    title: 'Plan Required',
+                    text: 'You must select a plan first'
                 });
                 return;
             }

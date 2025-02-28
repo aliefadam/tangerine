@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseDetail;
+use App\Models\Member;
+use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\Trainer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -66,13 +69,33 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        Schedule::create([
-            "date" => $request->date,
-            "time" => $request->time,
-            "course_id" => $request->course_id,
-        ]);
+        DB::beginTransaction();
+        try {
+            $plan = $request->plan;
+            $course_name = trim(explode(" - ", $plan)[0]);
+            $course_detail_name = trim(explode(" - ", $plan)[1]);
+            $course_detail = CourseDetail::where('name', $course_detail_name)->whereHas("course", function ($query) use ($course_name) {
+                $query->where('name', $course_name);
+            })->first();
 
-        return redirect_user("success", "Successfully Added Schedule", "admin.schedule.index");
+            $newSchedule = [
+                'member_id' => $request->member_id,
+                'room_id' => $request->room_id,
+                'course_detail_id' => $course_detail->id,
+                'course_id' => $course_detail->course_id,
+                'trainer_id' => $request->trainer_id,
+                'date' => $request->date,
+                'time' => $request->time,
+            ];
+            Schedule::create($newSchedule);
+            DB::commit();
+            notificationFlash("success", "Successfully Add Schedule");
+            return response()->json(["success" => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            notificationFlash("error", $e->getMessage());
+            return response()->json(["success" => false]);
+        }
     }
 
     public function show($date)
@@ -85,12 +108,16 @@ class ScheduleController extends Controller
 
         $hours = range(6, 20);
         $dateFormatted = $selectedDate->isoFormat('dddd, D MMMM Y');
+        $schedules = Schedule::where('date', $date)->get();
 
         return view("backend.schedule.show", [
             "title" => "Schedule Detail at {$dateFormatted}",
             "selectedDate" => $selectedDate,
             "hours" => $hours,
+            "rooms" => Room::all(),
             "trainers" => Trainer::all(),
+            "members" => Member::all(),
+            "schedules" => $schedules,
         ]);
     }
 

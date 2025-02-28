@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Member;
+use App\Models\MemberPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,10 @@ class MemberController extends Controller
 {
     public function index()
     {
-        //
+        return view("backend.member.index", [
+            "title" => "Member",
+            "members" => MemberPlan::latest()->get(),
+        ]);
     }
 
     public function create()
@@ -51,7 +55,8 @@ class MemberController extends Controller
 
     public function show($id)
     {
-        //
+        $member = Member::find($id);
+        return response()->json($member->memberPlans);
     }
 
     public function edit($id)

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("payment_status");
             $table->string("proof_of_payment")->nullable();
             $table->double("total");
+            $table->dateTime("expirated_date");
             $table->timestamps();
         });
     }

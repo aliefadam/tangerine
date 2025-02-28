@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             RoomSeeder::class,
             CategorySeeder::class,
+            MemberSeeder::class,
         ]);
     }
 }

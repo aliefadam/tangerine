@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('member_plans', function (Blueprint $table) {
             $table->id();
             $table->foreignId("member_id");
-            $table->foreignId("room_id");
-            $table->foreignId("course_id");
-            $table->foreignId("course_detail_id");
             $table->foreignId("trainer_id")->nullable();
-            $table->date("date");
-            $table->time("time");
+            $table->foreignId("room_id")->nullable();
+            $table->string("plan");
+            $table->string("day");
+            $table->string("time");
+            $table->dateTime("subscribed_date");
+            $table->dateTime("expired_date");
+            $table->string("status");
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('member_plans');
     }
 };
