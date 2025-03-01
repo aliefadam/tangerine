@@ -17,10 +17,11 @@ return new class extends Migration
             $table->foreignId("trainer_id")->nullable();
             $table->foreignId("room_id")->nullable();
             $table->string("plan");
-            $table->string("day");
-            $table->string("time");
+            // $table->string("day");
+            // $table->string("time");
             $table->dateTime("subscribed_date");
             $table->dateTime("expired_date");
+            $table->integer("remaining_session");
             $table->string("status");
             $table->timestamps();
         });

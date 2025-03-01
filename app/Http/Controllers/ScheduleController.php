@@ -17,45 +17,33 @@ class ScheduleController extends Controller
 
     public function index()
     {
-        $currentYear = date('Y');
-        $years = [$currentYear, $currentYear + 1, $currentYear + 2];
+        // $currentYear = date('Y');
+        // $currentMonth = date('n');
+        // $years = [$currentYear, $currentYear + 1, $currentYear + 2];
 
-        $months = [
-            "Januari",
-            "Februari",
-            "Maret",
-            "April",
-            "Mei",
-            "Juni",
-            "Juli",
-            "Agustus",
-            "September",
-            "Oktober",
-            "November",
-            "Desember"
-        ];
+        // $calendarData = [];
 
-        $calendarData = [];
+        // foreach ($years as $year) {
+        //     $startMonth = ($year == $currentYear) ? $currentMonth : 1;
 
-        foreach ($years as $year) {
-            foreach ($months as $index => $month) {
-                $monthNumber = $index + 1;
-                $daysInMonth = Carbon::createFromDate($year, $monthNumber, 1)->daysInMonth;
-                $firstDayOfWeek = Carbon::createFromDate($year, $monthNumber, 1)->dayOfWeek;
+        //     for ($month = $startMonth; $month <= 12; $month++) {
+        //         $carbonDate = Carbon::createFromDate($year, $month, 1);
+        //         $monthName = $carbonDate->translatedFormat('F');
+        //         $daysInMonth = $carbonDate->daysInMonth;
+        //         $firstDayOfWeek = $carbonDate->dayOfWeek;
 
-                $calendarData[$year][$month] = [
-                    'days' => range(1, $daysInMonth),
-                    'startDay' => $firstDayOfWeek
-                ];
-            }
-        }
+        //         $calendarData[$year][$monthName] = [
+        //             'days' => range(1, $daysInMonth),
+        //             'startDay' => $firstDayOfWeek
+        //         ];
+        //     }
+        // }
 
         return view("backend.schedule.index", [
             "title" => "Schedule",
             "schedules" => Schedule::all(),
-            "years" => $years,
-            "months" => $months,
-            "calendarData" => $calendarData,
+            "years" => generateDate()["years"],
+            "calendarData" => generateDate()["calendarData"],
         ]);
     }
 
@@ -134,5 +122,42 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function get_schedule_month()
+    {
+        $schedules = Schedule::all();
+        $years = generateDate()["years"];
+        $calendarData = generateDate()["calendarData"];
+
+        return response()->json([
+            "detailMonthHTML" => view("components.modal-detail-months", [
+                "schedules" => $schedules,
+                "years" => $years,
+                "calendarData" => $calendarData
+            ])->render(),
+        ]);
+    }
+
+    public function get_schedule_day($date)
+    {
+        try {
+            $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
+        } catch (\Exception $e) {
+            abort(404, 'Tanggal tidak valid');
+        }
+
+        $hours = range(6, 20);
+        $dateFormatted = $selectedDate->isoFormat('dddd, D MMMM Y');
+        $schedules = Schedule::where('date', $date)->get();
+
+        return response()->json([
+            "detailDaysHTML" => view("components.modal-detail-days", [
+                "hours" => $hours,
+                "selectedDate" => $selectedDate,
+                "schedules" => $schedules,
+                "dateFormatted" => $dateFormatted
+            ])->render(),
+        ]);
     }
 }

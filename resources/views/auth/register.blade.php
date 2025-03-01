@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl w-full h-[80vh] flex flex-col lg:flex-row shadow-xl rounded-2xl overflow-hidden bg-white">
+        <div class="max-w-6xl w-full h-[85vh] flex flex-col lg:flex-row shadow-xl rounded-2xl overflow-hidden bg-white">
             <div class="lg:w-1/2 relative hidden lg:block">
                 <img src="/imgs/room/auth.jpg" alt="Fitness Motivation" class="w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-black/60"></div>
@@ -38,11 +38,25 @@
                             </label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                    <i class="fa-solid fa-user text-gray-500"></i>
+                                    <i class="fa-solid fa-envelope text-gray-500"></i>
                                 </div>
                                 <input type="email" id="email" name="email"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
                                     placeholder="Masukkan email anda">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">
+                                Phone
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    <i class="fa-solid fa-phone text-gray-500"></i>
+                                </div>
+                                <input type="phone" id="phone" name="phone"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
+                                    placeholder="Masukkan nomor hp anda">
                             </div>
                         </div>
 

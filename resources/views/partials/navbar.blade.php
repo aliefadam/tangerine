@@ -20,7 +20,7 @@
                     class="{{ request()->routeIs('schedule') ? 'text-stone-900 hover:text-stone-900 poppins-semibold' : 'text-stone-700 hover:text-stone-900 font-medium' }}">Schedule</a>
                 @auth
                     <button id="dropdownAvatarNameButton"Mobile data-dropdown-toggle="dropdownAvatarName"
-                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 dark:hover:text-stone-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 "
+                        class="cursor-pointer flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 md:me-0 focus:ring-4 focus:ring-gray-100"
                         type="button">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 me-2 rounded-full"
@@ -44,7 +44,7 @@
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                             aria-labelledby="dropdownInformdropdownAvatarNameButtonationButtonMobile">
                             <li>
-                                <a href="#"
+                                <a href="{{ route('profile') }}"
                                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My
                                     Profile</a>
                             </li>
@@ -68,7 +68,7 @@
             <div class="flex items-center gap-2 md:hidden">
                 @auth
                     <button id="dropdownAvatarNameButtonMobile" data-dropdown-toggle="dropdownAvatarNameMobile"
-                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 dark:hover:text-stone-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 "
+                        class="flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600  md:me-0 focus:ring-4 focus:ring-gray-100 "
                         type="button">
                         <span class="sr-only">Open user menu</span>
                         <img class="w-8 h-8 me-2 rounded-full"

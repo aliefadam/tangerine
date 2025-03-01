@@ -8,6 +8,14 @@ class Schedule extends Model
 {
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            "date" => "datetime",
+            "time" => "datetime",
+        ];
+    }
+
     public function trainer()
     {
         return $this->belongsTo(Trainer::class);
@@ -26,5 +34,10 @@ class Schedule extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function courseDetail()
+    {
+        return $this->belongsTo(CourseDetail::class);
     }
 }

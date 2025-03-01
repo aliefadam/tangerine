@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="max-w-8xl mx-auto px-5 lg:px-20 py-5 lg:py-10 min-h-screen">
-        <div class="mx-auto max-w-2xl">
+        <div class="mx-auto sm:w-full lg:w-1/2">
             @if ($transaction->payment_status == 'waiting')
                 <div class="flex flex-col gap-2 items-center mx-4 p-6 text-yellow-700">
                     <i class="fa-regular fa-hourglass-start text-2xl"></i>
@@ -25,7 +25,7 @@
                     <p class="text-3xl font-bold text-gray-900 mt-2">
                         {{ format_rupiah($transaction->total) }}
                     </p>
-                    <div class="mt-4 pt-4 border-t">
+                    <div class="mt-4 pt-4 border-t border-gray-300">
                         <div class="flex justify-between text-sm">
                             <span class="text-gray-700">Invoice</span>
                             <span class="font-medium text-stone-700">{{ $transaction->invoice }}</span>
@@ -58,7 +58,7 @@
             <div class="mx-4 mt-4 p-6 bg-white rounded-lg shadow-md">
                 <h3 class="font-medium text-gray-900">Payment Method</h3>
                 <div class="mt-4 space-y-4">
-                    <div class="flex items-center justify-between p-4 border rounded-lg">
+                    <div class="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
                         <div class="flex items-center gap-3">
                             <img src="/imgs/BCA.png" alt="BCA" class="h-4" />
                             <div>
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <button
-                            class="!rounded-button px-3 py-1.5 text-sm border border-custom text-custom hover:bg-custom/5">
+                            class="!rounded-button cursor-pointer px-3 py-1.5 text-sm border border-custom text-custom hover:bg-custom/5">
                             <i class="far fa-copy mr-1"></i>Copy
                         </button>
                     </div>
@@ -89,13 +89,19 @@
                     <form id="form-proof" action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="flex flex-col justify-center items-center">
-                            <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">
+                            <label class="block text-base font-medium text-gray-900" for="file_input">
                                 Upload proof of payment
                             </label>
+                            <div class="mt-2 mb-5 text-sm text-gray-600">
+                                <span>
+                                    Payment validation is done during working hours Monday to Friday at 07:00 -
+                                    21:00.
+                                </span>
+                            </div>
                             <input type="file" class="hidden" name="proof_of_payment" id="proof_of_payment">
                             <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
                             <button type="button" id="btn-choose-file"
-                                class="bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
+                                class="cursor-pointer bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
                                 Choose File
                             </button>
                             <div class="mt-5 flex flex-col items-center gap-2">
@@ -105,7 +111,7 @@
                         </div>
                         <div class="mt-5">
                             <button type="submit"
-                                class="text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm w-full px-5 py-2.5">
+                                class="cursor-pointer text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm w-full px-5 py-2.5">
                                 Upload
                             </button>
                         </div>

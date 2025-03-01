@@ -69,7 +69,7 @@
             @foreach ($years as $year)
                 <div class="mb-10">
                     <h2 class="text-3xl font-bold mb-6">{{ $year }}</h2>
-                    @foreach ($months as $keyMonth => $month)
+                    @foreach ($calendarData[$year] as $month => $data)
                         <div class="mb-8 p-5 border rounded-lg shadow-md bg-white">
                             <h3 class="text-xl font-semibold text-center mb-2">{{ $month }} {{ $year }}</h3>
                             <div class="grid grid-cols-7 text-center poppinsmedium bg-stone-700 text-white py-2 mt-3">
@@ -83,24 +83,22 @@
                             </div>
                             <div class="grid grid-cols-7 gap-2 mt-2 text-center">
                                 @php
-                                    $startDay = $calendarData[$year][$month]['startDay'];
-                                    $days = $calendarData[$year][$month]['days'];
+                                    $carbonMonth = \Carbon\Carbon::parse("1 $month $year");
+                                    $monthNumber = $carbonMonth->format('m');
                                 @endphp
 
-                                @for ($i = 0; $i < $startDay; $i++)
+                                @for ($i = 0; $i < $data['startDay']; $i++)
                                     <div class="text-stone-700 poppins-semibold flex justify-center items-center">-</div>
                                 @endfor
 
-                                @php
-                                    $keyMonth = str_pad($keyMonth + 1, 2, '0', STR_PAD_LEFT);
-                                @endphp
-                                @foreach ($days as $day)
+                                @foreach ($data['days'] as $day)
                                     @php
                                         $date = str_pad($day, 2, '0', STR_PAD_LEFT);
                                     @endphp
-                                    <a href="{{ route('admin.schedule.show', "$year-$keyMonth-$date") }}"
+                                    <a href="{{ route('admin.schedule.show', "$year-$monthNumber-$date") }}"
                                         class="px-2 py-5 border border-stone-700 bg-stone-50 hover:bg-stone-100 text-stone-700 rounded">
-                                        {{ $day }}</a>
+                                        {{ $day }}
+                                    </a>
                                 @endforeach
                             </div>
                         </div>

@@ -73,10 +73,22 @@
             </div>
             <div class="flex justify-between">
                 <span class="lg:text-sm text-xs flex-[3]">
-                    Schedule Routine
+                    First Class Schedule
                 </span>
                 <span class="lg:text-sm text-xs flex-[2] text-gray-600 text-end">
-                    {{ $transaction->day }} - {{ $transaction->time }}
+                    @if ($transaction->date)
+                        {{ Carbon\Carbon::parse($transaction->date)->format('l, d F Y') }} - {{ $transaction->time }}
+                    @else
+                        -
+                    @endif
+                </span>
+            </div>
+            <div class="flex justify-between">
+                <span class="lg:text-sm text-xs flex-[3]">
+                    Injury or Healty Notes
+                </span>
+                <span class="lg:text-sm text-xs flex-[2] text-gray-600 text-end">
+                    {{ $transaction->notes ?? '-' }}
                 </span>
             </div>
         </div>

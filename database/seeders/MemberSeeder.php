@@ -22,10 +22,11 @@ class MemberSeeder extends Seeder
             "trainer_id" => 1,
             "room_id" => 1,
             "plan" => "Pilates Class Senior - Private Class - 10 Session",
-            "day" => "Sunday",
-            "time" => "09.00",
+            // "date" => "Sunday",
+            // "time" => "09.00",
             "subscribed_date" => "2025-02-28 05:02:37",
             "expired_date" => "2025-06-28 05:02:37",
+            "remaining_session" => 10,
             "status" => "active",
         ]);
     }

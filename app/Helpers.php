@@ -3,6 +3,8 @@
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Menu;
+use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -86,5 +88,45 @@ if (!function_exists("getPlanLabel")) {
         $course = Course::find($course_id);
         $course_detail = CourseDetail::find($course_detail_id);
         return $course->name . " - " . $course_detail->name;
+    }
+}
+
+if (!function_exists("generateDate")) {
+    function generateDate()
+    {
+        $currentYear = date('Y');
+        $currentMonth = date('n');
+        $years = [$currentYear, $currentYear + 1];
+
+        $calendarData = [];
+
+        foreach ($years as $year) {
+            $startMonth = ($year == $currentYear) ? $currentMonth : 1;
+
+            for ($month = $startMonth; $month <= 12; $month++) {
+                $carbonDate = Carbon::createFromDate($year, $month, 1);
+                $monthName = $carbonDate->translatedFormat('F');
+                $daysInMonth = $carbonDate->daysInMonth;
+                $firstDayOfWeek = $carbonDate->dayOfWeek;
+
+                $calendarData[$year][$monthName] = [
+                    'days' => range(1, $daysInMonth),
+                    'startDay' => $firstDayOfWeek
+                ];
+            }
+        }
+
+        return [
+            "years" => $years,
+            "calendarData" => $calendarData,
+        ];
+    }
+}
+
+if (!function_exists("getCourse")) {
+    function getCourse($plan)
+    {
+        $course_name = trim(explode(" - ", $plan)[0]);
+        return Course::firstWhere("name", $course_name);
     }
 }

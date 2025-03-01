@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseDetail;
 use App\Models\Member;
 use App\Models\MemberPlan;
+use App\Models\Schedule;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -39,9 +41,10 @@ class TransactionController extends Controller
                 "room_id" => $request->room_id,
                 "trainer_id" => $request->trainer_id,
                 "plan" => $dataCheckout["course_label_taken"],
-                "day" => $request->day,
+                "date" => $request->date,
                 "time" => $request->time,
                 "payment_status" => "waiting",
+                "notes" => $request->notes,
                 "total" => $dataCheckout["total"],
                 "expirated_date" => now()->addDay(),
             ]);
@@ -49,6 +52,7 @@ class TransactionController extends Controller
             return response()->json(["redirect_url" => route("payment.waiting", $newTransaction->invoice)]);
         } catch (\Exception $e) {
             DB::rollback();
+            notificationFlash("error", $e->getMessage());
             return response()->json(["redirect_url" => "", "message" => $e->getMessage()]);
         }
     }
@@ -77,31 +81,62 @@ class TransactionController extends Controller
             $transaction->update([
                 "payment_status" => "confirmed"
             ]);
-            $newMember = Member::create([
-                "user_id" => $transaction->user_id,
-            ]);
+
+            $member = null;
+            if (Member::where("user_id", $transaction->user_id)->exists()) {
+                $member = Member::where("user_id", $transaction->user_id)->first();
+            } else {
+                $member = Member::create([
+                    "user_id" => $transaction->user_id,
+                ]);
+            }
 
             $type = trim(explode(" - ", $transaction->plan)[2]);
             $subscribed_date = Carbon::parse(now());
+            $remaining_session = 0;
             if ($type == "10 Session") {
                 $expired_date = $subscribed_date->copy()->addMonths(4);
+                $remaining_session = 10;
             } else if ($type == "20 Session") {
                 $expired_date = $subscribed_date->copy()->addMonths(6);
+                $remaining_session = 20;
             } else {
                 $expired_date = $subscribed_date->copy()->addDay();
+                $remaining_session = 1;
             }
 
             MemberPlan::create([
-                "member_id" => $newMember->id,
+                "member_id" => $member->id,
                 "trainer_id" => $transaction->trainer_id,
                 "room_id" => $transaction->room_id,
                 "plan" => $transaction->plan,
-                "day" => $transaction->day,
-                "time" => $transaction->time,
+                // "day" => $transaction->day,
+                // "time" => $transaction->time,
                 "subscribed_date" => $subscribed_date,
                 "expired_date" => $expired_date,
+                "remaining_session" => $remaining_session,
                 "status" => "active",
             ]);
+
+            $plan = $transaction->plan;
+            $course_name = trim(explode(" - ", $plan)[0]);
+            $course_detail_name = trim(explode(" - ", $plan)[1]);
+            $course_detail = CourseDetail::where('name', $course_detail_name)->whereHas("course", function ($query) use ($course_name) {
+                $query->where('name', $course_name);
+            })->first();
+
+            if ($transaction->date) {
+                Schedule::create([
+                    'member_id' => $transaction->user->member->id,
+                    'room_id' => $transaction->room_id,
+                    'course_detail_id' => $course_detail->id,
+                    'course_id' => $course_detail->course_id,
+                    'trainer_id' => $transaction->trainer_id,
+                    'date' => $transaction->date,
+                    'time' => $transaction->time,
+                ]);
+            }
+
             DB::commit();
             notificationFlash("success", "Successfully Confirm Payment");
             return response()->json(["success" => true]);

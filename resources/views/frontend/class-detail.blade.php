@@ -15,42 +15,41 @@
     </div>
     {{-- EndHero --}}
 
-    <div class="px-5 lg:px-20 py-5 lg:py-10 min-h-screen">
-        <div class="">
-            <h1 class="text-3xl text-center text-stone-700 poppins-bold">Pricelist</h1>
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 mt-10">
-                @foreach ($course->courseDetails as $detail)
-                    <div class="bg-stone-50 rounded-md shadow-md p-5">
-                        <h1 class="text-center poppins-medium text-base text-stone-700">{{ $detail->name }}</h1>
-                        <div class="mt-5 space-y-2">
-                            <div class="flex justify-between text-sm text-stone-600">
-                                <span>Drop In</span>
-                                @if ($detail->drop_in_price)
-                                    <span>{{ format_rupiah($detail->drop_in_price) }}</span>
-                                @else
-                                    <span class="text-gray-400">Not Available</span>
-                                @endif
-                            </div>
-                            <div class="flex justify-between text-sm text-stone-600">
-                                <span>10 Session</span>
-                                @if ($detail['10_session_price'])
-                                    <span>{{ format_rupiah($detail['10_session_price']) }}</span>
-                                @else
-                                    <span class="text-gray-400">Not Available</span>
-                                @endif
-                            </div>
-                            <div class="flex justify-between text-sm text-stone-600">
-                                <span>20 Session</span>
-                                @if ($detail['20_session_price'])
-                                    <span>{{ format_rupiah($detail['20_session_price']) }}</span>
-                                @else
-                                    <span class="text-gray-400">Not Available</span>
-                                @endif
-                            </div>
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {{-- <div class="px-5 md:px-10 py-5 lg:py-20 min-h-screen border border-black"> --}}
+        <h1 class="text-3xl text-center text-stone-700 poppins-bold">Pricelist</h1>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-5 mt-10">
+            @foreach ($course->courseDetails as $detail)
+                <div class="bg-stone-50 rounded-md shadow-md p-5">
+                    <h1 class="text-center poppins-medium text-base text-stone-700">{{ $detail->name }}</h1>
+                    <div class="mt-5 space-y-2">
+                        <div class="flex justify-between text-sm text-stone-600">
+                            <span>Drop In</span>
+                            @if ($detail->drop_in_price)
+                                <span>{{ format_rupiah($detail->drop_in_price) }}</span>
+                            @else
+                                <span class="text-gray-400">Not Available</span>
+                            @endif
+                        </div>
+                        <div class="flex justify-between text-sm text-stone-600">
+                            <span>10 Session</span>
+                            @if ($detail['10_session_price'])
+                                <span>{{ format_rupiah($detail['10_session_price']) }}</span>
+                            @else
+                                <span class="text-gray-400">Not Available</span>
+                            @endif
+                        </div>
+                        <div class="flex justify-between text-sm text-stone-600">
+                            <span>20 Session</span>
+                            @if ($detail['20_session_price'])
+                                <span>{{ format_rupiah($detail['20_session_price']) }}</span>
+                            @else
+                                <span class="text-gray-400">Not Available</span>
+                            @endif
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
         <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-5">
             <div class="flex border border-gray-800 justify-center items-center p-4 mb-4 text-sm text-gray-800 rounded-lg bg-gray-50"
@@ -80,7 +79,8 @@
         </div>
         <div class="mt-16 lg:mt-20">
             <h1 class="text-3xl text-center text-stone-700 poppins-bold">Become a Membership</h1>
-            <form method="POST" id="form-membership" action="" class="mt-10 w-full lg:w-1/2 mx-auto space-y-5 pb-20">
+            <form method="POST" id="form-membership" action=""
+                class="mt-10 sm:w-full lg:w-1/2 mx-auto space-y-5 pb-20">
                 @csrf
                 <input type="hidden" name="course_id" value="{{ $course->id }}">
                 <div class="">
@@ -123,7 +123,7 @@
                 </div> --}}
                 <div class="">
                     <button type="submit"
-                        class="w-full text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                        class="cursor-pointer w-full text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5">
                         Continue
                     </button>
                     {{-- <button type="submit"

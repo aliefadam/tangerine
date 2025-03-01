@@ -27,9 +27,9 @@
                         <th scope="col" class="px-6 py-4">
                             Room
                         </th>
-                        <th scope="col" class="px-6 py-4">
+                        {{-- <th scope="col" class="px-6 py-4">
                             Routine Schedule
-                        </th>
+                        </th> --}}
                         <th scope="col" class="px-6 py-4">
                             Validity Period
                         </th>
@@ -56,9 +56,9 @@
                             <td class="px-6 py-4">
                                 {{ $member_plan->room ? $member_plan->room->name : '-' }}
                             </td>
-                            <td class="px-6 py-4">
+                            {{-- <td class="px-6 py-4">
                                 {{ $member_plan->day }} - {{ $member_plan->time }}
-                            </td>
+                            </td> --}}
                             <td class="px-6 py-4 flex flex-col gap-2">
                                 <span class="text-emerald-700">{{ $member_plan->subscribed_date }}</span>
                                 <hr>

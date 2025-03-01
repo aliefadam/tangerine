@@ -18,11 +18,12 @@ return new class extends Migration
             $table->foreignId("trainer_id")->nullable();
             $table->foreignId("room_id")->nullable();
             $table->string("plan");
-            $table->string("day");
-            $table->string("time");
+            $table->string("date")->nullable();
+            $table->string("time")->nullable();
             $table->string("payment_status");
             $table->string("proof_of_payment")->nullable();
             $table->double("total");
+            $table->text("notes")->nullable();
             $table->dateTime("expirated_date");
             $table->timestamps();
         });

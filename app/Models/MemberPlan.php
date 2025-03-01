@@ -8,6 +8,14 @@ class MemberPlan extends Model
 {
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            "subscribed_date" => "datetime",
+            "expired_date" => "datetime",
+        ];
+    }
+
     public function member()
     {
         return $this->belongsTo(Member::class);
