@@ -5,7 +5,7 @@
         <div class="max-w-6xl w-full h-[80vh] flex flex-col lg:flex-row shadow-xl rounded-2xl overflow-hidden bg-white">
             <div class="lg:w-1/2 relative hidden lg:block">
                 <img src="/imgs/room/auth.jpg" alt="Fitness Motivation" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+                <div class="absolute inset-0 bg-black/60"></div>
                 <div class="absolute top-0 left-0 text-white flex flex-col justify-center items-center w-full h-full">
                     <h2 class="text-3xl font-bold">Tangerine</h2>
                     <p class="text-lg opacity-90">Bergabunglah dengan komunitas fitness terbaik</p>
