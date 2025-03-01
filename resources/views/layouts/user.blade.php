@@ -44,6 +44,8 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
+    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-DBl-h3X1.css') }}">
+    <script src="{{ asset('build/assets/app-CqflisoM.js') }}" defer></script> --}}
 
     {{-- Flowbite --}}
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
