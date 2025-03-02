@@ -93,7 +93,7 @@
                                 Upload proof of payment
                             </label>
                             <div class="mt-2 mb-5 text-sm text-gray-600">
-                                <span>
+                                <span class="text-center block">
                                     Payment validation is done during working hours Monday to Friday at 07:00 -
                                     21:00.
                                 </span>

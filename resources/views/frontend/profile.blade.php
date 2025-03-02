@@ -124,16 +124,14 @@
                                         $name = getCourse($memberPlan->plan)->name;
                                         $type = explode('-', $memberPlan->plan)[1];
                                     @endphp
-                                    <div
-                                        class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
                                         <a href="#">
                                             <img class="rounded-t-lg w-full h-[200px] object-cover"
                                                 src="/uploads/courses/{{ $image }}" alt="" />
                                         </a>
                                         <div class="p-5">
                                             <a href="#">
-                                                <h5
-                                                    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                                                     {{ $name }}
                                                 </h5>
                                             </a>

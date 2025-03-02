@@ -36,28 +36,31 @@
 
                     <!-- Dropdown menu -->
                     <div id="dropdownAvatarName"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        class="z-10 hidden overflow-hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44">
                         <div class="px-4 py-3 text-sm text-gray-900 ">
                             <div class="font-medium">{{ auth()->user()->name }}</div>
                             <div class="truncate py-1">{{ auth()->user()->email }}</div>
                         </div>
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        <ul class="py-2 text-sm text-gray-700"
                             aria-labelledby="dropdownInformdropdownAvatarNameButtonationButtonMobile">
                             <li>
-                                <a href="{{ route('profile') }}"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My
-                                    Profile</a>
+                                <a href="{{ route('profile') }}" class="block px-4 py-2.5 hover:bg-gray-100">
+                                    <i class="fa-regular fa-user mr-1"></i>
+                                    My Profile
+                                </a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Transaction
-                                    History</a>
+                                <a href="{{ route('logout') }}"
+                                    class="block px-4 py-2.5 hover:bg-gray-50 hover:text-red-600">
+                                    <i class="fa-regular fa-right-from-bracket mr-1"></i>
+                                    Logout
+                                </a>
                             </li>
                         </ul>
-                        <div class="py-2">
+                        {{-- <div class="py-2">
                             <a href="{{ route('logout') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
-                        </div>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
+                        </div> --}}
                     </div>
                 @else
                     <a href="{{ route('login') }}"
@@ -84,27 +87,25 @@
 
                     <!-- Dropdown menu -->
                     <div id="dropdownAvatarNameMobile"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44 dark:bg-gray-700 dark:divide-gray-600">
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-44">
                         <div class="px-4 py-3 text-sm text-gray-900 ">
                             <div class="font-medium">{{ auth()->user()->name }}</div>
                             <div class="truncate py-1">{{ auth()->user()->email }}</div>
                         </div>
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        <ul class="py-2 text-sm text-gray-700"
                             aria-labelledby="dropdownInformdropdownAvatarNameButtonationButtonMobile">
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 ">My
                                     Profile</a>
                             </li>
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Transaction
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 ">Transaction
                                     History</a>
                             </li>
                         </ul>
                         <div class="py-2">
                             <a href="{{ route('logout') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
                         </div>
                     </div>
                 @else
