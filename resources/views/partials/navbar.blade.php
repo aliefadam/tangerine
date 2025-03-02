@@ -95,18 +95,23 @@
                         <ul class="py-2 text-sm text-gray-700"
                             aria-labelledby="dropdownInformdropdownAvatarNameButtonationButtonMobile">
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 ">My
-                                    Profile</a>
+                                <a href="{{ route('profile') }}" class="block px-4 py-2.5 hover:bg-gray-100">
+                                    <i class="fa-regular fa-user mr-1"></i>
+                                    My Profile
+                                </a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 ">Transaction
-                                    History</a>
+                                <a href="{{ route('logout') }}"
+                                    class="block px-4 py-2.5 hover:bg-gray-50 hover:text-red-600">
+                                    <i class="fa-regular fa-right-from-bracket mr-1"></i>
+                                    Logout
+                                </a>
                             </li>
                         </ul>
-                        <div class="py-2">
+                        {{-- <div class="py-2">
                             <a href="{{ route('logout') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
-                        </div>
+                        </div> --}}
                     </div>
                 @else
                     <a href="{{ route('login') }}"
