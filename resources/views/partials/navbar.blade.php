@@ -50,17 +50,19 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('logout') }}"
-                                    class="block px-4 py-2.5 hover:bg-gray-50 hover:text-red-600">
-                                    <i class="fa-regular fa-right-from-bracket mr-1"></i>
-                                    Logout
+                                <a href="{{ route('transaction') }}" class="block px-4 py-2.5 hover:bg-gray-50">
+                                    <i class="fa-regular fa-history mr-1"></i>
+                                    Transaction
                                 </a>
                             </li>
                         </ul>
-                        {{-- <div class="py-2">
+                        <div class="py-2">
                             <a href="{{ route('logout') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
-                        </div> --}}
+                                class="block px-4 py-2 text-sm text-gray-700 hover:text-red-600">
+                                <i class="fa-regular fa-right-from-bracket mr-1"></i>
+                                Logout
+                            </a>
+                        </div>
                     </div>
                 @else
                     <a href="{{ route('login') }}"
@@ -101,17 +103,19 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('logout') }}"
-                                    class="block px-4 py-2.5 hover:bg-gray-50 hover:text-red-600">
-                                    <i class="fa-regular fa-right-from-bracket mr-1"></i>
-                                    Logout
+                                <a href="{{ route('transaction') }}" class="block px-4 py-2.5 hover:bg-gray-50">
+                                    <i class="fa-regular fa-history mr-1"></i>
+                                    Transaction
                                 </a>
                             </li>
                         </ul>
-                        {{-- <div class="py-2">
+                        <div class="py-2">
                             <a href="{{ route('logout') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
-                        </div> --}}
+                                class="block px-4 py-2 text-sm text-gray-700 hover:text-red-600">
+                                <i class="fa-regular fa-right-from-bracket mr-1"></i>
+                                Logout
+                            </a>
+                        </div>
                     </div>
                 @else
                     <a href="{{ route('login') }}"

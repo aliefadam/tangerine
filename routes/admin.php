@@ -83,5 +83,6 @@ Route::middleware(AdminMiddleware::class)->group(function () {
         });
 
         Route::get("/change-password", [BackendController::class, "change_password"])->name("admin.change-password");
+        Route::put("/change-password", [BackendController::class, "change_password_post"])->name("admin.change-password-post");
     });
 });

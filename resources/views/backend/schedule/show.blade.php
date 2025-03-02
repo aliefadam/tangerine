@@ -18,7 +18,7 @@
             </h2>
 
             <div class="grid grid-cols-1 gap-4 mt-10">
-                @foreach ($hours as $hour)
+                {{-- @foreach ($hours as $hour)
                     <div class="p-4 border rounded-lg shadow-md bg-white">
                         <div class="flex justify-between items-center">
                             <h3 class="text-base font-medium">
@@ -59,6 +59,79 @@
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+                @endforeach --}}
+
+                @foreach ($hours as $hour)
+                    @php
+                        $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour);
+                    @endphp
+
+                    @php
+                        $schedulesSelected = getSchedules($selectedDate, $hour);
+                    @endphp
+
+                    <div class="p-4 border rounded-lg shadow-md bg-white"
+                        @if (!$isAvailableSchedule) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+                    data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}" @endif>
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-base font-medium">
+                                {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00
+                            </h3>
+                            @if (sizeof($schedulesSelected) == 0)
+                                <button type="button" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+                                    data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                    data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}"
+                                    class="btn-add-schedule bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
+                                    <i class="fas fa-plus mr-1.5"></i>
+                                    Add Schedule
+                                </button>
+                            @endif
+                        </div>
+                        <div class="mt-2 text-sm space-y-3">
+                            {{-- @if (!$isAvailableSchedule)
+                                <span class="text-emerald-700">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    Available
+                                </span>
+                            @else
+                                <span class="text-red-700">
+                                    <i class="fa-regular fa-empty-set"></i>
+                                    Not Available
+                                </span>
+                            @endif --}}
+
+                            @if (sizeof($schedulesSelected) == 0)
+                                <span class="text-gray-600">
+                                    <i class="fa-regular fa-empty-set"></i>
+                                    No schedule yet
+                                </span>
+                            @endif
+
+                            @foreach ($schedulesSelected as $schedule)
+                                <div class="p-3 shadow-md bg-stone-50 rounded-md w-fit flex gap-3">
+                                    <div class="">
+                                        <img src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}"
+                                            class="size-[60px] object-cover rounded-full">
+                                    </div>
+                                    <div class="flex flex-col text-stone-800">
+                                        <span class="poppins-medium mb-0.5">{{ $schedule->member->user->name }}</span>
+                                        <span class="text-xs">{{ $schedule->room->name }} -
+                                            {{ $schedule->trainer ? $schedule->trainer->name : 'No Trainer' }}</span>
+                                        <span>{{ getPlanLabel($schedule->course_id, $schedule->course_detail_id) }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            {{-- @foreach ($schedulesSelected as $schedule)
+                        @if ($schedule)
+                            <span class="text-red-700">
+                                <i class="fa-regular fa-empty-set"></i>
+                                Not Available
+                            </span>
+                        @endif
+                    @endforeach --}}
                         </div>
                     </div>
                 @endforeach

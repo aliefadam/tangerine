@@ -118,9 +118,12 @@
         </div>
     </div>
 </div>
-@if ($transaction->payment_status != 'confirmed')
+@php
+    $user_role = auth()->user()->role;
+@endphp
+@if ($user_role == 'admin' && $transaction->payment_status != 'confirmed')
     <!-- Modal footer -->
-    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
         <button type="button" data-transaction-id="{{ $transaction->id }}"
             class="btn-confirm-payment w-1/2 mx-auto text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
             Confirm this payment

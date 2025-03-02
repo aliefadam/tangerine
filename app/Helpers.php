@@ -130,3 +130,21 @@ if (!function_exists("getCourse")) {
         return Course::firstWhere("name", $course_name);
     }
 }
+
+if (!function_exists("isAvailableSchedule")) {
+    function isAvailableSchedule($date, $hour)
+    {
+        return Schedule::whereDate("date", $date->format('Y-m-d'))
+            ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+            ->exists();
+    }
+}
+
+if (!function_exists("getSchedules")) {
+    function getSchedules($date, $hour)
+    {
+        return Schedule::whereDate("date", $date->format('Y-m-d'))
+            ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+            ->get();
+    }
+}

@@ -17,11 +17,22 @@
     <div class="grid grid-cols-3 gap-4 mt-5">
         @foreach ($hours as $hour)
             @php
-                $schedulesSelected = $schedules->where('time', str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')->all();
+                $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour);
+
+                // $schedulesSelected = $schedules
+                //     ->where('time', str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+                //     ->where('date', $selectedDate->format('Y-m-d'))
+                //     ->values();
+                // dump([
+                //     'time' => str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00',
+                //     'date' => $selectedDate->format('Y-m-d'),
+                //     'isAvailableSchedule' => $isAvailableSchedule,
+                // ]);
+
             @endphp
 
-            <div class="p-4 border rounded-lg shadow-md {{ sizeof($schedulesSelected) == 0 ? 'bg-white cursor-pointer hover:bg-gray-50 btn-choose-schedule' : 'cursor-not-allowed bg-gray-200' }}"
-                @if (sizeof($schedulesSelected) == 0) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+            <div class="p-4 border rounded-lg shadow-md {{ !$isAvailableSchedule ? 'bg-white cursor-pointer hover:bg-gray-50 btn-choose-schedule' : 'cursor-not-allowed bg-gray-200' }}"
+                @if (!$isAvailableSchedule) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
                     data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}" @endif>
                 <div class="flex justify-between items-center">
                     <h3 class="text-base font-medium">
@@ -29,21 +40,26 @@
                     </h3>
                 </div>
                 <div class="mt-2 text-sm">
-                    @if (sizeof($schedulesSelected) == 0)
+                    @if (!$isAvailableSchedule)
                         <span class="text-emerald-700">
                             <i class="fa-regular fa-circle-check"></i>
                             Available
                         </span>
+                    @else
+                        <span class="text-red-700">
+                            <i class="fa-regular fa-empty-set"></i>
+                            Not Available
+                        </span>
                     @endif
 
-                    @foreach ($schedulesSelected as $schedule)
+                    {{-- @foreach ($schedulesSelected as $schedule)
                         @if ($schedule)
                             <span class="text-red-700">
                                 <i class="fa-regular fa-empty-set"></i>
                                 Not Available
                             </span>
                         @endif
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         @endforeach

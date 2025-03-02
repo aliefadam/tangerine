@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Member;
+use App\Models\MemberPlan;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\Trainer;
@@ -86,6 +87,38 @@ class ScheduleController extends Controller
         }
     }
 
+    public function store_from_member(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $memberPlan = MemberPlan::find($request->memberPlanID);
+            $plan = $memberPlan->plan;
+            $course_name = trim(explode(" - ", $plan)[0]);
+            $course_detail_name = trim(explode(" - ", $plan)[1]);
+            $course_detail = CourseDetail::where('name', $course_detail_name)->whereHas("course", function ($query) use ($course_name) {
+                $query->where('name', $course_name);
+            })->first();
+
+            $newSchedule = [
+                'member_id' => $memberPlan->member_id,
+                'room_id' => $memberPlan->room_id,
+                'course_detail_id' => $course_detail->id,
+                'course_id' => $course_detail->course_id,
+                'trainer_id' => $memberPlan->trainer_id,
+                'date' => $request->date,
+                'time' => $request->time,
+            ];
+            Schedule::create($newSchedule);
+            DB::commit();
+            notificationFlash("success", "Successfully Add Schedule");
+            return response()->json(["success" => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            notificationFlash("error", $e->getMessage());
+            return response()->json(["success" => false]);
+        }
+    }
+
     public function show($date)
     {
         try {
@@ -121,7 +154,19 @@ class ScheduleController extends Controller
 
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $schedule = Schedule::find($id);
+            $schedule->delete();
+
+            DB::commit();
+            notificationFlash("success", "Successfully Delete Schedule");
+            return response()->json(["success" => true]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            notificationFlash("error", $e->getMessage());
+            return response()->json(["success" => false]);
+        }
     }
 
     public function get_schedule_month()

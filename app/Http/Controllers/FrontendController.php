@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class FrontendController extends Controller
 {
@@ -95,17 +96,82 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function transaction()
+    {
+        return view("frontend.transaction", [
+            "title" => "Transaction",
+            "transactions" => Transaction::where("user_id", Auth::user()->id)->latest()->get(),
+        ]);
+    }
+
+    public function transaction_detail($id)
+    {
+        $transaction = Transaction::find($id);
+        return response()->json([
+            "html" => view("components.modal-detail-transaction", [
+                "transaction" => $transaction,
+            ])->render(),
+        ]);
+    }
+
     public function profile()
     {
+        $user_id = Auth::user()->id;
+        $schedules = Schedule::all();
+        $years = generateDate()["years"];
+        $calendarData = generateDate()["calendarData"];
+
         $user = User::find(Auth::user()->id);
         return view("frontend.profile", [
             "title" => "Profile",
             "user" => $user,
+            "schedulesAll" => $schedules,
+            "years" => $years,
+            "calendarData" => $calendarData,
             "schedules" => Schedule::where("member_id", $user->member->id)->get(),
             "upcoming_schedules" => Schedule::where("member_id", $user->member->id)
-                ->whereDate("date", ">=", now()->format("Y-m-d"))->get(),
+                ->whereDate("date", ">=", now()->format("Y-m-d"))->latest()->get(),
             "previous_schedules" => Schedule::where("member_id", $user->member->id)
-                ->whereDate("date", "<=", now()->format("Y-m-d"))->get(),
+                ->whereDate("date", "<=", now()->format("Y-m-d"))->latest()->get(),
         ]);
+    }
+
+    public function edit_profile(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $updatedData = [
+            "name" => $request->name,
+            "phone" => $request->phone,
+            "gender" => $request->gender,
+        ];
+        if ($request->hasFile("image")) {
+            $file = $request->file("image");
+            $fileName = "USER_IMAGE_" . date("Ymdhis") . "." . $file->extension();
+            $file->move(public_path("uploads/users"), $fileName);
+            if (File::exists(public_path("uploads/users/{$user->image}"))) {
+                if ($user->image) {
+                    unlink(public_path("uploads/users/{$user->image}"));
+                }
+            }
+            $updatedData["image"] = $fileName;
+        }
+        $user->update($updatedData);
+        return redirect_user("success", "Successfully Edit Profile", "profile");
+    }
+
+    public function change_password(Request $request)
+    {
+        $request->validate([
+            "password_old" => "required|current_password",
+            "password" => "required|confirmed",
+        ]);
+
+        $user = User::find(Auth::user()->id);
+        $user->update([
+            "password" => bcrypt($request->password)
+        ]);
+
+        Auth::logout();
+        return redirect_user("success", "Successfully Change Password, Please Login Again", "login");
     }
 }

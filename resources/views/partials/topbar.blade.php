@@ -45,13 +45,13 @@
                                     <li>
                                         <a href="{{ route('admin.change-password') }}"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            Ganti Password
+                                            Change Password
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            Keluar
+                                            Logout
                                         </a>
                                     </li>
                                 </ul>
