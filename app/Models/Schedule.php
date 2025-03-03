@@ -31,6 +31,11 @@ class Schedule extends Model
         return $this->belongsTo(Member::class);
     }
 
+    public function memberPlan()
+    {
+        return $this->belongsTo(MemberPlan::class);
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class);

@@ -9,7 +9,10 @@ class MemberPlanController extends Controller
 {
     public function index()
     {
-        //
+        return view("backend.member-plan.index", [
+            "title" => "Member",
+            "members" => MemberPlan::latest()->get(),
+        ]);
     }
 
     public function create()

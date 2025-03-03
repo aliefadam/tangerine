@@ -8,6 +8,7 @@ use App\Models\Member;
 use App\Models\MemberPlan;
 use App\Models\Room;
 use App\Models\Schedule;
+use App\Models\ScheduleCapacity;
 use App\Models\Trainer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -69,6 +70,7 @@ class ScheduleController extends Controller
 
             $newSchedule = [
                 'member_id' => $request->member_id,
+                "member_plan_id" => $request->member_class_plan,
                 'room_id' => $request->room_id,
                 'course_detail_id' => $course_detail->id,
                 'course_id' => $course_detail->course_id,
@@ -99,16 +101,21 @@ class ScheduleController extends Controller
                 $query->where('name', $course_name);
             })->first();
 
-            $newSchedule = [
+            $newSchedule = Schedule::create([
                 'member_id' => $memberPlan->member_id,
+                'member_plan_id' => $memberPlan->id,
                 'room_id' => $memberPlan->room_id,
                 'course_detail_id' => $course_detail->id,
                 'course_id' => $course_detail->course_id,
                 'trainer_id' => $memberPlan->trainer_id,
                 'date' => $request->date,
                 'time' => $request->time,
-            ];
-            Schedule::create($newSchedule);
+            ]);
+
+            // ScheduleCapacity::create([
+            //     "schedule_id" => $newSchedule->id,
+            //     "capacity" => 0,
+            // ]);
             DB::commit();
             notificationFlash("success", "Successfully Add Schedule");
             return response()->json(["success" => true]);

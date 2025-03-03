@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             RoomSeeder::class,
             CategorySeeder::class,
             MemberSeeder::class,
+            TimeTableSeeder::class,
         ]);
     }
 }

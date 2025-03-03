@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Room;
 use App\Models\Schedule;
+use App\Models\TimeTable;
 use App\Models\Trainer;
 use App\Models\Transaction;
 use App\Models\User;
@@ -14,11 +15,19 @@ use Illuminate\Support\Facades\File;
 
 class FrontendController extends Controller
 {
+    public function gate()
+    {
+        return view('frontend.gate', [
+            "title" => "Gate"
+        ]);
+    }
+
     public function home()
     {
         return view('frontend.welcome', [
             "title" => "Home",
             "courses" => Course::all(),
+            "time_tables" => TimeTable::all(),
         ]);
     }
 
@@ -47,6 +56,12 @@ class FrontendController extends Controller
 
     public function class_detail($slug)
     {
+        if (Auth::check()) {
+            $user = User::find(Auth::user()->id);
+            if ($user->email_verified_at == null) {
+                return redirect()->route("verification.notice");
+            }
+        }
         $course = Course::firstWhere("slug", $slug);
         return view('frontend.class-detail', [
             "title" => "classes",
@@ -92,7 +107,8 @@ class FrontendController extends Controller
     public function schedule()
     {
         return view('frontend.schedule', [
-            "title" => "schedule",
+            "title" => "Schedule",
+            "time_tables" => TimeTable::all(),
         ]);
     }
 
@@ -128,11 +144,11 @@ class FrontendController extends Controller
             "schedulesAll" => $schedules,
             "years" => $years,
             "calendarData" => $calendarData,
-            "schedules" => Schedule::where("member_id", $user->member->id)->get(),
-            "upcoming_schedules" => Schedule::where("member_id", $user->member->id)
-                ->whereDate("date", ">=", now()->format("Y-m-d"))->latest()->get(),
-            "previous_schedules" => Schedule::where("member_id", $user->member->id)
-                ->whereDate("date", "<=", now()->format("Y-m-d"))->latest()->get(),
+            "schedules" => Schedule::where("member_id", $user->member ? $user->member->id : null)->get(),
+            "upcoming_schedules" => $user->member ? Schedule::where("member_id", $user->member->id)
+                ->whereDate("date", ">=", now()->format("Y-m-d"))->latest()->get() : collect(),
+            "previous_schedules" => $user->member ? Schedule::where("member_id", $user->member->id)
+                ->whereDate("date", "<=", now()->format("Y-m-d"))->latest()->get() : collect(),
         ]);
     }
 

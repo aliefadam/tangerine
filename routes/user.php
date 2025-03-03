@@ -8,6 +8,8 @@ use App\Http\Middleware\UserMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(UserMiddleware::class)->group(function () {
+    Route::get("/gate", [FrontendController::class, "gate"])->name("gate");
+
     Route::prefix("profile")->group(function () {
         Route::get("/", [FrontendController::class, "profile"])->name("profile");
         Route::put("/", [FrontendController::class, "edit_profile"])->name("profile.update");

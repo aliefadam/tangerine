@@ -8,6 +8,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberPlanController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\AdminMiddleware;
@@ -70,6 +71,24 @@ Route::middleware(AdminMiddleware::class)->group(function () {
             Route::get("/edit/{id}", [ScheduleController::class, "edit"])->name("admin.schedule.edit");
             Route::put("/update/{id}", [ScheduleController::class, "update"])->name("admin.schedule.update");
             Route::delete("/destroy/{id}", [ScheduleController::class, "destroy"])->name("admin.schedule.destroy");
+        });
+
+        Route::prefix("time-table")->group(function () {
+            Route::get("/", [TimeTableController::class, "index"])->name("admin.time-table.index");
+            Route::get("/create", [TimeTableController::class, "create"])->name("admin.time-table.create");
+            Route::post("/store", [TimeTableController::class, "store"])->name("admin.time-table.store");
+            Route::get("/edit/{id}", [TimeTableController::class, "edit"])->name("admin.time-table.edit");
+            Route::put("/update/{id}", [TimeTableController::class, "update"])->name("admin.time-table.update");
+            Route::delete("/destroy/{id}", [TimeTableController::class, "destroy"])->name("admin.time-table.destroy");
+        });
+
+        Route::prefix("member-plan")->group(function () {
+            Route::get("/", [MemberPlanController::class, "index"])->name("admin.member-plan.index");
+            Route::get("/create", [MemberPlanController::class, "create"])->name("admin.member-plan.create");
+            Route::post("/store", [MemberPlanController::class, "store"])->name("admin.member-plan.store");
+            Route::get("/edit/{id}", [MemberPlanController::class, "edit"])->name("admin.member-plan.edit");
+            Route::put("/update/{id}", [MemberPlanController::class, "update"])->name("admin.member-plan.update");
+            Route::delete("/destroy/{id}", [MemberPlanController::class, "destroy"])->name("admin.member-plan.destroy");
         });
 
         Route::prefix("transaction")->group(function () {

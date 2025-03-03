@@ -4,8 +4,12 @@ use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Menu;
 use App\Models\Schedule;
+use App\Models\TimeTable;
+use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 if (!function_exists("setNotification")) {
@@ -146,5 +150,101 @@ if (!function_exists("getSchedules")) {
         return Schedule::whereDate("date", $date->format('Y-m-d'))
             ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
             ->get();
+    }
+}
+
+if (!function_exists("getTransactionOneYear")) {
+    function getTransactionOneYear()
+    {
+        $months = range(1, 12);
+        $transactions = Transaction::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(id) as total_transactions'),
+            DB::raw('SUM(total) as total_revenue')
+        )
+            ->whereYear('created_at', now()->year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy(DB::raw('MONTH(created_at)'))
+            ->get()
+            ->keyBy('month');
+
+        $monthlyTransactions = collect($months)->map(function ($month) use ($transactions) {
+            return [
+                'month' => $month,
+                'total_transactions' => $transactions[$month]->total_transactions ?? 0,
+                'total_revenue' => $transactions[$month]->total_revenue ?? 0.0,
+            ];
+        });
+
+        return $monthlyTransactions;
+    }
+}
+
+if (!function_exists("getTransactionPerCategory")) {
+    function getTransactionPerCategory()
+    {
+        $transactions = Transaction::all();
+        $courses = [];
+        foreach (Course::all() as $course) {
+            $count = 0;
+            foreach ($transactions as $transaction) {
+                if (getCourse($transaction->plan)->id == $course->id) {
+                    $count++;
+                }
+            }
+            $courses[] = [
+                "name" => $course->name,
+                "count" => $count,
+            ];
+        }
+        return $courses;
+    }
+}
+
+if (!function_exists("getTimeTable")) {
+    function getTimeTable($index, $day = null)
+    {
+        if ($day == null) {
+            return TimeTable::where("index", $index)->get();
+        }
+        return TimeTable::where("index", $index)->where("day", $day)->first();
+    }
+}
+
+if (!function_exists('shouldDeductSession')) {
+    function shouldDeductSession($memberPlan)
+    {
+        if (!$memberPlan) {
+            return false;
+        }
+
+        $today = Carbon::today();
+        return $memberPlan->last_deducted_at !== $today->toDateString();
+    }
+}
+
+if (!function_exists('canCancelClass')) {
+    function canCancelClass($schedule)
+    {
+        if (!$schedule) {
+            return false;
+        }
+
+        $classDateTime = $schedule->date->setTimeFrom($schedule->time);
+        $now = Carbon::now();
+
+        return $now->diffInHours($classDateTime, false) >= 24;
+    }
+}
+
+if (!function_exists("verifiedUser")) {
+    function verifiedUser()
+    {
+        if (Auth::check()) {
+            $user = User::find(Auth::user()->id);
+            if ($user->email_verified_at == null) {
+                return true;
+            }
+        }
     }
 }

@@ -191,7 +191,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Duet Class",
+            "name" => "Company Private Class",
             "drop_in_price" => 1000000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
@@ -200,7 +200,7 @@ class CourseSeeder extends Seeder
 
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Company Class",
+            "name" => "Private Small Group Class",
             "drop_in_price" => 850000,
             "10_session_price" => 5500000,
             "20_session_price" => null,
@@ -209,7 +209,7 @@ class CourseSeeder extends Seeder
 
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Open Group Class",
+            "name" => "Personal Member",
             "drop_in_price" => 150000,
             "10_session_price" => 1400000,
             "20_session_price" => null,
@@ -218,7 +218,7 @@ class CourseSeeder extends Seeder
 
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Company Matwork Class",
+            "name" => "Company Class",
             "drop_in_price" => null,
             "10_session_price" => 7000000,
             "20_session_price" => null,
@@ -242,7 +242,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Duet Class",
+            "name" => "Company Private Class",
             "drop_in_price" => 1000000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
@@ -250,7 +250,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Company Class",
+            "name" => "Private Small Group Class",
             "drop_in_price" => 850000,
             "10_session_price" => 5500000,
             "20_session_price" => null,
@@ -258,7 +258,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Open Group Class",
+            "name" => "Personal Member",
             "drop_in_price" => 150000,
             "10_session_price" => 1400000,
             "20_session_price" => null,
@@ -266,7 +266,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Company Matwork Class",
+            "name" => "Company Class",
             "drop_in_price" => null,
             "10_session_price" => 7000000,
             "20_session_price" => null,
@@ -290,7 +290,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Duet Class",
+            "name" => "Company Private Class",
             "drop_in_price" => 1000000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
@@ -298,7 +298,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Company Class",
+            "name" => "Private Small Group Class",
             "drop_in_price" => 850000,
             "10_session_price" => 5500000,
             "20_session_price" => null,
@@ -306,7 +306,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Open Group Class",
+            "name" => "Personal Member",
             "drop_in_price" => 150000,
             "10_session_price" => 1400000,
             "20_session_price" => null,
@@ -314,7 +314,7 @@ class CourseSeeder extends Seeder
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
-            "name" => "Company Matwork Class",
+            "name" => "Company Class",
             "drop_in_price" => null,
             "10_session_price" => 7000000,
             "20_session_price" => null,

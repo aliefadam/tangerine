@@ -7,6 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Tangerine Admin - {{ $title }}</title>
 
+    {{-- Logo --}}
+    <link rel="shortcut icon" href="{{ asset('imgs/Logo Tangerine-black.png') }}" type="image/x-icon">
+
     {{-- Font Poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

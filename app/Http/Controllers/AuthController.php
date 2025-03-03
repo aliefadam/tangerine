@@ -29,7 +29,8 @@ class AuthController extends Controller
             if ($role == "admin") {
                 return redirect()->route("admin.dashboard");
             } else {
-                return redirect()->route("home");
+                return redirect()->route("gate");
+                // return redirect()->route("home");
             }
         } else {
             return back()->with("notification", setNotification("error", "Gagal", "Email atau password salah"));
@@ -50,7 +51,7 @@ class AuthController extends Controller
             $user->update([
                 'google_id' => $googleUser->id,
                 'name' => $googleUser->name,
-                "role" => "member",
+                "role" => "user",
                 'password' => bcrypt("{$googleUser->id}-{$googleUser->email}-{$googleUser->name}"),
             ]);
         } else {
@@ -59,13 +60,14 @@ class AuthController extends Controller
                 'email' => $googleUser->email,
                 'name' => $googleUser->name,
                 "email_verified_at" => now(),
-                "role" => "member",
+                "role" => "user",
                 'password' => bcrypt("{$googleUser->id}-{$googleUser->email}-{$googleUser->name}"),
             ]);
         }
 
         Auth::login($user);
-        return redirect()->route('home');
+        return redirect()->route('gate');
+        // return redirect()->route('home');
     }
 
     public function register()
@@ -82,7 +84,7 @@ class AuthController extends Controller
             "email" => $request->email,
             "phone" => $request->phone,
             "password" => bcrypt($request->password),
-            "role" => "member",
+            "role" => "user",
         ]);
 
         Auth::login($user);
@@ -100,7 +102,8 @@ class AuthController extends Controller
     public function verify(EmailVerificationRequest $request)
     {
         $request->fulfill();
-        return redirect()->route("home");
+        return redirect()->route("gate");
+        // return redirect()->route("home");
     }
 
     public function verificationNotice()

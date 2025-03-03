@@ -17,7 +17,7 @@ class MemberController extends Controller
     {
         return view("backend.member.index", [
             "title" => "Member",
-            "members" => MemberPlan::latest()->get(),
+            "members" => Member::latest()->get(),
         ]);
     }
 

@@ -45,6 +45,17 @@ class MenuSeeder extends Seeder
 
         $newMenu = Menu::create([
             "role" => "admin",
+            "name" => "membership",
+        ]);
+        MenuDetail::create([
+            "menu_id" => $newMenu->id,
+            "name" => "member plan",
+            "route" => "admin.member-plan.index",
+            "icon" => "fa-regular fa-screen-users",
+        ]);
+
+        $newMenu = Menu::create([
+            "role" => "admin",
             "name" => "master data",
         ]);
         MenuDetail::create([
@@ -70,6 +81,12 @@ class MenuSeeder extends Seeder
             "name" => "schedule",
             "route" => "admin.schedule.index",
             "icon" => "fa-regular fa-calendar-days",
+        ]);
+        MenuDetail::create([
+            "menu_id" => $newMenu->id,
+            "name" => "time table",
+            "route" => "admin.time-table.index",
+            "icon" => "fa-regular fa-table",
         ]);
 
 

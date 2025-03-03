@@ -19,39 +19,62 @@
                             Name
                         </th>
                         <th scope="col" class="px-6 py-4 w-[200px]">
-                            Email
+                            Plan
                         </th>
                         <th scope="col" class="px-6 py-4">
-                            Phone
+                            Trainer
                         </th>
                         <th scope="col" class="px-6 py-4">
-                            Gender
+                            Room
+                        </th>
+                        {{-- <th scope="col" class="px-6 py-4">
+                            Routine Schedule
+                        </th> --}}
+                        <th scope="col" class="px-6 py-4">
+                            Validity Period
                         </th>
                         <th scope="col" class="px-6 py-4">
-                            Total Purchase (Confirmed)
+                            Status
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($members as $member)
+                    @foreach ($members as $member_plan)
                         <tr class="bg-white border-b border-gray-200">
                             <td class="px-6 py-4">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $member->user->name }}
+                                {{ $member_plan->member->user->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $member->user->email }}
+                                {{ $member_plan->plan }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $member->user->phone ?? '-' }}
+                                {{ $member_plan->trainer ? $member_plan->trainer->name : '-' }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $member->user->gender ?? '-' }}
+                                {{ $member_plan->room ? $member_plan->room->name : '-' }}
+                            </td>
+                            {{-- <td class="px-6 py-4">
+                                {{ $member_plan->day }} - {{ $member_plan->time }}
+                            </td> --}}
+                            <td class="px-6 py-4 flex flex-col gap-2">
+                                <span class="text-emerald-700">{{ $member_plan->subscribed_date }}</span>
+                                <hr>
+                                <span class="text-red-700">{{ $member_plan->expired_date }}</span>
                             </td>
                             <td class="px-6 py-4">
-                                {{ format_rupiah($member->user->transactions()->where('payment_status', 'confirmed')->sum('total')) }}
+                                @if ($member_plan->status == 'active')
+                                    <span
+                                        class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
+                                        Active
+                                    </span>
+                                @else
+                                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
+                                        Inactive
+                                    </span>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

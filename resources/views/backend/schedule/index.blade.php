@@ -94,9 +94,11 @@
                                 @foreach ($data['days'] as $day)
                                     @php
                                         $date = str_pad($day, 2, '0', STR_PAD_LEFT);
+                                        $today = now()->format('Y-m-d');
+                                        $dateFormated = "$year-$monthNumber-$date";
                                     @endphp
-                                    <a href="{{ route('admin.schedule.show', "$year-$monthNumber-$date") }}"
-                                        class="px-2 py-5 border border-stone-700 bg-stone-50 hover:bg-stone-100 text-stone-700 rounded">
+                                    <a href="{{ route('admin.schedule.show', $dateFormated) }}"
+                                        class="px-2 py-5 border border-stone-700 {{ $today == $dateFormated ? 'bg-stone-700 text-white hover:bg-stone-800' : 'bg-white text-stone-700 hover:bg-stone-100' }} rounded">
                                         {{ $day }}
                                     </a>
                                 @endforeach

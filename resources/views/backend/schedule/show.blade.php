@@ -116,7 +116,13 @@
                                             class="size-[60px] object-cover rounded-full">
                                     </div>
                                     <div class="flex flex-col text-stone-800">
-                                        <span class="poppins-medium mb-0.5">{{ $schedule->member->user->name }}</span>
+                                        <div class="flex justify-between mb-0.5">
+                                            <span class="poppins-medium">{{ $schedule->member->user->name }}</span>
+                                            <span data-schedule-id="{{ $schedule->id }}"
+                                                class="btn-delete-schedule poppins-semibold text-red-600 hover:underline cursor-pointer">
+                                                Delete
+                                            </span>
+                                        </div>
                                         <span class="text-xs">{{ $schedule->room->name }} -
                                             {{ $schedule->trainer ? $schedule->trainer->name : 'No Trainer' }}</span>
                                         <span>{{ getPlanLabel($schedule->course_id, $schedule->course_detail_id) }}</span>
@@ -226,6 +232,7 @@
         $("select[name='member_id']").change(getMemberPlan);
         $("select#member_class_plan").change(getTrainerAndRoom);
         $("#form-add-schedule").submit(addSchedule);
+        $(".btn-delete-schedule").click(deleteSchedule);
 
         function getMemberPlan() {
             const memberID = $(this).val();
@@ -328,6 +335,41 @@
                 },
                 success: function(response) {
                     location.reload();
+                }
+            });
+        }
+
+        function deleteSchedule() {
+            const scheduleID = $(this).data('schedule-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "{{ route('admin.schedule.destroy', ':id') }}".replace(':id', scheduleID),
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                        },
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Deleting...',
+                                text: 'Please wait...',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            });
+                        },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });
                 }
             });
         }

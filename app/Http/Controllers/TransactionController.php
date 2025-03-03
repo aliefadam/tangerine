@@ -96,27 +96,40 @@ class TransactionController extends Controller
             $remaining_session = 0;
             if ($type == "10 Session") {
                 $expired_date = $subscribed_date->copy()->addMonths(4);
+                $extend_expired_date_month = 4;
                 $remaining_session = 10;
             } else if ($type == "20 Session") {
                 $expired_date = $subscribed_date->copy()->addMonths(6);
+                $extend_expired_date_month = 6;
                 $remaining_session = 20;
             } else {
                 $expired_date = $subscribed_date->copy()->addDay();
+                $extend_expired_date_month = 1;
                 $remaining_session = 1;
             }
 
-            MemberPlan::create([
-                "member_id" => $member->id,
-                "trainer_id" => $transaction->trainer_id,
-                "room_id" => $transaction->room_id,
-                "plan" => $transaction->plan,
-                // "day" => $transaction->day,
-                // "time" => $transaction->time,
-                "subscribed_date" => $subscribed_date,
-                "expired_date" => $expired_date,
-                "remaining_session" => $remaining_session,
-                "status" => "active",
-            ]);
+            // Tambah Session Member Plan
+            if (MemberPlan::where("member_id", $member->id)->where("plan", $transaction->plan)->exists()) {
+                $memberPlan = MemberPlan::where("member_id", $member->id)->where("plan", $transaction->plan)->first();
+                $memberPlan->update([
+                    "expired_date" => $memberPlan->expired_date->addMonths($extend_expired_date_month),
+                    "remaining_session" => $remaining_session + $memberPlan->remaining_session,
+                ]);
+            } else {
+                $memberPlan = MemberPlan::create([
+                    "member_id" => $member->id,
+                    "trainer_id" => $transaction->trainer_id,
+                    "room_id" => $transaction->room_id,
+                    "plan" => $transaction->plan,
+                    // "day" => $transaction->day,
+                    // "time" => $transaction->time,
+                    "subscribed_date" => $subscribed_date,
+                    "expired_date" => $expired_date,
+                    "remaining_session" => $remaining_session,
+                    "status" => "active",
+                ]);
+            }
+
 
             $plan = $transaction->plan;
             $course_name = trim(explode(" - ", $plan)[0]);
@@ -128,6 +141,7 @@ class TransactionController extends Controller
             if ($transaction->date) {
                 Schedule::create([
                     'member_id' => $transaction->user->member->id,
+                    "member_plan_id" => $memberPlan->id,
                     'room_id' => $transaction->room_id,
                     'course_detail_id' => $course_detail->id,
                     'course_id' => $course_detail->course_id,

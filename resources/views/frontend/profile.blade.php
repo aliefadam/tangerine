@@ -79,13 +79,15 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="flex items-center">
-                                            <button type="button" data-schedule-id="{{ $schedule->id }}"
-                                                class="btn-cancel-schedule text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs px-5 py-2.5">
-                                                <i class="fa-solid fa-ban mr-1"></i>
-                                                Cancel this schedule
-                                            </button>
-                                        </div>
+                                        @if (canCancelClass($schedule))
+                                            <div class="flex items-center">
+                                                <button type="button" data-schedule-id="{{ $schedule->id }}"
+                                                    class="btn-cancel-schedule text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-xs px-5 py-2.5">
+                                                    <i class="fa-solid fa-ban mr-1"></i>
+                                                    Cancel this schedule
+                                                </button>
+                                            </div>
+                                        @endif
                                     </div>
                                 @empty
                                     <h1 class="text-gray-600">
@@ -125,75 +127,84 @@
                     <div>
                         <div class="bg-white rounded-lg border border-gray-200 p-6">
                             <h2 class="text-lg font-medium text-gray-900 mb-4">Class Membership</h2>
-                            <div class="space-y-4">
-                                @foreach ($user->member->memberPlans as $memberPlan)
-                                    @php
-                                        $image = getCourse($memberPlan->plan)->image;
-                                        $name = getCourse($memberPlan->plan)->name;
-                                        $type = explode('-', $memberPlan->plan)[1];
-                                    @endphp
-                                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
-                                        <a href="#">
-                                            <img class="rounded-t-lg w-full h-[200px] object-cover"
-                                                src="/uploads/courses/{{ $image }}" alt="" />
-                                        </a>
-                                        <div class="p-5">
+                            @if ($user->member)
+                                <div class="space-y-4">
+                                    @foreach ($user->member->memberPlans as $memberPlan)
+                                        @php
+                                            $image = getCourse($memberPlan->plan)->image;
+                                            $name = getCourse($memberPlan->plan)->name;
+                                            $type = explode('-', $memberPlan->plan)[1];
+                                        @endphp
+                                        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm">
                                             <a href="#">
-                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                                                    {{ $name }}
-                                                </h5>
+                                                <img class="rounded-t-lg w-full h-[200px] object-cover"
+                                                    src="/uploads/courses/{{ $image }}" alt="" />
                                             </a>
-                                            <div class="space-y-4 mb-3">
-                                                <div>
-                                                    <label class="block text-sm font-semibold text-stone-700">Status</label>
-                                                    @if ($memberPlan->status == 'active')
-                                                        <span
-                                                            class="mt-1 w-fit block bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
-                                                            Active
-                                                        </span>
-                                                    @else
-                                                        <span
-                                                            class="mt-1 w-fit block bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
-                                                            Inactive
-                                                        </span>
-                                                    @endif
+                                            <div class="p-5">
+                                                <a href="#">
+                                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+                                                        {{ $name }}
+                                                    </h5>
+                                                </a>
+                                                <div class="space-y-4 mb-3">
+                                                    <div>
+                                                        <label
+                                                            class="block text-sm font-semibold text-stone-700">Status</label>
+                                                        @if ($memberPlan->status == 'active')
+                                                            <span
+                                                                class="mt-1 w-fit block bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
+                                                                Active
+                                                            </span>
+                                                        @else
+                                                            <span
+                                                                class="mt-1 w-fit block bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-sm">
+                                                                Inactive
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-semibold text-stone-700">
+                                                            Class type
+                                                        </label>
+                                                        <p class="mt-1 text-gray-900">{{ $type }}</p>
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-semibold text-stone-700">Subscribed
+                                                            Date</label>
+                                                        <p class="mt-1 text-emerald-700">
+                                                            {{ $memberPlan->subscribed_date->format('l, d F Y - H:i') }}
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-semibold text-stone-700">Expired
+                                                            Date</label>
+                                                        <p class="mt-1 text-red-700">
+                                                            {{ $memberPlan->expired_date->format('l, d F Y - H:i') }}</p>
+                                                    </div>
+                                                    <div>
+                                                        <label class="block text-sm font-semibold text-stone-700">
+                                                            Remaining Session
+                                                        </label>
+                                                        <p class="mt-1 text-gray-900">
+                                                            {{ $memberPlan->remaining_session }}</p>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <label class="block text-sm font-semibold text-stone-700">
-                                                        Class type
-                                                    </label>
-                                                    <p class="mt-1 text-gray-900">{{ $type }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="block text-sm font-semibold text-stone-700">Subscribed
-                                                        Date</label>
-                                                    <p class="mt-1 text-gray-900">
-                                                        {{ $memberPlan->subscribed_date->format('l, d F Y - H:i') }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="block text-sm font-semibold text-stone-700">Expired
-                                                        Date</label>
-                                                    <p class="mt-1 text-gray-900">
-                                                        {{ $memberPlan->expired_date->format('l, d F Y - H:i') }}</p>
-                                                </div>
-                                                <div>
-                                                    <label class="block text-sm font-semibold text-stone-700">
-                                                        Remaining Session
-                                                    </label>
-                                                    <p class="mt-1 text-gray-900">
-                                                        {{ $memberPlan->remaining_session }}</p>
-                                                </div>
+                                                @if ($memberPlan->status == 'active')
+                                                    <button type="button" data-modal-target="large-modal"
+                                                        data-modal-toggle="large-modal"
+                                                        data-member-plan-id={{ $memberPlan->id }}
+                                                        class="btn-add-schedule inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-stone-700 rounded-lg hover:bg-stone-800 focus:ring-4 focus:outline-none focus:ring-stone-300">
+                                                        <i class="fa-regular fa-calendar mr-1.5"></i>
+                                                        Add Schedule
+                                                    </button>
+                                                @endif
                                             </div>
-                                            <button type="button" data-modal-target="large-modal"
-                                                data-modal-toggle="large-modal" data-member-plan-id={{ $memberPlan->id }}
-                                                class="btn-add-schedule inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-stone-700 rounded-lg hover:bg-stone-800 focus:ring-4 focus:outline-none focus:ring-stone-300">
-                                                <i class="fa-regular fa-calendar mr-1.5"></i>
-                                                Add Schedule
-                                            </button>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <span class="text-sm text-gray-600">You have not subscribed to the membership</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -399,9 +410,12 @@
                                         @foreach ($data['days'] as $day)
                                             @php
                                                 $date = str_pad($day, 2, '0', STR_PAD_LEFT);
+                                                $today = now()->format('Y-m-d');
+                                                $dateFormated = "$year-$monthNumber-$date";
+                                                $canSelect = $dateFormated > now()->addDay()->format('Y-m-d');
                                             @endphp
-                                            <button data-date="{{ "$year-$monthNumber-$date" }}"
-                                                class="btn-date cursor-pointer px-2 py-2 lg:py-5 border border-stone-700 bg-stone-50s hover:bg-stone-100 text-stone-700 rounded">
+                                            <button data-date="{{ $dateFormated }}"
+                                                class="px-2 py-2 lg:py-5 border border-stone-700 {{ $canSelect ? 'bg-white hover:bg-stone-100 text-stone-700 btn-date cursor-pointer' : 'bg-gray-300 cursor-not-allowed' }} rounded">
                                                 {{ $day }}
                                             </button>
                                         @endforeach

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime("subscribed_date");
             $table->dateTime("expired_date");
             $table->integer("remaining_session");
+            $table->date('last_deducted_at')->nullable();
             $table->string("status");
             $table->timestamps();
         });
