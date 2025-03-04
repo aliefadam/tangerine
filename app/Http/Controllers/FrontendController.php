@@ -78,6 +78,10 @@ class FrontendController extends Controller
         $years = generateDate()["years"];
         $calendarData = generateDate()["calendarData"];
         $course_name = trim(explode(" - ", $data["course_label_taken"])[0]);
+
+        $course_id = getCourse($data["course_label_taken"])->id;
+        $course_detail_person_max = getCourseDetail($data["course_label_taken"], $course_id)->person_max;
+
         if ($course_name == "Yoga Classes") {
             $rooms = Room::all();
         } else {
@@ -93,6 +97,7 @@ class FrontendController extends Controller
             "years" => $years,
             "calendarData" => $calendarData,
             "course_name" => $course_name,
+            "course_detail_person_max" => $course_detail_person_max,
         ]);
     }
 

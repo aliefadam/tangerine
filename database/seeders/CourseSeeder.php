@@ -27,7 +27,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 700000,
             "10_session_price" => 6500000,
             "20_session_price" => 12000000,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -35,7 +35,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 1000000,
             "10_session_price" => 9000000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 2,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -75,7 +75,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 600000,
             "10_session_price" => 5500000,
             "20_session_price" => 10000000,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -83,7 +83,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 900000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 2,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -123,7 +123,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 450000,
             "10_session_price" => 4000000,
             "20_session_price" => 7000000,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -131,7 +131,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 700000,
             "10_session_price" => 6000000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 2,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -187,7 +187,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 450000,
             "10_session_price" => 4000000,
             "20_session_price" => 7000000,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -195,7 +195,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 1000000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 4,
         ]);
 
         CourseDetail::create([
@@ -213,7 +213,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 150000,
             "10_session_price" => 1400000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
 
         CourseDetail::create([
@@ -222,7 +222,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => null,
             "10_session_price" => 7000000,
             "20_session_price" => null,
-            "person_max" => 12,
+            "person_max" => 4,
         ]);
 
 
@@ -238,7 +238,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 450000,
             "10_session_price" => 4000000,
             "20_session_price" => 7000000,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -246,7 +246,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 1000000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 4,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -262,7 +262,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 150000,
             "10_session_price" => 1400000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -270,7 +270,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => null,
             "10_session_price" => 7000000,
             "20_session_price" => null,
-            "person_max" => 12,
+            "person_max" => 4,
         ]);
 
 
@@ -286,7 +286,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 450000,
             "10_session_price" => 4000000,
             "20_session_price" => 7000000,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -294,7 +294,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 1000000,
             "10_session_price" => 8000000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 4,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -310,7 +310,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => 150000,
             "10_session_price" => 1400000,
             "20_session_price" => null,
-            "person_max" => null,
+            "person_max" => 1,
         ]);
         CourseDetail::create([
             "course_id" => $newCourse->id,
@@ -318,7 +318,7 @@ class CourseSeeder extends Seeder
             "drop_in_price" => null,
             "10_session_price" => 7000000,
             "20_session_price" => null,
-            "person_max" => 12,
+            "person_max" => 4,
         ]);
     }
 }

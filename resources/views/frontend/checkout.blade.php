@@ -213,12 +213,15 @@
 @section('script')
     <script>
         $("#form-checkout").submit(checkout);
-        $("input[name=schedule-choice]").click(setScheduleChoice);
+        $("input[name=schedule-choice]").change(setScheduleChoice);
+        // $("input[name=schedule-choice]").click(setScheduleChoice);
         $(".btn-date").click(selectDate);
         $("#btn-back").click(backToSelectDate);
 
         function setScheduleChoice() {
             const value = $(this).val();
+            console.log(value);
+
             if (value == "now") {
                 $("#container-open-time-table").removeClass("hidden");
             } else {
@@ -250,6 +253,17 @@
                         });
                         return;
                     }
+
+                    if (r.value > @json($course_detail_person_max)) {
+                        const max = @json($course_detail_person_max);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `The maximum number of participants for this class is ${max}!`,
+                        });
+                        return;
+                    }
+
                     $.ajax({
                         type: "GET",
                         url: `/get-schedule-day/${date}`,
@@ -353,6 +367,26 @@
                         icon: "error",
                         title: "Error",
                         text: "Please select the trainer"
+                    });
+                    return;
+                }
+            }
+
+            if ($("input[name='schedule-choice']:checked").length == 0) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Please select schedule option"
+                });
+                return;
+            }
+
+            if ($("input[name='schedule-choice']:checked").val() == "now") {
+                if ($("input[name=date]").val() == "") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Please select the date"
                     });
                     return;
                 }

@@ -5,7 +5,7 @@
         <div class="lg:w-[40%] w-[85%] bg-white rounded-lg lg:p-10 p-5 shadow-xl">
             <h1 class="text-3xl poppins-bold text-stone-800 text-center">Tangerine</h1>
             <p class="mt-3 text-center text-gray-900 text-base">
-                Silahkan melakukan reset password anda, halaman ini akan kadaluarsa dalam 60 Menit
+                Please reset your password, this page will expire in 60 minutes
             </p>
             <form action="{{ route('password.update') }}" method="POST">
                 @csrf
@@ -26,8 +26,9 @@
                     </div>
                 </div>
                 <div class="mb-5">
-                    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-stone-800">Konfirmasi
-                        Password</label>
+                    <label for="password_confirmation" class="block mb-2 text-sm font-medium text-stone-800">
+                        Password Confirmation
+                    </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <i class="fa-solid fa-lock text-stone-800"></i>

@@ -135,6 +135,14 @@ if (!function_exists("getCourse")) {
     }
 }
 
+if (!function_exists("getCourseDetail")) {
+    function getCourseDetail($plan, $course_id)
+    {
+        $course_name = trim(explode(" - ", $plan)[1]);
+        return CourseDetail::where("name", $course_name)->where("course_id", $course_id)->first();
+    }
+}
+
 if (!function_exists("isAvailableSchedule")) {
     function isAvailableSchedule($date, $hour, $capacity)
     {

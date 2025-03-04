@@ -190,9 +190,17 @@
                                                     </div>
                                                 </div>
                                                 @if ($memberPlan->status == 'active')
+                                                    @php
+                                                        $course_id = getCourse($memberPlan->plan)->id;
+                                                        $course_detail_person_max = getCourseDetail(
+                                                            $memberPlan->plan,
+                                                            $course_id,
+                                                        )->person_max;
+                                                    @endphp
                                                     <button type="button" data-modal-target="large-modal"
                                                         data-modal-toggle="large-modal"
-                                                        data-member-plan-id={{ $memberPlan->id }}
+                                                        data-member-plan-id="{{ $memberPlan->id }}"
+                                                        data-max-person="{{ $course_detail_person_max }}"
                                                         class="btn-add-schedule inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-stone-700 rounded-lg hover:bg-stone-800 focus:ring-4 focus:outline-none focus:ring-stone-300">
                                                         <i class="fa-regular fa-calendar mr-1.5"></i>
                                                         Add Schedule
@@ -439,6 +447,7 @@
         $(".btn-cancel-schedule").click(cancelSchedule);
 
         let memberPlanID = null;
+        let max_person = null;
 
         function selectDate() {
             const date = $(this).data('date');
@@ -461,6 +470,17 @@
                         });
                         return;
                     }
+                    if (r.value > max_person) {
+                        const max = max_person
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `The maximum number of participants for this class is ${max}!`,
+                        });
+                        return;
+                    }
+                    console.log([r.value, max_person]);
+
                     $.ajax({
                         type: "GET",
                         url: `/get-schedule-day/${date}`,
@@ -604,6 +624,7 @@
 
         function setMemberPlanID() {
             memberPlanID = $(this).data("member-plan-id");
+            max_person = +$(this).data('max-person');
         }
 
         function clickInput() {

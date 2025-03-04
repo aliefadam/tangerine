@@ -5,7 +5,7 @@
         <div class="lg:w-[40%] w-[85%] bg-white p-10 rounded-lg shadow-xl">
             <h1 class="text-3xl poppins-bold text-stone-800 text-center">Tangerine</h1>
             <p class="mt-3 text-center text-gray-900 text-base">
-                Link untuk mereset password telah kami kirim ke dalam email anda, silahkan cek email anda
+                We have sent a link to reset your password to your email, please check your email
             </p>
         </div>
     </main>

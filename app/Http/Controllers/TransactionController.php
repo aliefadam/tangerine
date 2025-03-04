@@ -33,10 +33,18 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        $user_id = Auth::user()->id;
+        $dataCheckout = session("checkout_{$user_id}");
+        $course_id = getCourse($dataCheckout["course_label_taken"])->id;
+        $course_detail = getCourseDetail($dataCheckout["course_label_taken"], $course_id);
+
+        if ($request->capacity > $course_detail->person_max) {
+            notificationFlash("error", "Capacity is over");
+            return response()->json(["redirect_url" => "", "message" => "Capacity is over"]);
+        }
+
         DB::beginTransaction();
         try {
-            $user_id = Auth::user()->id;
-            $dataCheckout = session("checkout_{$user_id}");
             $newTransaction = Transaction::create([
                 "invoice" => "INV_TANGERINE_" . date("Ymdhis") . $user_id . "_" . strtoupper(Str::random(10)),
                 "user_id" => $dataCheckout["user_id"],

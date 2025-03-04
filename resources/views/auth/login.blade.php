@@ -8,13 +8,13 @@
                 <div class="absolute inset-0 bg-black/60"></div>
                 <div class="absolute top-0 left-0 text-white flex flex-col justify-center items-center w-full h-full">
                     <h2 class="text-3xl font-bold">Tangerine</h2>
-                    <p class="text-lg opacity-90">Bergabunglah dengan komunitas fitness terbaik</p>
+                    <p class="text-lg opacity-90">Join the best fitness community</p>
                 </div>
             </div>
 
             <div class="lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
                 <div class="max-w-md w-full mx-auto">
-                    <h2 class="text-2xl poppins-bold text-stone-700 text-center mb-8">Masuk ke Akun Anda</h2>
+                    <h2 class="text-2xl poppins-bold text-stone-700 text-center mb-8">Login to your account</h2>
 
                     <form class="space-y-6" action="{{ route('login') }}" method="POST">
                         @csrf
@@ -28,7 +28,7 @@
                                 </div>
                                 <input type="email" id="email" name="email"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
-                                    placeholder="Masukkan email anda">
+                                    placeholder="Enter your email">
                             </div>
                         </div>
 
@@ -50,16 +50,17 @@
                             <div class="flex items-center">
                                 <input type="checkbox" id="remember-me" name="remember-me"
                                     class="h-4 w-4 !rounded-button text-custom border-gray-300 focus:ring-custom" />
-                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">Ingat saya</label>
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember Me</label>
                             </div>
                             <a href="{{ route('forgot-password') }}"
-                                class="text-sm font-medium text-custom hover:text-custom/80 transition-colors">Lupa kata
-                                sandi?</a>
+                                class="text-sm font-medium text-custom hover:text-custom/80 transition-colors">
+                                Forgot your password?
+                            </a>
                         </div>
 
                         <button type="submit"
                             class="text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full">
-                            Masuk
+                            Login
                         </button>
                     </form>
                     <div class="mt-8">
@@ -68,7 +69,7 @@
                                 <div class="w-full border-t border-gray-200"></div>
                             </div>
                             <div class="relative flex justify-center text-sm">
-                                <span class="px-2 bg-white text-gray-500">Atau masuk dengan</span>
+                                <span class="px-2 bg-white text-gray-500">Or sign in with</span>
                             </div>
                         </div>
                         <div class="mt-6">
@@ -80,10 +81,10 @@
                         </div>
                     </div>
                     <p class="mt-8 text-center text-sm text-gray-600">
-                        Belum punya akun?
+                        Don't have an account?
                         <a href="{{ route('register') }}"
                             class="font-medium text-stone-700 hover:text-stone-800 transition-colors">
-                            Daftar sekarang
+                            Register now
                         </a>
                     </p>
                 </div>
