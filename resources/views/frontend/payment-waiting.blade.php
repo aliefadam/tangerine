@@ -62,12 +62,29 @@
                         <div class="flex items-center gap-3">
                             <img src="/imgs/BCA.png" alt="BCA" class="h-4" />
                             <div>
-                                <p class="text-sm font-medium">Virtual Account BCA</p>
-                                <p class="text-sm text-gray-600">8277 0812 3456 7890</p>
+                                <p class="text-sm font-medium">Bank Central Asia (BCA)</p>
+                                <p class="text-sm text-gray-600">
+                                    {{ env('ACCOUNT_NUMBER_BCA') }} • {{ env('ACCOUNT_NAME_BCA') }}
+                                </p>
                             </div>
                         </div>
-                        <button
-                            class="!rounded-button cursor-pointer px-3 py-1.5 text-sm border border-custom text-custom hover:bg-custom/5">
+                        <button type="button" data-text="{{ env('ACCOUNT_NUMBER_BCA') }}"
+                            class="btn-copy text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-xs px-5 py-2.5">
+                            <i class="far fa-copy mr-1"></i>Copy
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border border-gray-300 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <img src="/imgs/BWS.png" alt="BCA" class="h-4" />
+                            <div>
+                                <p class="text-sm font-medium">Bank Woori Saudara (BWS)</p>
+                                <p class="text-sm text-gray-600">
+                                    {{ env('ACCOUNT_NUMBER_BWS') }} • {{ env('ACCOUNT_NAME_BWS') }}
+                                </p>
+                            </div>
+                        </div>
+                        <button type="button" data-text="{{ env('ACCOUNT_NUMBER_BWS') }}"
+                            class="btn-copy text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300 font-medium rounded-lg text-xs px-5 py-2.5">
                             <i class="far fa-copy mr-1"></i>Copy
                         </button>
                     </div>
@@ -161,5 +178,27 @@
                 }
             });
         });
+
+        $(".btn-copy").click(function() {
+            const text = $(this).data("text");
+            copyToClipboard(text);
+        });
+
+        function copyToClipboard(text) {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            Swal.fire({
+                icon: "success",
+                position: 'bottom-end',
+                showConfirmButton: false,
+                toast: true,
+                timer: 3000,
+                text: 'Copied!'
+            });
+        }
     </script>
 @endsection

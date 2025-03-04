@@ -108,14 +108,25 @@ class ScheduleController extends Controller
                 'course_detail_id' => $course_detail->id,
                 'course_id' => $course_detail->course_id,
                 'trainer_id' => $memberPlan->trainer_id,
+                "capacity" => $request->capacity,
                 'date' => $request->date,
                 'time' => $request->time,
             ]);
 
-            // ScheduleCapacity::create([
-            //     "schedule_id" => $newSchedule->id,
-            //     "capacity" => 0,
-            // ]);
+            // $isIssetScheduleCapacity = ScheduleCapacity::where("schedule_id", $newSchedule->id)->exists();
+
+            // if ($isIssetScheduleCapacity) {
+            //     $scheduleCapacity = ScheduleCapacity::firstWherehere("schedule_id", $newSchedule->id);
+            //     $scheduleCapacity->update([
+            //         "capacity" => $request->capacity + $scheduleCapacity->capacity,
+            //     ]);
+            // } else {
+            //     ScheduleCapacity::create([
+            //         "schedule_id" => $newSchedule->id,
+            //         "capacity" => $request->capacity,
+            //     ]);
+            // }
+
             DB::commit();
             notificationFlash("success", "Successfully Add Schedule");
             return response()->json(["success" => true]);
@@ -191,7 +202,7 @@ class ScheduleController extends Controller
         ]);
     }
 
-    public function get_schedule_day($date)
+    public function get_schedule_day($date, Request $request)
     {
         try {
             $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
@@ -208,7 +219,8 @@ class ScheduleController extends Controller
                 "hours" => $hours,
                 "selectedDate" => $selectedDate,
                 "schedules" => $schedules,
-                "dateFormatted" => $dateFormatted
+                "dateFormatted" => $dateFormatted,
+                "capacity" => $request->capacity,
             ])->render(),
         ]);
     }

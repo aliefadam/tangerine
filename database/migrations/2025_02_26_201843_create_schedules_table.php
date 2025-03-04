@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId("course_id");
             $table->foreignId("course_detail_id");
             $table->foreignId("trainer_id")->nullable();
+            $table->integer("capacity")->nullable();
             $table->date("date");
             $table->time("time");
             $table->timestamps();

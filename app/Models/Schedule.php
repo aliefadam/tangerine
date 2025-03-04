@@ -45,4 +45,9 @@ class Schedule extends Model
     {
         return $this->belongsTo(CourseDetail::class);
     }
+
+    public function scheduleCapacity()
+    {
+        return $this->hasOne(ScheduleCapacity::class);
+    }
 }

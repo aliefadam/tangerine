@@ -136,11 +136,31 @@ if (!function_exists("getCourse")) {
 }
 
 if (!function_exists("isAvailableSchedule")) {
-    function isAvailableSchedule($date, $hour)
+    function isAvailableSchedule($date, $hour, $capacity)
     {
-        return Schedule::whereDate("date", $date->format('Y-m-d'))
-            ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
-            ->exists();
+        // return Schedule::whereDate("date", $date->format('Y-m-d'))
+        //     ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+        //     ->exists();
+
+        if ($capacity > 9) {
+            return true;
+        }
+
+        $schedule = Schedule::whereDate("date", $date->format('Y-m-d'))
+            ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00');
+
+        $isAvailable = $schedule->exists();
+        if (!$isAvailable) {
+            return false;
+        } else {
+            $capacityNow = $schedule->sum("capacity");
+            $newCapacity = $capacity + $capacityNow;
+            if ($newCapacity > 9) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
 
@@ -233,7 +253,8 @@ if (!function_exists('canCancelClass')) {
         $classDateTime = $schedule->date->setTimeFrom($schedule->time);
         $now = Carbon::now();
 
-        return $now->diffInHours($classDateTime, false) >= 24;
+        return $now->diffInHours($classDateTime, false) >= 12;
+        // return $now->diffInHours($classDateTime, false) >= 24;
     }
 }
 

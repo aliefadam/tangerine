@@ -65,16 +65,17 @@
 
                 @foreach ($hours as $hour)
                     @php
-                        $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour);
-                    @endphp
-
-                    @php
+                        // $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour);
                         $schedulesSelected = getSchedules($selectedDate, $hour);
                     @endphp
 
-                    <div class="p-4 border rounded-lg shadow-md bg-white"
-                        @if (!$isAvailableSchedule) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
-                    data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}" @endif>
+                    {{-- @if (!$isAvailableSchedule)
+                    data-schedule-label="{{ $selectedDate->format('l, d F Y') }}  -  {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+                    data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+                    data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}"
+                    @endif --}}
+
+                    <div class="p-4 border rounded-lg shadow-md bg-white">
                         <div class="flex justify-between items-center">
                             <h3 class="text-base font-medium">
                                 {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00

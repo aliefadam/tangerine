@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string("plan");
             $table->string("date")->nullable();
             $table->string("time")->nullable();
+
+            // untuk kebutuhan validasi kapasitas
+            $table->integer("capacity")->nullable();
+
             $table->string("payment_status");
             $table->string("proof_of_payment")->nullable();
             $table->double("total");

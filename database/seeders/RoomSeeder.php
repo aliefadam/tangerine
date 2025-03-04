@@ -32,14 +32,14 @@ class RoomSeeder extends Seeder
                 "name" => "Room A",
                 "image" => "ROOM_IMAGE_20250227091321.jpg",
                 "used_for" => "All Classes",
-                "capacity" => "9",
+                "capacity" => 10,
             ],
             [
                 "id" => 2,
                 "name" => "Room B",
                 "image" => "ROOM_IMAGE_20250227091159.jpg",
-                "used_for" => "Yoga Only",
-                "capacity" => "9",
+                "used_for" => "Pilates Only",
+                "capacity" => 10,
             ]
         ];
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendInvoice;
+use App\Mail\SendProofPayment;
 use App\Models\CourseDetail;
 use App\Models\Member;
 use App\Models\MemberPlan;
@@ -9,9 +11,9 @@ use App\Models\Schedule;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class TransactionController extends Controller
@@ -43,12 +45,24 @@ class TransactionController extends Controller
                 "plan" => $dataCheckout["course_label_taken"],
                 "date" => $request->date,
                 "time" => $request->time,
+                "capacity" => $request->capacity,
                 "payment_status" => "waiting",
                 "notes" => $request->notes,
                 "total" => $dataCheckout["total"],
                 "expirated_date" => now()->addDay(),
             ]);
             DB::commit();
+
+            // Kebutuhan Email
+            $data = [
+                "invoice" => $newTransaction->invoice,
+                "transaction_date" => $newTransaction->created_at,
+                "label" => $dataCheckout["course_label_taken"],
+                "total" => $dataCheckout["total"],
+            ];
+            Mail::to(Auth::user()->email)->queue(new SendInvoice($data));
+            Mail::to("website@tangerine.my.id")->queue(new SendInvoice($data));
+
             return response()->json(["redirect_url" => route("payment.waiting", $newTransaction->invoice)]);
         } catch (\Exception $e) {
             DB::rollback();
@@ -130,7 +144,6 @@ class TransactionController extends Controller
                 ]);
             }
 
-
             $plan = $transaction->plan;
             $course_name = trim(explode(" - ", $plan)[0]);
             $course_detail_name = trim(explode(" - ", $plan)[1]);
@@ -148,10 +161,22 @@ class TransactionController extends Controller
                     'trainer_id' => $transaction->trainer_id,
                     'date' => $transaction->date,
                     'time' => $transaction->time,
+                    'capacity' => $transaction->capacity,
                 ]);
             }
 
             DB::commit();
+
+            // Kebutuhan Email
+            $data = [
+                "invoice" => $transaction->invoice,
+                "transaction_date" => $transaction->created_at,
+                "label" => $transaction->plan,
+                "total" => $transaction->total,
+                "proof_of_payment" => $transaction->proof_of_payment,
+            ];
+            Mail::to($transaction->user->email)->queue(new SendProofPayment($data));
+
             notificationFlash("success", "Successfully Confirm Payment");
             return response()->json(["success" => true]);
         } catch (\Exception $e) {
@@ -180,6 +205,16 @@ class TransactionController extends Controller
                 "proof_of_payment" => $fileName,
                 "payment_status" => "paid"
             ]);
+
+            // Kebutuhan Email
+            $data = [
+                "invoice" => $transaction->invoice,
+                "transaction_date" => $transaction->created_at,
+                "label" => $transaction->plan,
+                "total" => $transaction->total,
+                "proof_of_payment" => $fileName,
+            ];
+            Mail::to("website@tangerine.my.id")->queue(new SendProofPayment($data));
 
             notificationFlash("success", "Successfully Upload Proof");
             return response()->json(["success" => true]);

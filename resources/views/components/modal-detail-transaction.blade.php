@@ -30,7 +30,7 @@
                 {{ format_date($transaction->created_at) }}
             </span>
         </div>
-        <div class="flex justify-between">
+        {{-- <div class="flex justify-between">
             <span class="lg:text-sm text-xs flex-[3]">Payment Method</span>
             <span class="lg:text-sm text-xs flex-[2] text-gray-600 text-end">
                 BCA Virtual Account
@@ -41,7 +41,7 @@
             <span class="lg:text-sm text-xs flex-[2] text-gray-600 text-end">
                 8277 0812 3456 7890
             </span>
-        </div>
+        </div> --}}
     </div>
     <hr>
     <div class="">

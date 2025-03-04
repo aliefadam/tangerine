@@ -17,8 +17,7 @@
     <div class="grid grid-cols-3 gap-4 mt-5">
         @foreach ($hours as $hour)
             @php
-                $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour);
-
+                $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour, $capacity);
                 // $schedulesSelected = $schedules
                 //     ->where('time', str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
                 //     ->where('date', $selectedDate->format('Y-m-d'))
@@ -28,11 +27,10 @@
                 //     'date' => $selectedDate->format('Y-m-d'),
                 //     'isAvailableSchedule' => $isAvailableSchedule,
                 // ]);
-
             @endphp
 
             <div class="p-4 border rounded-lg shadow-md {{ !$isAvailableSchedule ? 'bg-white cursor-pointer hover:bg-gray-50 btn-choose-schedule' : 'cursor-not-allowed bg-gray-200' }}"
-                @if (!$isAvailableSchedule) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+                @if (!$isAvailableSchedule) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-capacity="{{ $capacity }}" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
                     data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}" @endif>
                 <div class="flex justify-between items-center">
                     <h3 class="text-base font-medium">
@@ -51,15 +49,6 @@
                             Not Available
                         </span>
                     @endif
-
-                    {{-- @foreach ($schedulesSelected as $schedule)
-                        @if ($schedule)
-                            <span class="text-red-700">
-                                <i class="fa-regular fa-empty-set"></i>
-                                Not Available
-                            </span>
-                        @endif
-                    @endforeach --}}
                 </div>
             </div>
         @endforeach

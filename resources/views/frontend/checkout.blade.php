@@ -5,6 +5,7 @@
         @csrf
         <input type="hidden" name="date" id="input-date-hidden">
         <input type="hidden" name="time" id="input-time-hidden">
+        <input type="hidden" name="capacity" id="input-capacity-hidden">
         {{-- <div class="mt-10 sm:w-full lg:w-1/2 mx-auto space-y-5 pb-20 py-10 px-5"> --}}
         {{-- <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-10"> --}}
         <div class="px-5 lg:px-20 py-5 lg:py-10 min-h-screen">
@@ -27,7 +28,10 @@
                     <p class="text-center text-xl mt-1 poppins-medium text-stone-600">{{ format_rupiah($data['total']) }}
                     </p>
                 </div>
-                @if ($course_name == 'Yoga Classes')
+                @if (strpos($course_name, 'Pilates') !== false)
+                    {{-- id 2 untuk pilates --}}
+                    <input checked type="radio" class="hidden" name="room_id" value="2">
+                @else
                     <div class="mt-10">
                         <h1 class="text-center text-xl text-stone-700 poppins-semibold">Choose your room</h1>
                         <ul class="grid w-full gap-10 md:grid-cols-2 mt-5">
@@ -36,7 +40,7 @@
                                     <input type="radio" id="hosting-small-{{ $index }}" name="room_id"
                                         value="{{ $room->id }}" class="hidden peer" />
                                     <label for="hosting-small-{{ $index }}"
-                                        class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-3 peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
+                                        class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-2 peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
                                         <img src="/uploads/rooms/{{ $room->image }}" class="h-[300px] w-full object-cover">
                                         <div class="p-3">
                                             <h1 class="text-center text-stone-700 poppins-medium">{{ $room->name }}</h1>
@@ -47,9 +51,6 @@
                             @endforeach
                         </ul>
                     </div>
-                @else
-                    {{-- id 1 untuk semua room --}}
-                    <input checked type="radio" class="hidden" name="room_id" value="1">
                 @endif
                 @if ($data['course_detail_name'] == 'Private Class')
                     <div class="mt-10">
@@ -60,7 +61,7 @@
                                     <input type="radio" id="trainer-{{ $index }}" name="trainer_id"
                                         value="{{ $trainer->id }}" class="hidden peer" />
                                     <label for="trainer-{{ $index }}"
-                                        class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-3 peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
+                                        class="inline-flex flex-col items-center justify-between w-full text-gray-500 bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer peer-checked:border-2 peer-checked:border-stone-600 peer-checked:text-stone-600 hover:text-gray-600 hover:bg-gray-100">
                                         <img src="/uploads/trainers/{{ $trainer->image }}"
                                             class="h-[300px] w-full object-cover">
                                         <div class="p-3">
@@ -223,6 +224,7 @@
             } else {
                 $("#input-date-hidden").val(null);
                 $("#input-time-hidden").val(null);
+                $("#input-capacity-hidden").val(null);
                 $("#container-open-time-table").addClass("hidden");
             }
         }
@@ -230,36 +232,58 @@
         function selectDate() {
             const date = $(this).data('date');
 
-            $.ajax({
-                type: "GET",
-                url: `/get-schedule-day/${date}`,
-                beforeSend: function() {
-                    $("#modal-body").addClass("h-[500px]").html(`
-                    <div class="flex justify-center items-center h-full py-5">
-                        <div role="status">
-                            <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin fill-stone-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/></svg>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                    `);
-                },
-                success: function(response) {
-                    const detailDaysHTML = response.detailDaysHTML;
-                    $("#modal-body").html(detailDaysHTML);
-                    $("#modal-title").html(`
-                    <button type="button" id="btn-back"
-                        class="cursor-pointer bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-md text-sm px-3.5 py-1.5">
-                        <i class="fa-solid fa-caret-left"></i>
-                    </button>
-                    <h3 class="text-lg font-medium text-gray-900">
-                        Select Schedule
-                    </h3>
-                    `);
-                    $("#btn-back").click(backToSelectDate);
-                    $(".btn-choose-schedule").click(chooseSchedule);
+            Swal.fire({
+                text: 'Enter the number of participants',
+                input: "number",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Submit!',
+            }).then((r) => {
+                if (r.isConfirmed) {
+                    if (r.value == "") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please enter the number of participants!',
+                        });
+                        return;
+                    }
+                    $.ajax({
+                        type: "GET",
+                        url: `/get-schedule-day/${date}`,
+                        data: {
+                            capacity: r.value,
+                        },
+                        beforeSend: function() {
+                            $("#modal-body").addClass("h-[500px]").html(`
+                            <div class="flex justify-center items-center h-full py-5">
+                                <div role="status">
+                                    <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin  fill-stone-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/></svg>
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        `);
+                        },
+                        success: function(response) {
+                            const detailDaysHTML = response.detailDaysHTML;
+                            $("#modal-body").html(detailDaysHTML);
+                            $("#modal-title").html(`
+                            <button type="button" id="btn-back"
+                                class="cursor-pointer bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-md text-sm px-3.5 py-1.5">
+                                <i class="fa-solid fa-caret-left"></i>
+                            </button>
+                            <h3 class="text-lg font-medium text-gray-900">
+                                Select Schedule
+                            </h3>
+                            `);
+                            $("#btn-back").click(backToSelectDate);
+                            $(".btn-choose-schedule").click(chooseSchedule);
+                        }
+                    });
                 }
             });
-
         }
 
         function backToSelectDate() {
@@ -293,6 +317,7 @@
             const scheduleLabel = $(this).data('schedule-label');
             const date = $(this).data('date');
             const time = $(this).data('time');
+            const capacity = $(this).data('capacity');
 
             $("#btn-close-modal").click();
             $(".btn-choose-schedule").addClass("border").removeClass("border-2");
@@ -300,6 +325,7 @@
 
             $("#input-date-hidden").val(date);
             $("#input-time-hidden").val(time);
+            $("#input-capacity-hidden").val(capacity);
 
             $("#selectedScheduleLabel").html(`
             <div class="mt-5 poppins-medium text-lg">Schedule selected : ${scheduleLabel}</div>

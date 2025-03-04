@@ -18,19 +18,38 @@ class UpdateRemainingSession
      */
     public function handle(Request $request, Closure $next)
     {
+        // $schedules = Schedule::all();
+        // foreach ($schedules as $schedule) {
+        //     if ($schedule) {
+        //         $yesterday = Carbon::parse($schedule->date)->subDay();
+        //         $today = Carbon::today();
+
+        //         if ($yesterday->equalTo($today)) {
+        //             $memberPlan = $schedule->memberPlan;
+
+        //             if ($memberPlan->last_deducted_at !== $today->toDateString()) {
+        //                 $memberPlan->update([
+        //                     'remaining_session' => $memberPlan->remaining_session - 1,
+        //                     'last_deducted_at' => $today->toDateString()
+        //                 ]);
+        //             }
+        //         }
+        //     }
+        // }
+
         $schedules = Schedule::all();
         foreach ($schedules as $schedule) {
             if ($schedule) {
-                $yesterday = Carbon::parse($schedule->date)->subDay();
-                $today = Carbon::today();
+                $timeLimit = Carbon::now()->subHours(12);
+                $classDateTime = Carbon::parse($schedule->date)->setTimeFrom($schedule->time);
 
-                if ($yesterday->equalTo($today)) {
+                if ($classDateTime->lessThanOrEqualTo($timeLimit)) {
                     $memberPlan = $schedule->memberPlan;
 
-                    if ($memberPlan->last_deducted_at !== $today->toDateString()) {
+                    if ($memberPlan->last_deducted_at !== Carbon::today()->toDateString()) {
                         $memberPlan->update([
                             'remaining_session' => $memberPlan->remaining_session - 1,
-                            'last_deducted_at' => $today->toDateString()
+                            'last_deducted_at' => Carbon::today()->toDateString()
                         ]);
                     }
                 }
