@@ -235,6 +235,17 @@
         function selectDate() {
             const date = $(this).data('date');
 
+            if ($("input[name=room_id]").length != 0) {
+                if ($("input[name=room_id]:checked").length == 0) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Please select the room"
+                    });
+                    return;
+                }
+            }
+
             Swal.fire({
                 text: 'Enter the number of participants',
                 input: "number",
@@ -269,6 +280,7 @@
                         url: `/get-schedule-day/${date}`,
                         data: {
                             capacity: r.value,
+                            roomID: $("input[name=room_id]:checked").val(),
                         },
                         beforeSend: function() {
                             $("#modal-body").addClass("h-[500px]").html(`

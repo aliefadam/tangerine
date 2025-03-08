@@ -17,7 +17,7 @@
     <div class="grid grid-cols-3 gap-4 mt-5">
         @foreach ($hours as $hour)
             @php
-                $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour, $capacity);
+                $isAvailableSchedule = isAvailableSchedule($selectedDate, $hour, $capacity, $roomID);
                 // $schedulesSelected = $schedules
                 //     ->where('time', str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
                 //     ->where('date', $selectedDate->format('Y-m-d'))

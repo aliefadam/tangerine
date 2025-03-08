@@ -45,11 +45,11 @@
                         </label>
                     </div>
                     <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
-                        <input @checked($room->used_for == 'Yoga Only') id="bordered-radio-2" type="radio" value="Yoga Only"
+                        <input @checked($room->used_for == 'Pilates Only') id="bordered-radio-2" type="radio" value="Pilates Only"
                             name="used_for" class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
                         <label for="bordered-radio-2"
                             class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Yoga Only
+                            Pilates Only
                         </label>
                     </div>
                 </div>

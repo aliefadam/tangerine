@@ -221,6 +221,7 @@ class ScheduleController extends Controller
                 "schedules" => $schedules,
                 "dateFormatted" => $dateFormatted,
                 "capacity" => $request->capacity,
+                "roomID" => $request->roomID,
             ])->render(),
         ]);
     }

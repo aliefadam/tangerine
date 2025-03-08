@@ -3,6 +3,7 @@
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Menu;
+use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\TimeTable;
 use App\Models\Transaction;
@@ -144,13 +145,15 @@ if (!function_exists("getCourseDetail")) {
 }
 
 if (!function_exists("isAvailableSchedule")) {
-    function isAvailableSchedule($date, $hour, $capacity)
+    function isAvailableSchedule($date, $hour, $capacity, $roomID)
     {
         // return Schedule::whereDate("date", $date->format('Y-m-d'))
         //     ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
         //     ->exists();
 
-        if ($capacity > 9) {
+        $max_capacity = Room::find($roomID)->capacity;
+
+        if ($capacity > $max_capacity) {
             return true;
         }
 
