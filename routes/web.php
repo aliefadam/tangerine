@@ -6,39 +6,6 @@ use App\Http\Middleware\UpdateMembershipStatus;
 use App\Http\Middleware\UpdateRemainingSession;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/tes-email", function () {
-    return view('mail.send-invoice-mail-to-user', [
-        "data" => [
-            "invoice" => "123123123ASDASD",
-            "transaction_date" => format_date(now()),
-            "label" => "Pilates Classes Director - Company Class - Drop In",
-            "total" => 100000,
-        ]
-    ]);
-});
-Route::get("/tes-email-proof", function () {
-    return view('mail.send-proof-payment', [
-        "data" => [
-            "invoice" => "123123123ASDASD",
-            "transaction_date" => format_date(now()),
-            "label" => "Pilates Classes Director - Company Class - Drop In",
-            "total" => 100000,
-            "proof_of_payment" => "PROOF_IMAGE_202502280318172.jpg",
-        ]
-    ]);
-});
-Route::get("/tes-email-confirm", function () {
-    return view('mail.send-payment-confirm', [
-        "data" => [
-            "invoice" => "123123123ASDASD",
-            "transaction_date" => format_date(now()),
-            "label" => "Pilates Classes Director - Company Class - Drop In",
-            "total" => 100000,
-            "proof_of_payment" => "PROOF_IMAGE_202502280318172.jpg",
-        ]
-    ]);
-});
-
 Route::middleware([UpdateRemainingSession::class, UpdateMembershipStatus::class])->group(function () {
     Route::get('/', [FrontendController::class, "home"])->name("home");
     Route::get('/about', [FrontendController::class, "about"])->name("about");
@@ -48,6 +15,7 @@ Route::middleware([UpdateRemainingSession::class, UpdateMembershipStatus::class]
         Route::get('/{slug}', [FrontendController::class, "class_detail"])->name("class.detail");
     });
     Route::get('/schedule', [FrontendController::class, "schedule"])->name("schedule");
+    Route::get('/room-rental', [FrontendController::class, "room_rental"])->name("room-rental");
 
     Route::middleware(["auth"])->group(function () {
         Route::middleware(["verified"])->group(function () {
@@ -64,3 +32,5 @@ Route::middleware([UpdateRemainingSession::class, UpdateMembershipStatus::class]
 
     include_once __DIR__ . "/verify-email.php";
 });
+
+include_once __DIR__ . "/invoice-tes.php";

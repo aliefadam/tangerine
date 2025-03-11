@@ -33,6 +33,8 @@ class RoomSeeder extends Seeder
                 "image" => "ROOM_IMAGE_20250227091321.jpg",
                 "used_for" => "All Classes",
                 "capacity" => 10,
+                "can_be_rent" => true,
+                "rent_price" => 750_000,
             ],
             [
                 "id" => 2,

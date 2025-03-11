@@ -31,6 +31,45 @@
                     placeholder="" required></textarea>
             </div>
             <div class="mb-5">
+                <label for="for_class" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    For Class
+                </label>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                        <input id="bordered-radio-1" type="radio" value="Pilates" name="for_class"
+                            class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
+                        <label for="bordered-radio-1"
+                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Pilates
+                        </label>
+                    </div>
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                        <input id="bordered-radio-2" type="radio" value="Yoga" name="for_class"
+                            class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
+                        <label for="bordered-radio-2"
+                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Yoga
+                        </label>
+                    </div>
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                        <input id="bordered-radio-3" type="radio" value="Zumba" name="for_class"
+                            class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
+                        <label for="bordered-radio-3"
+                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Zumba
+                        </label>
+                    </div>
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                        <input id="bordered-radio-4" type="radio" value="Sweat Dance" name="for_class"
+                            class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
+                        <label for="bordered-radio-4"
+                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Sweat Dance
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
                 <label for="facebook_link" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Facebook Link • <span class="text-gray-600 text-xs">Opsional</span>
                 </label>

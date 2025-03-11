@@ -100,5 +100,11 @@ class MenuSeeder extends Seeder
             "route" => "admin.transaction.index",
             "icon" => "fa-regular fa-bag-shopping",
         ]);
+        MenuDetail::create([
+            "menu_id" => $newMenu->id,
+            "name" => "rent transaction",
+            "route" => "admin.rent-transaction.index",
+            "icon" => "fa-regular fa-bag-shopping",
+        ]);
     }
 }

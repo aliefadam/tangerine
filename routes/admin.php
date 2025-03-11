@@ -6,12 +6,14 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberPlanController;
+use App\Http\Controllers\RentTransactionController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Models\RentTransaction;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(AdminMiddleware::class)->group(function () {
@@ -99,6 +101,16 @@ Route::middleware(AdminMiddleware::class)->group(function () {
             Route::get("/edit/{id}", [TransactionController::class, "edit"])->name("admin.transaction.edit");
             Route::put("/update/{id}", [TransactionController::class, "update"])->name("admin.transaction.update");
             Route::delete("/destroy/{id}", [TransactionController::class, "destroy"])->name("admin.transaction.destroy");
+        });
+
+        Route::prefix("rent-transaction")->group(function () {
+            Route::get("/", [RentTransactionController::class, "index"])->name("admin.rent-transaction.index");
+            Route::get("/show/{id}/detail", [RentTransactionController::class, "show"])->name("admin.rent-transaction.show");
+            Route::get("/create", [RentTransactionController::class, "create"])->name("admin.rent-transaction.create");
+            Route::post("/store", [RentTransactionController::class, "store"])->name("admin.rent-transaction.store");
+            Route::get("/edit/{id}", [RentTransactionController::class, "edit"])->name("admin.rent-transaction.edit");
+            Route::put("/update/{id}", [RentTransactionController::class, "update"])->name("admin.rent-transaction.update");
+            Route::delete("/destroy/{id}", [RentTransactionController::class, "destroy"])->name("admin.rent-transaction.destroy");
         });
 
         Route::get("/change-password", [BackendController::class, "change_password"])->name("admin.change-password");

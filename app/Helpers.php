@@ -3,6 +3,7 @@
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Menu;
+use App\Models\RentTransactionDetail;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\TimeTable;
@@ -147,10 +148,6 @@ if (!function_exists("getCourseDetail")) {
 if (!function_exists("isAvailableSchedule")) {
     function isAvailableSchedule($date, $hour, $capacity, $roomID)
     {
-        // return Schedule::whereDate("date", $date->format('Y-m-d'))
-        //     ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
-        //     ->exists();
-
         $max_capacity = Room::find($roomID)->capacity;
 
         if ($capacity > $max_capacity) {
@@ -172,6 +169,27 @@ if (!function_exists("isAvailableSchedule")) {
                 return false;
             }
         }
+    }
+}
+
+if (!function_exists("isNotAvailableTrainer")) {
+    function isNotAvailableTrainer($trainer_id, $date, $hour)
+    {
+        $schedule = Transaction::whereDate("date", $date->format('Y-m-d'))
+            ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+            ->where('trainer_id', $trainer_id)
+            ->exists();
+        return $schedule;
+    }
+}
+
+if (!function_exists("isRentedRoom")) {
+    function isRentedRoom($date, $hour)
+    {
+        $rentDetail = RentTransactionDetail::whereDate("date", $date->format('Y-m-d'))
+            ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+            ->exists();
+        return $rentDetail;
     }
 }
 

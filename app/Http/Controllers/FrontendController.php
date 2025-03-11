@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\RentTransaction;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\TimeTable;
@@ -88,11 +89,14 @@ class FrontendController extends Controller
             $rooms = Room::where("used_for", "!=", "Yoga Only")->get();
         }
 
+        $course_name_split = explode(" ", $course_name)[0];
+        $trainers = Trainer::where("for_class", $course_name_split)->get();
+
         return view("frontend.checkout", [
             "title" => "Checkout",
             "data" => $data,
             "rooms" => $rooms,
-            "trainers" => Trainer::all(),
+            "trainers" => $trainers,
             "schedules" => $schedules,
             "years" => $years,
             "calendarData" => $calendarData,
@@ -109,11 +113,42 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function payment_waiting_rent($invoice)
+    {
+        return view("frontend.payment-waiting-rent", [
+            "title" => "Payment Waiting",
+            "transaction" => RentTransaction::firstWhere("invoice", $invoice)
+        ]);
+    }
+
     public function schedule()
     {
         return view('frontend.schedule', [
             "title" => "Schedule",
             "time_tables" => TimeTable::all(),
+        ]);
+    }
+
+    public function room_rental()
+    {
+        $schedules = Schedule::all();
+        $years = generateDate()["years"];
+        $calendarData = generateDate()["calendarData"];
+        return view('frontend.room-rental', [
+            "title" => "Room Rental",
+            "schedulesAll" => $schedules,
+            "years" => $years,
+            "calendarData" => $calendarData,
+            "rooms" => Room::where("can_be_rent", true)->get(),
+        ]);
+    }
+
+    public function get_price_rent_room($count_hour, $room_id)
+    {
+        $room = Room::find($room_id);
+        return response()->json([
+            "price" => format_rupiah($room->rent_price),
+            "total" => format_rupiah($room->rent_price * $count_hour),
         ]);
     }
 
@@ -135,9 +170,26 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function rent_transaction()
+    {
+        return view("frontend.rent-transaction", [
+            "title" => "Rent Transaction",
+            "transactions" => RentTransaction::where("user_id", Auth::user()->id)->latest()->get(),
+        ]);
+    }
+
+    public function rent_transaction_detail($id)
+    {
+        $transaction = RentTransaction::find($id);
+        return response()->json([
+            "html" => view("components.modal-detail-rent-transaction", [
+                "transaction" => $transaction,
+            ])->render(),
+        ]);
+    }
+
     public function profile()
     {
-        $user_id = Auth::user()->id;
         $schedules = Schedule::all();
         $years = generateDate()["years"];
         $calendarData = generateDate()["calendarData"];

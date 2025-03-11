@@ -8,6 +8,7 @@ use App\Models\CourseDetail;
 use App\Models\Member;
 use App\Models\MemberPlan;
 use App\Models\Schedule;
+use App\Models\Trainer;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -41,6 +42,14 @@ class TransactionController extends Controller
         if ($request->capacity > $course_detail->person_max) {
             notificationFlash("error", "Capacity is over");
             return response()->json(["redirect_url" => "", "message" => "Capacity is over"]);
+        }
+
+        $isNotAvailableTrainer = Transaction::where("trainer_id", $request->trainer_id)->where("date", $request->date)->where("time", $request->time)->exists();
+        if ($isNotAvailableTrainer) {
+            $trainerName = Trainer::find($request->trainer_id)->name;
+            $formatedDate = Carbon::parse($request->date)->format("l, d M Y");
+            notificationFlash("error", "Trainer {$trainerName} is not available on {$formatedDate} - {$request->time}");
+            return response()->json(["redirect_url" => "", "message" => "Trainer is not available"]);
         }
 
         DB::beginTransaction();

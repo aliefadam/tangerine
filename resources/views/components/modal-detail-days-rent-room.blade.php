@@ -8,7 +8,7 @@
         </svg>
         <span class="sr-only">Info</span>
         <div>
-            <span class="font-medium">Now choose the time</span>
+            <span class="font-medium">Please select any time to be rented</span>
         </div>
     </div>
     <h2 class="text-xl font-semibold mb-4 text-center mt-5">
@@ -18,20 +18,13 @@
         @foreach ($hours as $hour)
             @php
                 $isAvailable =
-                    isAvailableSchedule($selectedDate, $hour, $capacity, $roomID) ||
-                    isNotAvailableTrainer($trainerID, $selectedDate, $hour) ||
-                    isRentedRoom($selectedDate, $hour);
+                    isAvailableSchedule($selectedDate, $hour, $capacity, $roomID) || isRentedRoom($selectedDate, $hour);
 
                 $notAvailableSchedule = isAvailableSchedule($selectedDate, $hour, $capacity, $roomID);
-                $notAvailableTrainer = isNotAvailableTrainer($trainerID, $selectedDate, $hour);
                 $isRentedRoom = isRentedRoom($selectedDate, $hour);
                 $notAbailableLabel = '';
                 if ($notAvailableSchedule) {
                     $notAbailableLabel = 'Capacity Full';
-                }
-
-                if ($notAvailableTrainer) {
-                    $notAbailableLabel = 'Not Available Trainer';
                 }
 
                 if ($isRentedRoom) {
@@ -40,7 +33,7 @@
             @endphp
 
             <div class="p-4 border rounded-lg shadow-md {{ !$isAvailable ? 'bg-white cursor-pointer hover:bg-gray-50 btn-choose-schedule' : 'cursor-not-allowed bg-gray-200' }}"
-                @if (!$isAvailable) data-schedule-label="{{ $selectedDate->format('l, d F Y') }} - {{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00" data-capacity="{{ $capacity }}" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
+                @if (!$isAvailable) data-schedule-label-date="{{ $selectedDate->format('l, d F Y') }}" data-time="{{ str_pad($hour, 2, '0', STR_PAD_LEFT) }}:00"
                     data-date="{{ Carbon\Carbon::parse($selectedDate)->format('Y/m/d') }}" @endif>
                 <div class="flex justify-between items-center">
                     <h3 class="text-base font-medium">
@@ -56,7 +49,6 @@
                     @else
                         <span class="text-red-700">
                             <i class="fa-regular fa-empty-set"></i>
-                            {{-- Not Available --}}
                             {{ $notAbailableLabel }}
                         </span>
                     @endif

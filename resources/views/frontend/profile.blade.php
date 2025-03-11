@@ -202,6 +202,7 @@
                                                         data-member-plan-id="{{ $memberPlan->id }}"
                                                         data-max-person="{{ $course_detail_person_max }}"
                                                         data-room-id="{{ $memberPlan->room_id }}"
+                                                        data-trainer-id="{{ $memberPlan->trainer_id }}"
                                                         class="btn-add-schedule inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-stone-700 rounded-lg hover:bg-stone-800 focus:ring-4 focus:outline-none focus:ring-stone-300">
                                                         <i class="fa-regular fa-calendar mr-1.5"></i>
                                                         Add Schedule
@@ -449,6 +450,7 @@
 
         let memberPlanID = null;
         let roomID = null;
+        let trainerID = null;
         let max_person = null;
 
         function selectDate() {
@@ -488,6 +490,7 @@
                         data: {
                             capacity: r.value,
                             roomID: roomID,
+                            trainerID: trainerID
                         },
                         beforeSend: function() {
                             $("#modal-body").addClass("h-[500px]").html(`
@@ -628,6 +631,7 @@
             memberPlanID = $(this).data("member-plan-id");
             max_person = +$(this).data('max-person');
             roomID = $(this).data('room-id');
+            trainerID = $(this).data('trainer-id');
         }
 
         function clickInput() {

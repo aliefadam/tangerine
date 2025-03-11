@@ -6,6 +6,8 @@ use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Member;
 use App\Models\MemberPlan;
+use App\Models\RentTransaction;
+use App\Models\RentTransactionDetail;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\ScheduleCapacity;
@@ -148,6 +150,7 @@ class ScheduleController extends Controller
         $hours = range(6, 20);
         $dateFormatted = $selectedDate->isoFormat('dddd, D MMMM Y');
         $schedules = Schedule::where('date', $date)->get();
+        $rentTransactions = RentTransactionDetail::where('date', $date)->get();
 
         return view("backend.schedule.show", [
             "title" => "Schedule Detail at {$dateFormatted}",
@@ -157,6 +160,7 @@ class ScheduleController extends Controller
             "trainers" => Trainer::all(),
             "members" => Member::all(),
             "schedules" => $schedules,
+            "rentTransactions" => $rentTransactions
         ]);
     }
 
@@ -221,6 +225,31 @@ class ScheduleController extends Controller
                 "schedules" => $schedules,
                 "dateFormatted" => $dateFormatted,
                 "capacity" => $request->capacity,
+                "roomID" => $request->roomID,
+                "trainerID" => $request->trainerID,
+            ])->render(),
+        ]);
+    }
+
+    public function get_schedule_day_rent_room($date, Request $request)
+    {
+        try {
+            $selectedDate = Carbon::createFromFormat('Y-m-d', $date);
+        } catch (\Exception $e) {
+            abort(404, 'Tanggal tidak valid');
+        }
+
+        $hours = range(6, 20);
+        $dateFormatted = $selectedDate->isoFormat('dddd, D MMMM Y');
+        $schedules = Schedule::where('date', $date)->get();
+
+        return response()->json([
+            "detailDaysHTML" => view("components.modal-detail-days-rent-room", [
+                "hours" => $hours,
+                "selectedDate" => $selectedDate,
+                "schedules" => $schedules,
+                "dateFormatted" => $dateFormatted,
+                "capacity" => 10, // ditulis hardcode karena dengan asumsi dipakai sendiri
                 "roomID" => $request->roomID,
             ])->render(),
         ]);

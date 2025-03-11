@@ -131,14 +131,20 @@
                                 </div>
                             @endforeach
 
-                            {{-- @foreach ($schedulesSelected as $schedule)
-                        @if ($schedule)
-                            <span class="text-red-700">
-                                <i class="fa-regular fa-empty-set"></i>
-                                Not Available
-                            </span>
-                        @endif
-                    @endforeach --}}
+                            @foreach ($rentTransactions->where('time', '0' . $hour . ':00:00') as $rent)
+                                <div class="p-3 shadow-md bg-stone-50 rounded-md w-fit flex gap-3">
+                                    <div class="">
+                                        <img src="{{ $rent->rentTransaction->user->image ? '/uploads/users/' . $rent->rentTransaction->user->image : '/imgs/no-image.png' }}"
+                                            class="size-[60px] object-cover rounded-full">
+                                    </div>
+                                    <div class="flex flex-col text-stone-800">
+                                        <div class="flex justify-between mb-0.5">
+                                            <span class="poppins-medium">{{ $rent->rentTransaction->user->name }}</span>
+                                        </div>
+                                        <span class="text-xs">Rental Room at {{ $rent->room->name }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 @endforeach

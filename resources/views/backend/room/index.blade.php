@@ -31,6 +31,9 @@
                         <th scope="col" class="px-6 py-4 w-[250px]">
                             Capacity
                         </th>
+                        <th scope="col" class="px-6 py-4 w-[250px]">
+                            Can be rented
+                        </th>
                         <th scope="col" class="px-6 py-4">
                             Action
                         </th>
@@ -54,6 +57,21 @@
                             </td>
                             <td class="px-6 py-4 w-fit">
                                 {{ $room->capacity }}
+                            </td>
+                            <td class="px-6 py-4 w-fit">
+                                @if ($room->can_be_rent)
+                                    <div class="flex items-center gap-2">
+                                        <span
+                                            class="bg-emerald-100 text-emerald-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
+                                            Yes
+                                        </span>
+                                        <span>{{ format_rupiah($room->rent_price) }}/Hour</span>
+                                    </div>
+                                @else
+                                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
+                                        No
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-5">
@@ -97,6 +115,15 @@
                         type: 'DELETE',
                         data: {
                             _token: "{{ csrf_token() }}",
+                        },
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Loading',
+                                text: 'Please wait...',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            });
                         },
                         success: function(data) {
                             location.reload();

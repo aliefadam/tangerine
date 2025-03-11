@@ -26,6 +26,14 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
+        $canBeRent = $request->can_be_rent == "true" ? true : false;
+        if ($canBeRent) {
+            if ($request->rent_price == null) {
+                return redirect_user("error", "If this room can be rented, please enter the rental price.");
+            }
+        } else {
+            $rent_price = null;
+        }
         try {
             DB::beginTransaction();
             $file = $request->file("room_image");
@@ -36,6 +44,8 @@ class RoomController extends Controller
                 "used_for" => $request->used_for,
                 "capacity" => $request->capacity,
                 "image" => $fileName,
+                "can_be_rent" => $canBeRent,
+                "rent_price" => $rent_price,
             ]);
             DB::commit();
             return redirect_user("success", "Successfully Added Room", "admin.room.index");
@@ -61,6 +71,14 @@ class RoomController extends Controller
 
     public function update(Request $request, $id)
     {
+        $canBeRent = $request->can_be_rent == "true" ? true : false;
+        if ($canBeRent) {
+            if ($request->rent_price == null) {
+                return redirect_user("error", "If this room can be rented, please enter the rental price.");
+            }
+        } else {
+            $rent_price = null;
+        }
         $room = Room::find($id);
         try {
             DB::beginTransaction();
@@ -68,6 +86,8 @@ class RoomController extends Controller
                 "name" => $request->name,
                 "used_for" => $request->used_for,
                 "capacity" => $request->capacity,
+                "can_be_rent" => $canBeRent,
+                "rent_price" => $rent_price,
             ];
             if ($request->hasFile("room_image")) {
                 $file = $request->file("room_image");

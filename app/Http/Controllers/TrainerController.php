@@ -40,6 +40,7 @@ class TrainerController extends Controller
                 "facebook_link" => $request->facebook_link,
                 "instagram_link" => $request->instagram_link,
                 "twitter_link" => $request->twitter_link,
+                "for_class" => $request->for_class,
             ]);
             DB::commit();
             return redirect_user("success", "Successfully Add Trainer", "admin.trainer.index");
@@ -73,6 +74,7 @@ class TrainerController extends Controller
             "facebook_link" => $request->facebook_link,
             "instagram_link" => $request->instagram_link,
             "twitter_link" => $request->twitter_link,
+            "for_class" => $request->for_class,
         ];
         if ($request->hasFile("image")) {
             $file = $request->file("image");

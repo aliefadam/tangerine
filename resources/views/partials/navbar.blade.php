@@ -18,6 +18,9 @@
                     class="{{ request()->routeIs('classes') || request()->routeIs('class.detail') ? 'text-stone-900 hover:text-stone-900 poppins-semibold' : 'text-stone-700 hover:text-stone-900 font-medium' }}">Classes</a>
                 <a href="{{ route('schedule') }}"
                     class="{{ request()->routeIs('schedule') ? 'text-stone-900 hover:text-stone-900 poppins-semibold' : 'text-stone-700 hover:text-stone-900 font-medium' }}">Schedule</a>
+                <a href="{{ route('room-rental') }}"
+                    class="{{ request()->routeIs('room-rental') ? 'text-stone-900 hover:text-stone-900 poppins-semibold' : 'text-stone-700 hover:text-stone-900 font-medium' }}">Room
+                    Rental</a>
                 @auth
                     <button id="dropdownAvatarNameButton"Mobile data-dropdown-toggle="dropdownAvatarName"
                         class="cursor-pointer flex items-center text-sm pe-1 font-medium text-gray-900 rounded-full hover:text-stone-600 md:me-0 focus:ring-4 focus:ring-gray-100"
@@ -53,6 +56,12 @@
                                 <a href="{{ route('transaction') }}" class="block px-4 py-2.5 hover:bg-gray-50">
                                     <i class="fa-regular fa-history mr-1"></i>
                                     Transaction
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('rent-transaction') }}" class="block px-4 py-2.5 hover:bg-gray-50">
+                                    <i class="fa-regular fa-history mr-1"></i>
+                                    Rent Transaction
                                 </a>
                             </li>
                         </ul>
@@ -108,6 +117,12 @@
                                     Transaction
                                 </a>
                             </li>
+                            <li>
+                                <a href="{{ route('rent-transaction') }}" class="block px-4 py-2.5 hover:bg-gray-50">
+                                    <i class="fa-regular fa-history mr-1"></i>
+                                    Rent Transaction
+                                </a>
+                            </li>
                         </ul>
                         <div class="py-2">
                             <a href="{{ route('logout') }}"
@@ -143,6 +158,9 @@
                 class="block px-3 py-2 text-base {{ request()->routeIs('classes') || request()->routeIs('class.detail') ? 'poppins-medium text-stone-900 bg-stone-100 poppins-semibold' : 'poppins-medium text-stone-700 hover:text-stone-900 hover:bg-gray-50' }}">Classes</a>
             <a href="{{ route('schedule') }}"
                 class="block px-3 py-2 text-base {{ request()->routeIs('schedule') ? 'poppins-medium text-stone-900 bg-stone-100 poppins-semibold' : 'poppins-medium text-stone-700 hover:text-stone-900 hover:bg-gray-50' }}">Schedule</a>
+            <a href="{{ route('room-rental') }}"
+                class="block px-3 py-2 text-base {{ request()->routeIs('room-rental') ? 'poppins-medium text-stone-900 bg-stone-100 poppins-semibold' : 'poppins-medium text-stone-700 hover:text-stone-900 hover:bg-gray-50' }}">Room
+                Rental</a>
         </div>
     </div>
 </nav>

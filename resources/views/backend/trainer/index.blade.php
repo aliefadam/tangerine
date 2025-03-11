@@ -29,8 +29,11 @@
                             Photo
                         </th>
                         <th scope="col" class="px-6 py-4">
-                            Social Media Link
+                            For Class
                         </th>
+                        {{-- <th scope="col" class="px-6 py-4">
+                            Social Media Link
+                        </th> --}}
                         <th scope="col" class="px-6 py-4">
                             Action
                         </th>
@@ -52,7 +55,10 @@
                                 <img src="/uploads/trainers/{{ $trainer->image }}"
                                     class="size-20 object-cover rounded-md shadow-md">
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-6 py-4 w-fit">
+                                {{ $trainer->for_class }}
+                            </td>
+                            {{-- <td class="px-6 py-4">
                                 <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                                     <li>
                                         Facebook :
@@ -88,7 +94,7 @@
                                         @endif
                                     </li>
                                 </ul>
-                            </td>
+                            </td> --}}
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-5">
                                     <a href="{{ route('admin.trainer.edit', $trainer->id) }}"

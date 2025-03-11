@@ -28,7 +28,7 @@
                                 </div>
                                 <input type="text" id="name" name="name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
-                                    placeholder="Enter your name">
+                                    required placeholder="Enter your name">
                             </div>
                         </div>
 
@@ -42,7 +42,7 @@
                                 </div>
                                 <input type="email" id="email" name="email"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
-                                    placeholder="Enter your email">
+                                    required placeholder="Enter your email">
                             </div>
                         </div>
 
@@ -56,7 +56,7 @@
                                 </div>
                                 <input type="phone" id="phone" name="phone"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
-                                    placeholder="Enter your phone">
+                                    required placeholder="Enter your phone">
                             </div>
                         </div>
 
@@ -70,7 +70,7 @@
                                 </div>
                                 <input type="password" id="password" name="password"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
-                                    placeholder="**********">
+                                    required placeholder="**********">
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@
                                 </div>
                                 <input type="password" id="password_confirmation" name="password_confirmation"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full ps-10 p-2.5 placeholder:text-gray-500"
-                                    placeholder="**********">
+                                    required placeholder="**********">
                             </div>
                         </div>
 

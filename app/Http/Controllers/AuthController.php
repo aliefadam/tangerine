@@ -89,7 +89,8 @@ class AuthController extends Controller
 
         Auth::login($user);
         event(new Registered($user));
-        return redirect()->route("register.verify");
+        // return redirect()->route("register.verify");
+        return redirect()->route("gate");
     }
 
     public function register_verify()

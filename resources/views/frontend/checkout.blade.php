@@ -275,12 +275,24 @@
                         return;
                     }
 
+                    if ($("input[name=trainer_id]").length != 0) {
+                        if ($("input[name=trainer_id]:checked").length == 0) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                text: "Please select the trainer first"
+                            });
+                            return;
+                        }
+                    }
+
                     $.ajax({
                         type: "GET",
                         url: `/get-schedule-day/${date}`,
                         data: {
                             capacity: r.value,
                             roomID: $("input[name=room_id]:checked").val(),
+                            trainerID: $("input[name=trainer_id]:checked").val(),
                         },
                         beforeSend: function() {
                             $("#modal-body").addClass("h-[500px]").html(`
