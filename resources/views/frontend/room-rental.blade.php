@@ -191,6 +191,23 @@
             const hour = countHour;
             const date = dateSelected;
             const time = timeSelected;
+            const isLogin = @json(Auth::check());
+
+            if (!isLogin) {
+                Swal.fire({
+                    icon: "warning",
+                    title: 'Login Required',
+                    text: 'You must login first before rent a room',
+                    confirmButtonText: 'Login',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/login";
+                    }
+                });
+                return;
+            }
 
             if (!roomID) {
                 Swal.fire({
@@ -332,6 +349,24 @@
                     });
                     return;
                 }
+            }
+
+            const isLogin = @json(Auth::check());
+
+            if (!isLogin) {
+                Swal.fire({
+                    icon: "warning",
+                    title: 'Login Required',
+                    text: 'You must login first before rent a room',
+                    confirmButtonText: 'Login',
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/login";
+                    }
+                });
+                return;
             }
 
             $.ajax({
