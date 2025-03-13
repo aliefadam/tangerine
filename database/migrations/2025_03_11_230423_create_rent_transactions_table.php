@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId("user_id");
             $table->string("invoice");
             $table->integer("participant");
+            $table->string("room_type");
             $table->string("used_for");
             $table->double("price");
             $table->integer("hour");

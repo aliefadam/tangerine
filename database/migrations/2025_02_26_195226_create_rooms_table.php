@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string("used_for");
             $table->string("capacity")->default(10);
             $table->boolean("can_be_rent")->nullable();
-            $table->double("rent_price")->nullable();
+            $table->text("rent_price_under_10")->nullable();
+            $table->text("rent_price_over_10")->nullable();
             $table->timestamps();
         });
     }

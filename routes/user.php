@@ -46,6 +46,7 @@ Route::middleware(UserMiddleware::class)->group(function () {
 
     Route::get("/get-price-rent-room/{hour_count}/{room_id}", [FrontendController::class, "get_price_rent_room"])->name("get-price-rent-room");
 
+    Route::get("/get-detail-order", [FrontendController::class, "get_detail_order"])->name("get-detail-order");
     Route::post("/rent-transaction", [RentTransactionController::class, "store"])->name("rent-transaction.store");
     Route::post("/upload/proof/rent", [RentTransactionController::class, "upload_proof"])->name("payment.rent.upload.proof");
 });

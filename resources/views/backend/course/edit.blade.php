@@ -37,7 +37,7 @@
                 </label>
                 <img src="/uploads/courses/{{ $course->image }}" class="size-20 object-cover rounded-md shadow-md mb-3">
                 <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                     id="image" type="file" name="image">
             </div>
             <div class="mt-5">

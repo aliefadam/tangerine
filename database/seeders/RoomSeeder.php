@@ -34,7 +34,22 @@ class RoomSeeder extends Seeder
                 "used_for" => "All Classes",
                 "capacity" => 10,
                 "can_be_rent" => true,
-                "rent_price" => 750_000,
+                "rent_price_under_10" => [
+                    "without_bath" => 350_000,
+                    "with_bath" => 450_000,
+                ],
+                "rent_price_over_10" => [
+                    "without_bath" => 450_000,
+                    "with_bath" => 600_000,
+                ],
+                // "rent_price_under_10" => json_encode([
+                //     "without_bath" => 350_000,
+                //     "with_bath" => 450_000,
+                // ]),
+                // "rent_price_over_10" => json_encode([
+                //     "without_bath" => 450_000,
+                //     "with_bath" => 600_000,
+                // ]),
             ],
             [
                 "id" => 2,

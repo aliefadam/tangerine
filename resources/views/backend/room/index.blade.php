@@ -28,11 +28,14 @@
                         <th scope="col" class="px-6 py-4">
                             Image
                         </th>
-                        <th scope="col" class="px-6 py-4 w-[250px]">
+                        <th scope="col" class="px-6 py-4">
                             Capacity
                         </th>
-                        <th scope="col" class="px-6 py-4 w-[250px]">
+                        <th scope="col" class="px-6 py-4">
                             Can be rented
+                        </th>
+                        <th scope="col" class="px-6 py-4">
+                            Rental Price
                         </th>
                         <th scope="col" class="px-6 py-4">
                             Action
@@ -60,18 +63,41 @@
                             </td>
                             <td class="px-6 py-4 w-fit">
                                 @if ($room->can_be_rent)
-                                    <div class="flex items-center gap-2">
-                                        <span
-                                            class="bg-emerald-100 text-emerald-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
-                                            Yes
-                                        </span>
-                                        <span>{{ format_rupiah($room->rent_price) }}/Hour</span>
-                                    </div>
+                                    <span
+                                        class="bg-emerald-100 text-emerald-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
+                                        Yes
+                                    </span>
                                 @else
                                     <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">
                                         No
                                     </span>
                                 @endif
+                            </td>
+                            <td>
+                                <div class="border shadow-sm bg-white p-2 rounded-md">
+                                    <h1 class="poppins-medium">Under 10 Participant</h1>
+                                    <div class="text-xs flex flex-col mt-1">
+                                        <span class="text-gray-600">
+                                            With Bath : {{ format_rupiah($room->rent_price_under_10['with_bath'] ?? 0) }}
+                                        </span>
+                                        <span class="text-gray-600">
+                                            Without Bath :
+                                            {{ format_rupiah($room->rent_price_under_10['without_bath'] ?? 0) }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mt-3 border shadow-sm bg-white p-2 rounded-md">
+                                    <h1 class="poppins-medium">Over 10 Participant</h1>
+                                    <div class="text-xs flex flex-col mt-1">
+                                        <span class="text-gray-600">
+                                            With Bath : {{ format_rupiah($room->rent_price_over_10['with_bath'] ?? 0) }}
+                                        </span>
+                                        <span class="text-gray-600">
+                                            Without Bath :
+                                            {{ format_rupiah($room->rent_price_over_10['without_bath'] ?? 0) }}
+                                        </span>
+                                    </div>
+                                </div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-5">

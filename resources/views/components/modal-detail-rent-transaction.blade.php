@@ -53,6 +53,14 @@
             </div>
             <div class="flex justify-between">
                 <span class="lg:text-sm text-xs flex-[3]">
+                    Type
+                </span>
+                <span class="lg:text-sm text-xs flex-[2] text-gray-600 text-end">
+                    {{ $transaction->room_type == 'with_bath' ? 'With Bath' : 'Without Bath' }}
+                </span>
+            </div>
+            <div class="flex justify-between">
+                <span class="lg:text-sm text-xs flex-[3]">
                     Rent Date
                 </span>
                 <span class="lg:text-sm text-xs flex-[2] text-gray-600 text-end">

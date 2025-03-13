@@ -24,27 +24,28 @@ class RentTransactionController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
+        $userID = Auth::user()->id;
+        $dataTransaction = session("rent_transaction_{$userID}");
         try {
-            $userID = Auth::user()->id;
-            $room = Room::find($request->roomID);
-            $price = $room->rent_price;
-            $total = $price * $request->hour;
+            $price = $dataTransaction["room_price"];
+            $total = $price * $dataTransaction["hour"];
 
             $newTransaction = RentTransaction::create([
                 "user_id" => $userID,
                 "invoice" => "INV_TANGERINE_" . date("Ymdhis") . $userID . "_" . strtoupper(Str::random(10)),
-                "participant" => $request->participant,
-                "used_for" => $request->used_for,
+                "participant" => $dataTransaction["participant"],
+                "room_type" => $dataTransaction["type"],
+                "used_for" => $dataTransaction["used_for"],
                 "price" => $price,
-                "hour" => $request->hour,
+                "hour" => $dataTransaction["hour"],
                 "total" => $total,
                 "status" => "waiting",
             ]);
-            foreach ($request->time as $time) {
+            foreach ($dataTransaction["time"] as $time) {
                 RentTransactionDetail::create([
                     "rent_transaction_id" => $newTransaction->id,
-                    "room_id" => $request->roomID,
-                    "date" => $request->date,
+                    "room_id" => $dataTransaction["room_id"],
+                    "date" => $dataTransaction["date"],
                     "time" => $time,
                 ]);
             }

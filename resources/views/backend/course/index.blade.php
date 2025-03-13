@@ -13,8 +13,8 @@
 
     <div class="mt-5">
         <div class="relative overflow-x-auto rounded-md bg-white shadow-md">
-            <table id="data-table" class="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
-                <thead class="text-xs text-stone-600 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
+            <table id="data-table" class="w-full text-sm text-left rtl:text-right text-gray-700">
+                <thead class="text-xs text-stone-600 uppercase bg-white">
                     <tr class="bg-white border-b border-t border-gray-200">
                         <th scope="col" class="px-6 py-4 w-[70px]">
                             No

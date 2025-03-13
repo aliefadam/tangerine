@@ -10,4 +10,9 @@ class Room extends Model
     protected $guarded = [
         'id',
     ];
+
+    protected $casts = [
+        "rent_price_under_10" => "array",
+        "rent_price_over_10" => "array",
+    ];
 }

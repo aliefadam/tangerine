@@ -34,7 +34,7 @@
                 <label for="used_for" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Used For
                 </label>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-5">
                     <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
                         <input id="bordered-radio-1" type="radio" value="All Classes" name="used_for"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
@@ -57,7 +57,7 @@
                 <label for="used_for" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Can be rented
                 </label>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-5">
                     <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
                         <input id="can-be-rent-1" type="radio" value="true" name="can_be_rent"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
@@ -77,14 +77,46 @@
                 </div>
             </div>
             <div class="mb-5">
-                <label for="rent_price" class="block mb-2 text-sm font-medium text-gray-900 ">
-                    Rent Price /hour •
-                    <span class="text-gray-600 text-xs">
-                        if not rentable, leave blank or fill 0
-                    </span>
+                <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Price For Participants Under 10
                 </label>
-                <input type="text" id="rent_price" name="rent_price"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="">
+                        <label for="with_bath_under_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            With Bath
+                        </label>
+                        <input type="number" id="with_bath_under_10" name="with_bath_under_10"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                    <div class="">
+                        <label for="without_bath_under_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            Without Bath
+                        </label>
+                        <input type="number" id="without_bath_under_10" name="without_bath_under_10"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
+                <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Price For Participants Over 10
+                </label>
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="">
+                        <label for="with_bath_over_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            With Bath
+                        </label>
+                        <input type="number" id="with_bath_over_10" name="with_bath_over_10"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                    <div class="">
+                        <label for="without_bath_over_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            Without Bath
+                        </label>
+                        <input type="number" id="without_bath_over_10" name="without_bath_over_10"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                </div>
             </div>
             <div class="mb-5">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="room_image">

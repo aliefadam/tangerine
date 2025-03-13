@@ -298,3 +298,21 @@ if (!function_exists("verifiedUser")) {
         }
     }
 }
+
+if (!function_exists("getRangeRoomPrice")) {
+    function getRangeRoomPrice($id)
+    {
+        $room = Room::find($id);
+        $prices = [
+            $room->rent_price_under_10["with_bath"],
+            $room->rent_price_under_10["without_bath"],
+            $room->rent_price_over_10["with_bath"],
+            $room->rent_price_over_10["without_bath"]
+        ];
+
+        $lowerPrice = format_rupiah(min($prices));
+        $upperPrice = format_rupiah(max($prices));
+
+        return "{$lowerPrice} - {$upperPrice}";
+    }
+}

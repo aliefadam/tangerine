@@ -192,7 +192,7 @@
                                                 $date = str_pad($day, 2, '0', STR_PAD_LEFT);
                                                 $today = now()->format('Y-m-d');
                                                 $dateFormated = "$year-$monthNumber-$date";
-                                                $canSelect = $dateFormated > now()->addDay()->format('Y-m-d');
+                                                $canSelect = $dateFormated > now()->addHours(12)->format('Y-m-d');
                                             @endphp
                                             <button data-date="{{ $dateFormated }}"
                                                 class="px-2 py-2 lg:py-5 border border-stone-700 {{ $canSelect ? 'bg-white hover:bg-stone-100 text-stone-700 btn-date cursor-pointer' : 'bg-gray-300 cursor-not-allowed' }} rounded">

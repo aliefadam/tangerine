@@ -28,11 +28,9 @@ class RoomController extends Controller
     {
         $canBeRent = $request->can_be_rent == "true" ? true : false;
         if ($canBeRent) {
-            if ($request->rent_price == null) {
+            if ($request->with_bath_under_10 == null || $request->without_bath_under_10 == null || $request->with_bath_over_10 == null || $request->without_bath_over_10 == null) {
                 return redirect_user("error", "If this room can be rented, please enter the rental price.");
             }
-        } else {
-            $rent_price = null;
         }
         try {
             DB::beginTransaction();
@@ -45,7 +43,14 @@ class RoomController extends Controller
                 "capacity" => $request->capacity,
                 "image" => $fileName,
                 "can_be_rent" => $canBeRent,
-                "rent_price" => $rent_price,
+                "rent_price_under_10" => [
+                    "with_bath" => (int) $request->with_bath_under_10,
+                    "without_bath" => (int) $request->without_bath_under_10,
+                ],
+                "rent_price_over_10" => [
+                    "with_bath" => (int) $request->with_bath_over_10,
+                    "without_bath" => (int) $request->without_bath_over_10,
+                ],
             ]);
             DB::commit();
             return redirect_user("success", "Successfully Added Room", "admin.room.index");
@@ -73,11 +78,9 @@ class RoomController extends Controller
     {
         $canBeRent = $request->can_be_rent == "true" ? true : false;
         if ($canBeRent) {
-            if ($request->rent_price == null) {
+            if ($request->with_bath_under_10 == null || $request->without_bath_under_10 == null || $request->with_bath_over_10 == null || $request->without_bath_over_10 == null) {
                 return redirect_user("error", "If this room can be rented, please enter the rental price.");
             }
-        } else {
-            $rent_price = null;
         }
         $room = Room::find($id);
         try {
@@ -87,7 +90,14 @@ class RoomController extends Controller
                 "used_for" => $request->used_for,
                 "capacity" => $request->capacity,
                 "can_be_rent" => $canBeRent,
-                "rent_price" => $rent_price,
+                "rent_price_under_10" => [
+                    "with_bath" => (int) $request->with_bath_under_10,
+                    "without_bath" => (int) $request->without_bath_under_10,
+                ],
+                "rent_price_over_10" => [
+                    "with_bath" => (int) $request->with_bath_over_10,
+                    "without_bath" => (int) $request->without_bath_over_10,
+                ],
             ];
             if ($request->hasFile("room_image")) {
                 $file = $request->file("room_image");
@@ -98,6 +108,7 @@ class RoomController extends Controller
                 }
                 $updatedData["image"] = $fileName;
             }
+
             $room->update($updatedData);
             DB::commit();
             return redirect_user("success", "Successfully Edit Room", "admin.room.index");

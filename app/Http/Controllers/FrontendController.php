@@ -10,6 +10,7 @@ use App\Models\TimeTable;
 use App\Models\Trainer;
 use App\Models\Transaction;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -186,6 +187,43 @@ class FrontendController extends Controller
                 "transaction" => $transaction,
             ])->render(),
         ]);
+    }
+
+    public function get_detail_order(Request $request)
+    {
+        $room = Room::find($request->roomID);
+        if ($request->participant <= 10) {
+            if ($request->type == "with_bath") {
+                $roomPrice = $room->rent_price_under_10["with_bath"];
+            } else {
+                $roomPrice = $room->rent_price_under_10["without_bath"];
+            }
+        } else {
+            if ($request->type == "with_bath") {
+                $roomPrice = $room->rent_price_over_10["with_bath"];
+            } else {
+                $roomPrice = $room->rent_price_over_10["without_bath"];
+            }
+        }
+        $data = [
+            "room_id" => $room->id,
+            "room_name" => $room->name,
+            "type" => $request->type,
+            "participant" => $request->participant,
+            "used_for" => $request->used_for,
+            "hour" => $request->hour,
+            "date" => $request->date,
+            "time" => $request->time,
+            "schedule_label" => Carbon::parse($request->date)->format("l, d F Y") . " • " . $request->time[0] . " - " . $request->time[count($request->time) - 1],
+            "room_price" => $roomPrice,
+            "sub_total" => $request->hour . " Hour x " . format_rupiah($roomPrice),
+            "total_label" => format_rupiah($roomPrice * $request->hour),
+            "total" => $roomPrice * $request->hour
+        ];
+
+        $userID = Auth::user()->id;
+        session()->put("rent_transaction_{$userID}", $data);
+        return response()->json($data);
     }
 
     public function profile()

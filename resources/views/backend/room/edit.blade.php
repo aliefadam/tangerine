@@ -80,14 +80,50 @@
                 </div>
             </div>
             <div class="mb-5">
-                <label for="rent_price" class="block mb-2 text-sm font-medium text-gray-900 ">
-                    Rent Price /hour •
-                    <span class="text-gray-600 text-xs">
-                        if not rentable, leave blank or fill 0
-                    </span>
+                <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Price For Participants Under 10
                 </label>
-                <input type="text" id="rent_price" name="rent_price" value="{{ $room->rent_price }}"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="">
+                        <label for="with_bath_under_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            With Bath
+                        </label>
+                        <input type="number" id="with_bath_under_10" name="with_bath_under_10"
+                            value="{{ $room->rent_price_under_10['with_bath'] ?? 0 }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                    <div class="">
+                        <label for="without_bath_under_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            Without Bath
+                        </label>
+                        <input type="number" id="without_bath_under_10" name="without_bath_under_10"
+                            value="{{ $room->rent_price_under_10['without_bath'] ?? 0 }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                </div>
+            </div>
+            <div class="mb-5">
+                <label for="" class="block mb-2 text-sm font-medium text-gray-900 ">
+                    Price For Participants Over 10
+                </label>
+                <div class="grid grid-cols-2 gap-5">
+                    <div class="">
+                        <label for="with_bath_over_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            With Bath
+                        </label>
+                        <input type="number" id="with_bath_over_10" name="with_bath_over_10"
+                            value="{{ $room->rent_price_over_10['with_bath'] ?? 0 }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                    <div class="">
+                        <label for="without_bath_over_10" class="block mb-2 text-xs font-medium text-gray-600 ">
+                            Without Bath
+                        </label>
+                        <input type="number" id="without_bath_over_10" name="without_bath_over_10"
+                            value="{{ $room->rent_price_over_10['without_bath'] ?? 0 }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
+                    </div>
+                </div>
             </div>
             <div class="mb-5">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="room_image">
