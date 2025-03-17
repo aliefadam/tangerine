@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\CategorySalon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,8 +21,12 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             RoomSeeder::class,
             CategorySeeder::class,
+            CategorySalonSeeder::class,
             MemberSeeder::class,
             TimeTableSeeder::class,
+            ScheduleServiceSeeder::class,
+            BeauticianSeeder::class,
+            ServiceSeeder::class,
         ]);
     }
 }

@@ -288,7 +288,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: `/get-schedule-day/${date}`,
+                        url: `/wellness/get-schedule-day/${date}`,
                         data: {
                             capacity: r.value,
                             roomID: $("input[name=room_id]:checked").val(),
@@ -327,7 +327,7 @@
         function backToSelectDate() {
             $.ajax({
                 type: "GET",
-                url: `/get-schedule-month`,
+                url: `/wellness/get-schedule-month`,
                 beforeSend: function() {
                     $("#modal-body").addClass("h-[500px]").html(`
                     <div class="flex justify-center items-center h-full py-5">
@@ -435,7 +435,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/membership/checkout",
+                url: "/wellness/membership/checkout",
                 data: data,
                 beforeSend: function() {
                     Swal.fire({

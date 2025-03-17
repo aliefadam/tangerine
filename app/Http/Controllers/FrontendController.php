@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beautician;
+use App\Models\BookingSalon;
 use App\Models\Course;
+use App\Models\Product;
 use App\Models\RentTransaction;
 use App\Models\Room;
 use App\Models\Schedule;
+use App\Models\ScheduleService;
+use App\Models\Service;
 use App\Models\TimeTable;
 use App\Models\Trainer;
 use App\Models\Transaction;
@@ -33,10 +38,34 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function salon_home()
+    {
+        return view('frontend.salon-welcome', [
+            "title" => "Home",
+            "courses" => Course::all(),
+            "time_tables" => TimeTable::all(),
+        ]);
+    }
+
     public function about()
     {
         return view('frontend.about', [
             "title" => "About Us",
+        ]);
+    }
+
+    public function salon_about()
+    {
+        return view('frontend.salon-about', [
+            "title" => "About Us",
+        ]);
+    }
+
+    public function beautician()
+    {
+        return view('frontend.beautician', [
+            "title" => "Beautician",
+            "beauticians" => Beautician::all(),
         ]);
     }
 
@@ -45,6 +74,56 @@ class FrontendController extends Controller
         return view('frontend.trainer', [
             "title" => "Trainer",
             "trainers" => Trainer::all(),
+        ]);
+    }
+
+    public function services()
+    {
+        return view('frontend.services', [
+            "title" => "Services",
+            "services" => Service::all(),
+        ]);
+    }
+
+    public function service_detail($slug)
+    {
+        $service = Service::firstWhere("slug", $slug);
+        $years = generateDateSalon()["years"];
+        $calendarData = generateDateSalon()["calendarData"];
+        $allDates = generateDateSalon()["allDates"]; // Ambil daftar tanggal yang benar
+
+        // Ambil semua sesi yang tersedia
+        $allSchedules = ScheduleService::pluck('id')->toArray(); // [1, 2, 3]
+
+        // Ambil daftar booking yang sudah ada
+        $bookedSessions = BookingSalon::select('booking_date', 'schedule_id')
+            ->groupBy('booking_date', 'schedule_id')
+            ->havingRaw('COUNT(id) >= 3') // Sesi yang sudah penuh
+            ->get()
+            ->groupBy('booking_date')
+            ->map(function ($items) {
+                return $items->pluck('schedule_id')->toArray();
+            });
+
+        // Format data availableSessions
+        $availableSessions = [];
+        foreach ($allDates as $date) {
+            // Jika tidak ada booking pada tanggal tersebut, semua sesi tersedia
+            if (!isset($bookedSessions[$date])) {
+                $availableSessions[$date] = $allSchedules;
+            } else {
+                // Ambil sesi yang belum penuh
+                $availableSessions[$date] = array_diff($allSchedules, $bookedSessions[$date]);
+            }
+        }
+
+        return view('frontend.service-detail', [
+            "title" => "Services",
+            "service" => $service,
+            "Beauticians" => Service::all(),
+            "years" => $years,
+            "calendarData" => $calendarData,
+            "availableSessions" => $availableSessions,
         ]);
     }
 
@@ -171,6 +250,33 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function booking_transaction()
+    {
+        $transactions = BookingSalon::select(
+            'booking_salons.id',
+            'booking_salons.customer_name',
+            'services.name as service_name',
+            'services.price as service_price',
+            'booking_salons.booking_date',
+            'schedule_services.session as session',
+            'booking_salons.queue_number',
+            'booking_salons.created_at',
+            'booking_salons.status',
+            'booking_salons.payment_proof',
+            'booking_salons.phone_number',
+        )
+            ->where("user_id", Auth::user()->id)
+            ->join('services', 'booking_salons.service_id', '=', 'services.id')
+            ->join('schedule_services', 'booking_salons.schedule_id', '=', 'schedule_services.id')
+            ->orderBy('booking_salons.created_at', 'desc')
+            ->get();
+
+        return view("frontend.booking-transaction", [
+            "title" => "Transaction",
+            "transactions" => $transactions,
+        ]);
+    }
+
     public function rent_transaction()
     {
         return view("frontend.rent-transaction", [
@@ -244,6 +350,14 @@ class FrontendController extends Controller
                 ->whereDate("date", ">=", now()->format("Y-m-d"))->latest()->get() : collect(),
             "previous_schedules" => $user->member ? Schedule::where("member_id", $user->member->id)
                 ->whereDate("date", "<=", now()->format("Y-m-d"))->latest()->get() : collect(),
+        ]);
+    }
+
+    public function product()
+    {
+        return view('frontend.product', [
+            "title" => "product",
+            "products" => Product::all(),
         ]);
     }
 

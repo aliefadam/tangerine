@@ -267,14 +267,13 @@
                         <div class="col-span-2">
                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Phone</label>
                             <input type="text" name="phone" id="phone" value="{{ auth()->user()->phone }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                required="">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                         </div>
                         <div class="col-span-2">
                             <label for="gender" class="block mb-2 text-sm font-medium text-gray-900">Gender</label>
                             <select id="gender" name="gender"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                                <option selected="">-- Choose --</option>
+                                <option value="">-- Choose --</option>
                                 <option value="Female" {{ auth()->user()->gender == 'Female' ? 'selected' : '' }}>Female
                                 </option>
                                 <option value="Male" {{ auth()->user()->gender == 'Male' ? 'selected' : '' }}>Male
@@ -486,7 +485,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: `/get-schedule-day/${date}`,
+                        url: `/wellness/get-schedule-day/${date}`,
                         data: {
                             capacity: r.value,
                             roomID: roomID,
@@ -525,7 +524,7 @@
         function backToSelectDate() {
             $.ajax({
                 type: "GET",
-                url: `/get-schedule-month`,
+                url: `/wellness/get-schedule-month`,
                 beforeSend: function() {
                     $("#modal-body").addClass("h-[500px]").html(`
                     <div class="flex justify-center items-center h-full py-5">

@@ -1,14 +1,18 @@
 <?php
 
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\BeauticianController;
+use App\Http\Controllers\BookingSalonController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberPlanController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RentTransactionController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TransactionController;
@@ -91,6 +95,44 @@ Route::middleware(AdminMiddleware::class)->group(function () {
             Route::get("/edit/{id}", [MemberPlanController::class, "edit"])->name("admin.member-plan.edit");
             Route::put("/update/{id}", [MemberPlanController::class, "update"])->name("admin.member-plan.update");
             Route::delete("/destroy/{id}", [MemberPlanController::class, "destroy"])->name("admin.member-plan.destroy");
+        });
+
+        Route::prefix("beautician")->group(function () {
+            Route::get("/", [BeauticianController::class, "index"])->name("admin.beautician.index");
+            Route::get("/create", [BeauticianController::class, "create"])->name("admin.beautician.create");
+            Route::post("/store", [BeauticianController::class, "store"])->name("admin.beautician.store");
+            Route::get("/edit/{id}", [BeauticianController::class, "edit"])->name("admin.beautician.edit");
+            Route::put("/update/{id}", [BeauticianController::class, "update"])->name("admin.beautician.update");
+            Route::delete("/destroy/{id}", [BeauticianController::class, "destroy"])->name("admin.beautician.destroy");
+        });
+
+        Route::prefix("service")->group(function () {
+            Route::get("/", [ServiceController::class, "index"])->name("admin.service.index");
+            Route::get("/create", [ServiceController::class, "create"])->name("admin.service.create");
+            Route::post("/store", [ServiceController::class, "store"])->name("admin.service.store");
+            Route::get("/edit/{id}", [ServiceController::class, "edit"])->name("admin.service.edit");
+            Route::put("/update/{id}", [ServiceController::class, "update"])->name("admin.service.update");
+            Route::delete("/destroy/{id}", [ServiceController::class, "destroy"])->name("admin.service.destroy");
+        });
+
+        Route::prefix("product")->group(function () {
+            Route::get("/", [ProductController::class, "index"])->name("admin.product.index");
+            Route::get("/create", [ProductController::class, "create"])->name("admin.product.create");
+            Route::post("/store", [ProductController::class, "store"])->name("admin.product.store");
+            Route::get("/{date}/show", [ProductController::class, "show"])->name("admin.product.show");
+            Route::get("/edit/{id}", [ProductController::class, "edit"])->name("admin.product.edit");
+            Route::put("/update/{id}", [ProductController::class, "update"])->name("admin.product.update");
+            Route::delete("/destroy/{id}", [ProductController::class, "destroy"])->name("admin.product.destroy");
+        });
+
+        Route::prefix("booking-salon")->group(function () {
+            Route::get("/", [BookingSalonController::class, "index"])->name("admin.booking-salon.index");
+            Route::get("/show/{id}/detail", [BookingSalonController::class, "show"])->name("admin.booking-salon.show");
+            Route::get("/create", [BookingSalonController::class, "create"])->name("admin.booking-salon.create");
+            Route::post("/store", [BookingSalonController::class, "store"])->name("admin.booking-salon.store");
+            Route::get("/edit/{id}", [BookingSalonController::class, "edit"])->name("admin.booking-salon.edit");
+            Route::put("/update/{id}", [BookingSalonController::class, "update"])->name("admin.booking-salon.update");
+            Route::delete("/destroy/{id}", [BookingSalonController::class, "destroy"])->name("admin.booking-salon.destroy");
         });
 
         Route::prefix("transaction")->group(function () {

@@ -2,24 +2,42 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Middleware\NavbarSalon;
+use App\Http\Middleware\NavbarWellness;
 use App\Http\Middleware\UpdateMembershipStatus;
 use App\Http\Middleware\UpdateRemainingSession;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware([UpdateRemainingSession::class, UpdateMembershipStatus::class])->group(function () {
-    Route::get('/', [FrontendController::class, "home"])->name("home");
-    Route::get('/about', [FrontendController::class, "about"])->name("about");
-    Route::get('/trainer', [FrontendController::class, "trainer"])->name("trainer");
-    Route::prefix("classes")->group(function () {
-        Route::get('/', [FrontendController::class, "classes"])->name("classes");
-        Route::get('/{slug}', [FrontendController::class, "class_detail"])->name("class.detail");
-    });
-    Route::get('/schedule', [FrontendController::class, "schedule"])->name("schedule");
-    Route::get('/room-rental', [FrontendController::class, "room_rental"])->name("room-rental");
 
-    Route::middleware(["auth"])->group(function () {
-        Route::middleware(["verified"])->group(function () {
-            include_once __DIR__ . "/user.php";
+Route::middleware([UpdateRemainingSession::class, UpdateMembershipStatus::class])->group(function () {
+    Route::get('/', function () {
+        return redirect()->route("gate");
+    });
+    Route::get("/gate", [FrontendController::class, "gate"])->name("gate");
+
+    Route::middleware([NavbarWellness::class])->group(function () {
+        include_once __DIR__ . "/wellness.php";
+    });
+    Route::middleware([NavbarSalon::class])->group(function () {
+        include_once __DIR__ . "/salon.php";
+    });
+
+    Route::middleware(["auth", "verified"])->group(function () {
+        Route::prefix("profile")->group(function () {
+            Route::get("/", [FrontendController::class, "profile"])->name("profile");
+            Route::put("/", [FrontendController::class, "edit_profile"])->name("profile.update");
+            Route::put("/change-password", [FrontendController::class, "change_password"])->name("profile.change-password");
+        });
+        Route::prefix("transaction")->group(function () {
+            Route::get("/", [FrontendController::class, "transaction"])->name("transaction");
+            Route::get("/{id}", [FrontendController::class, "transaction_detail"])->name("transaction.detail");
+        });
+        Route::prefix("rent-transaction")->group(function () {
+            Route::get("/", [FrontendController::class, "rent_transaction"])->name("rent-transaction");
+            Route::get("/{id}", [FrontendController::class, "rent_transaction_detail"])->name("rent-transaction.detail");
+        });
+        Route::prefix("booking-transaction")->group(function () {
+            Route::get("/", [FrontendController::class, "booking_transaction"])->name("booking-salon");
         });
 
         include_once __DIR__ . "/admin.php";

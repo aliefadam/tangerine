@@ -47,16 +47,18 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
-    {{-- <link rel="stylesheet" href="{{ asset('build/assets/app-DBl-h3X1.css') }}">
-    <script src="{{ asset('build/assets/app-CqflisoM.js') }}" defer></script> --}}
 
     {{-- Flowbite --}}
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
 
 <body class="scrollbar">
+    @include('partials.button-back-to-gate')
     @include('partials.notification')
-    @include('partials.navbar')
+    @php
+        $navbarName = session('navbar');
+    @endphp
+    @include("partials.navbar-$navbarName")
     @include('partials.warning-not-verified')
 
     <div class="app mt-[70px]">

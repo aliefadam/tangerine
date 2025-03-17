@@ -30,7 +30,6 @@ class AuthController extends Controller
                 return redirect()->route("admin.dashboard");
             } else {
                 return redirect()->route("gate");
-                // return redirect()->route("home");
             }
         } else {
             return back()->with("notification", setNotification("error", "Gagal", "Email atau password salah"));
@@ -89,7 +88,6 @@ class AuthController extends Controller
 
         Auth::login($user);
         event(new Registered($user));
-        // return redirect()->route("register.verify");
         return redirect()->route("gate");
     }
 
@@ -104,7 +102,6 @@ class AuthController extends Controller
     {
         $request->fulfill();
         return redirect()->route("gate");
-        // return redirect()->route("home");
     }
 
     public function verificationNotice()

@@ -14,15 +14,6 @@
     <div class="bg-white w-1/2 rounded-md shadow-md p-5 mt-5">
         <form action="{{ route('admin.schedule.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            {{-- <div class="mb-5">
-                <label for="member_id" class="block mb-2 text-sm font-medium text-gray-900 ">
-                    For Member
-                </label>
-                <select id="member_id" name="member_id"
-                    class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>-- Choose --</option>
-                </select>
-            </div> --}}
 
             <div class="mb-5">
                 <label for="date" class="block mb-2 text-sm font-medium text-gray-900 ">
@@ -42,22 +33,12 @@
                     required />
             </div>
 
-            {{-- <div class="mb-5">
-                <label for="room" class="block mb-2 text-sm font-medium text-gray-900 ">
-                    Room
-                </label>
-                <select id="room" name="room"
-                    class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>-- Choose --</option>
-                </select>
-            </div> --}}
-
             <div class="mb-5">
                 <label for="course_id" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Class
                 </label>
                 <select id="course_id" name="course_id"
-                    class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option selected>-- Choose --</option>
                     @foreach ($courses as $course)
                         <option value="{{ $course->id }}">
@@ -72,7 +53,7 @@
                     Trainer
                 </label>
                 <select id="trainer_id" name="trainer_id"
-                    class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="select-2-dropdown bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option selected>-- Choose --</option>
                 </select>
             </div> --}}

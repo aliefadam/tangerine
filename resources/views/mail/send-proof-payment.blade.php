@@ -49,11 +49,6 @@
                         <hr style="margin-bottom:20px">
                         <table style="border-collapse:collapse;width:100%;table-layout:fixed">
                             <tbody>
-                                {{-- <tr>
-                                    <td style="width:50%">Invoice ID : {{ $data['invoice'] }}</td>
-                                    <td style="text-align:right;width:50%">Transaction Date :
-                                        {{ format_date($data['transaction_date']) }}</td>
-                                </tr> --}}
                                 <tr>
                                     <td>Invoice ID</td>
                                     <td style="text-align:right">{{ $data['invoice'] }}</td>

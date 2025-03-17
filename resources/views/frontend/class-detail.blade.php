@@ -175,7 +175,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/membership",
+                url: "/wellness/membership",
                 data: data,
                 beforeSend: function() {
                     Swal.fire({

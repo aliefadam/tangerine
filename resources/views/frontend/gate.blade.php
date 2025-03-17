@@ -12,7 +12,7 @@
                 <i class="fa-solid fa-dumbbell text-6xl"></i>
                 <h1 class="text-center mt-5 poppins-semibold text-lg">Tangerine Wellness</h1>
             </a>
-            <a href=""
+            <a href="{{ route('home.salon') }}"
                 class="border-2 border-stone-700 text-stone-700 hover:bg-stone-50 flex flex-col items-center rounded-md p-10">
                 <i class="fa-solid fa-spa text-6xl"></i>
                 <h1 class="text-center mt-5 poppins-semibold text-lg">Tangerine Salon</h1>

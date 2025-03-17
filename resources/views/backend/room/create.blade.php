@@ -11,7 +11,7 @@
         ])
     </div>
 
-    <div class="bg-white w-1/2 rounded-md shadow-md p-5 mt-5">
+    <div class="bg-white w-full lg:w-1/2 rounded-md shadow-md p-5 mt-5">
         <form action="{{ route('admin.room.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-5">
@@ -35,19 +35,17 @@
                     Used For
                 </label>
                 <div class="grid grid-cols-2 gap-5">
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input id="bordered-radio-1" type="radio" value="All Classes" name="used_for"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="bordered-radio-1"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="bordered-radio-1" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             All Classes
                         </label>
                     </div>
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input id="bordered-radio-2" type="radio" value="Pilates Only" name="used_for"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="bordered-radio-2"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="bordered-radio-2" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             Pilates Only
                         </label>
                     </div>
@@ -58,19 +56,17 @@
                     Can be rented
                 </label>
                 <div class="grid grid-cols-2 gap-5">
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input id="can-be-rent-1" type="radio" value="true" name="can_be_rent"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="can-be-rent-1"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="can-be-rent-1" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             Yes
                         </label>
                     </div>
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input id="can-be-rent-2" type="radio" value="false" name="can_be_rent"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="can-be-rent-2"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="can-be-rent-2" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             No
                         </label>
                     </div>
@@ -119,11 +115,11 @@
                 </div>
             </div>
             <div class="mb-5">
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="room_image">
+                <label class="block mb-2 text-sm font-medium text-gray-900" for="room_image">
                     Room Image
                 </label>
                 <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                     id="room_image" name="room_image" type="file">
             </div>
 

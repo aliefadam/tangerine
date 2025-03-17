@@ -2,51 +2,58 @@
 
 @section('content')
     <main class="max-w-8xl mx-auto py-10 px-4 sm:px-6 lg:px-8 min-h-screen">
-        <h1 class="text-stone-700 text-2xl poppins-semibold">Transcation History</h1>
-        <div class="mt-10 space-y-5">
-            @foreach ($transactions as $transaction)
-                <div class="bg-white rounded-md border border-gray-300 p-5 flex items-start justify-between">
-                    <div class="">
-                        <p class="text-sm text-gray-700">{{ $transaction->created_at->format('l, d F Y - H:i') }}</p>
-                        <h1 class="poppins-medium text-base mt-1">Rental Room • {{ $transaction->participant }} Person</h1>
-                        <div class="mt-3 flex items-center gap-2">
-                            <button type="button" data-transaction-id="{{ $transaction->id }}"
-                                data-modal-target="detail-transaction-modal" data-modal-toggle="detail-transaction-modal"
-                                class="btn-detail text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
-                                Detail
-                            </button>
-                            @if ($transaction->status == 'waiting')
+        <h1 class="text-stone-700 text-2xl poppins-semibold">Rent Room History</h1>
+        @if ($transactions->isEmpty())
+            <p class="mt-5 text-gray-500">You don't have any rent room history</p>
+        @else
+            <div class="mt-10 space-y-5">
+                @foreach ($transactions as $transaction)
+                    <div class="bg-white rounded-md border border-gray-300 p-5 flex items-start justify-between">
+                        <div class="">
+                            <p class="text-sm text-gray-700">{{ $transaction->created_at->format('l, d F Y - H:i') }}</p>
+                            <h1 class="poppins-medium text-base mt-1">Rental Room • {{ $transaction->participant }} Person
+                            </h1>
+                            <div class="mt-3 flex items-center gap-2">
                                 <button type="button" data-transaction-id="{{ $transaction->id }}"
-                                    data-modal-target="upload-proof-payment-modal"
-                                    data-modal-toggle="upload-proof-payment-modal"
-                                    class="btn-upload-proof-payment bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
-                                    Upload Proof of Payment
+                                    data-modal-target="detail-transaction-modal"
+                                    data-modal-toggle="detail-transaction-modal"
+                                    class="btn-detail text-white bg-stone-700 hover:bg-stone-800 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
+                                    Detail
                                 </button>
-                            @endif
+                                @if ($transaction->status == 'waiting')
+                                    <button type="button" data-transaction-id="{{ $transaction->id }}"
+                                        data-modal-target="upload-proof-payment-modal"
+                                        data-modal-toggle="upload-proof-payment-modal"
+                                        class="btn-upload-proof-payment bg-white border border-stone-700 text-stone-700 hover:bg-stone-50 focus:ring-4 focus:ring-stone-300 font-medium rounded-lg text-xs px-5 py-2.5">
+                                        Upload Proof of Payment
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="">
+                            <h1 class="poppins-medium text-base text-stone-800 text-right">
+                                {{ format_rupiah($transaction->total) }}</h1>
+                            <div class="mt-2 flex justify-end">
+                                @if ($transaction->status == 'waiting')
+                                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-1 rounded-sm">
+                                        Waiting for payment
+                                    </span>
+                                @elseif($transaction->status == 'paid')
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-1 rounded-sm">
+                                        Paid
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-1 rounded-sm">
+                                        Confirmed
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                    <div class="">
-                        <h1 class="poppins-medium text-base text-stone-800 text-right">
-                            {{ format_rupiah($transaction->total) }}</h1>
-                        <div class="mt-2 flex justify-end">
-                            @if ($transaction->status == 'waiting')
-                                <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-1 rounded-sm">
-                                    Waiting for payment
-                                </span>
-                            @elseif($transaction->status == 'paid')
-                                <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-1 rounded-sm">
-                                    Paid
-                                </span>
-                            @else
-                                <span class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-1 rounded-sm">
-                                    Confirmed
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @endif
     </main>
 
 
@@ -181,7 +188,7 @@
             let formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: "/upload/proof/rent",
+                url: "/wellness/upload/proof/rent",
                 data: formData,
                 processData: false,
                 contentType: false,

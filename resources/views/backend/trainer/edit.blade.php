@@ -11,7 +11,7 @@
         ])
     </div>
 
-    <div class="bg-white w-1/2 rounded-md shadow-md p-5 mt-5">
+    <div class="bg-white w-fulllg:w-1/2 rounded-md shadow-md p-5 mt-5">
         <form action="{{ route('admin.trainer.update', $trainer->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -36,39 +36,35 @@
                     For Class
                 </label>
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input @checked($trainer->for_class == 'Pilates') id="bordered-radio-1" type="radio" value="Pilates"
                             name="for_class"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="bordered-radio-1"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="bordered-radio-1" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             Pilates
                         </label>
                     </div>
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input @checked($trainer->for_class == 'Yoga') id="bordered-radio-2" type="radio" value="Yoga"
                             name="for_class"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="bordered-radio-2"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="bordered-radio-2" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             Yoga
                         </label>
                     </div>
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input @checked($trainer->for_class == 'Zumba') id="bordered-radio-3" type="radio" value="Zumba"
                             name="for_class"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="bordered-radio-3"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="bordered-radio-3" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             Zumba
                         </label>
                     </div>
-                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm dark:border-gray-700">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded-sm">
                         <input @checked($trainer->for_class == 'Sweat Dance') id="bordered-radio-4" type="radio" value="Sweat Dance"
                             name="for_class"
                             class="w-4 h-4 text-stone-600 bg-gray-100 border-gray-300 focus:ring-stone-500">
-                        <label for="bordered-radio-4"
-                            class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        <label for="bordered-radio-4" class="w-full py-3.5 ms-2 text-sm font-medium text-gray-900">
                             Sweat Dance
                         </label>
                     </div>
@@ -101,7 +97,7 @@
                 </label>
                 <img src="/uploads/trainers/{{ $trainer->image }}" class="size-20 object-cover rounded-md shadow-md mb-3">
                 <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                     id="image" type="file" name="image">
             </div>
             <div class="flex justify-end">

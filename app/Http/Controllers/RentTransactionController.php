@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendInvoiceRentRoom;
+use App\Mail\SendPaymentConfirmRentRoom;
+use App\Mail\SendProofPaymentRentRoom;
 use App\Models\RentTransaction;
 use App\Models\RentTransactionDetail;
 use App\Models\Room;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +53,18 @@ class RentTransactionController extends Controller
                     "time" => $time,
                 ]);
             }
+
+            $data = [
+                "invoice" => $newTransaction->invoice,
+                "transaction_date" => $newTransaction->created_at,
+                "label" => "Rental Room : " . Room::find($dataTransaction["room_id"])->name . " - " . ($newTransaction->room_type == "with_bath" ? "With Bath" : "Without Bath"),
+                "schedule" => Carbon::parse($dataTransaction["date"])->format("l, d F Y") . " • " . $dataTransaction["time"][0] . " - " . $dataTransaction["time"][count($dataTransaction["time"]) - 1],
+                "total" => $newTransaction->total,
+            ];
+
+            Mail::to(Auth::user()->email)->queue(new SendInvoiceRentRoom($data));
+            Mail::to("website@tangerine.my.id")->queue(new SendInvoiceRentRoom($data));
+
             DB::commit();
             return response()->json(["redirect_url" => route("payment.waiting.rent", $newTransaction->invoice)]);
         } catch (\Exception $e) {
@@ -79,15 +95,15 @@ class RentTransactionController extends Controller
             ]);
             DB::commit();
 
-            // Kebutuhan Email
             $data = [
                 "invoice" => $transaction->invoice,
                 "transaction_date" => $transaction->created_at,
-                "label" => $transaction->plan,
+                "label" => "Rental Room : " . Room::find($transaction->rentTransactionDetails[0]->room_id)->name . " - " . ($transaction->room_type == "with_bath" ? "With Bath" : "Without Bath"),
+                "schedule" => Carbon::parse($transaction->rentTransactionDetails[0]->date)->format("l, d F Y") . " • " . $transaction->rentTransactionDetails()->first()->time . " - " . $transaction->rentTransactionDetails()->latest()->first()->time,
                 "total" => $transaction->total,
                 "proof_of_payment" => $transaction->proof_of_payment,
             ];
-            // Mail::to($transaction->user->email)->queue(new SendProofPayment($data));
+            Mail::to($transaction->user->email)->queue(new SendPaymentConfirmRentRoom($data));
 
             notificationFlash("success", "Successfully Confirm Payment");
             return response()->json(["success" => true]);
@@ -112,15 +128,15 @@ class RentTransactionController extends Controller
                 "status" => "paid"
             ]);
 
-            // Kebutuhan Email
             $data = [
                 "invoice" => $transaction->invoice,
                 "transaction_date" => $transaction->created_at,
-                "label" => $transaction->plan,
+                "label" => "Rental Room : " . Room::find($transaction->rentTransactionDetails[0]->room_id)->name . " - " . ($transaction->room_type == "with_bath" ? "With Bath" : "Without Bath"),
+                "schedule" => Carbon::parse($transaction->rentTransactionDetails[0]->date)->format("l, d F Y") . " • " . $transaction->rentTransactionDetails()->first()->time . " - " . $transaction->rentTransactionDetails()->latest()->first()->time,
                 "total" => $transaction->total,
                 "proof_of_payment" => $fileName,
             ];
-            // Mail::to("website@tangerine.my.id")->queue(new SendProofPayment($data));
+            Mail::to("website@tangerine.my.id")->queue(new SendProofPaymentRentRoom($data));
 
             notificationFlash("success", "Successfully Upload Proof");
             return response()->json(["success" => true]);

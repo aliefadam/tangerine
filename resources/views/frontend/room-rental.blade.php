@@ -406,7 +406,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/get-detail-order",
+                url: "/wellness/get-detail-order",
                 data: {
                     roomID: roomID,
                     type: type,
@@ -452,7 +452,7 @@
         function storeTransaction() {
             $.ajax({
                 type: "POST",
-                url: "/rent-transaction",
+                url: "/wellness/rent-transaction",
                 data: {
                     _token: "{{ csrf_token() }}",
                 },
@@ -518,20 +518,6 @@
 
             const roomID = $("input[name=room_id]:checked").val();
             countHour = timeSelected.length - 1;
-            // $.ajax({
-            //     type: "GET",
-            //     url: `/get-price-rent-room/${countHour}/${roomID}`,
-            //     beforeSend: function() {
-            //         $("#sub-total").html(`Loading...`);
-            //         $("#total").html(`Loading...`);
-            //     },
-            //     success: function(response) {
-            //         priceRoom = response.price;
-            //         totalTransaction = response.total;
-            //         $("#sub-total").html(`${countHour} Hours x ${priceRoom}`);
-            //         $("#total").html(totalTransaction);
-            //     }
-            // });
         }
 
         function chooseSchedule() {
@@ -578,7 +564,7 @@
 
             $.ajax({
                 type: "GET",
-                url: `/get-schedule-day-rent-room/${date}`,
+                url: `/wellness/get-schedule-day-rent-room/${date}`,
                 data: {
                     roomID: $("input[name=room_id]:checked").val(),
                 },
@@ -614,7 +600,7 @@
         function backToSelectDate() {
             $.ajax({
                 type: "GET",
-                url: `/get-schedule-month`,
+                url: `/wellness/get-schedule-month`,
                 beforeSend: function() {
                     $("#modal-body").addClass("h-[500px]").html(`
                     <div class="flex justify-center items-center h-full py-5">

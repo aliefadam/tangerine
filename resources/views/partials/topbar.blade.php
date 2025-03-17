@@ -4,11 +4,11 @@
             <div class="flex items-center justify-start gap-3">
                 <button id="toggleSidebarMobile" aria-expanded="true" aria-controls="sidebar"
                     class="p-3 text-gray-600 flex justify-center items-center rounded cursor-pointer lg:hidden hover:text-gray-900 hover:bg-gray-100">
-                    <i class="fas fa-bars "></i>
+                    <i class="fas fa-bars"></i>
                 </button>
                 <div class="flex-shrink-0 flex items-center gap-2 ps-2">
                     <a href="/" class="flex items-center">
-                        <img class="h-7 w-auto drop-shadow-md" src="{{ asset('imgs/logo.png') }}" alt="Logo" />
+                        <img class="h-7 w-auto drop-shadow-md" src="/imgs/Logo Tangerine-black.png" alt="Logo" />
                     </a>
                     <span class="text-lg poppins-medium">
                         Tangerine
@@ -31,7 +31,7 @@
                                     src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}" />
                             </button>
                             <div id="dropdown-user-popup"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-72 !-translate-x-[250px] !translate-y-[60px] dark:bg-gray-700 dark:divide-gray-600">
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md w-72 !-translate-x-[250px] !translate-y-[60px]">
                                 <div class="px-4 py-3 text-sm text-gray-900  flex gap-3 items-center">
                                     <img src="{{ auth()->user()->image ? '/uploads/users/' . auth()->user()->image : '/imgs/no-image.png' }}"
                                         class="w-10 h-10 rounded-full" alt="">
@@ -40,17 +40,15 @@
                                         <div class="font-medium truncate">{{ auth()->user()->email }}</div>
                                     </div>
                                 </div>
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdown-user">
+                                <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdown-user">
                                     <li>
                                         <a href="{{ route('admin.change-password') }}"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                            class="block px-4 py-2 hover:bg-gray-100">
                                             Change Password
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('logout') }}"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <a href="{{ route('logout') }}" class="block px-4 py-2 hover:bg-gray-100">
                                             Logout
                                         </a>
                                     </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendInvoice;
+use App\Mail\SendPaymentConfirm;
 use App\Mail\SendProofPayment;
 use App\Models\CourseDetail;
 use App\Models\Member;
@@ -192,7 +193,7 @@ class TransactionController extends Controller
                 "total" => $transaction->total,
                 "proof_of_payment" => $transaction->proof_of_payment,
             ];
-            Mail::to($transaction->user->email)->queue(new SendProofPayment($data));
+            Mail::to($transaction->user->email)->queue(new SendPaymentConfirm($data));
 
             notificationFlash("success", "Successfully Confirm Payment");
             return response()->json(["success" => true]);

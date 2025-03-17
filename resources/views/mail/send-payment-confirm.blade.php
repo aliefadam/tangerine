@@ -37,7 +37,7 @@
                 </div>
                 <div style="background-color:#fff;padding:20px 30px 30px 30px;text-align:left">
                     <div>
-                        <h4 style="font-weight:normal">Hi Tangerine Admin,</h4>
+                        <h4 style="font-weight:normal">Hi Tangerine Customer,</h4>
                         <p style="margin-bottom:5px">
                             Your payment has been confirmed by admin, thank you for making a purchase at <span
                                 style="font-weight: 600">Tangerine</span>. Here
@@ -50,11 +50,6 @@
                         <hr style="margin-bottom:20px">
                         <table style="border-collapse:collapse;width:100%;table-layout:fixed">
                             <tbody>
-                                {{-- <tr>
-                                    <td style="width:50%">Invoice ID : {{ $data['invoice'] }}</td>
-                                    <td style="text-align:right;width:50%">Transaction Date :
-                                        {{ format_date($data['transaction_date']) }}</td>
-                                </tr> --}}
                                 <tr>
                                     <td>Invoice ID</td>
                                     <td style="text-align:right">{{ $data['invoice'] }}</td>
@@ -88,19 +83,6 @@
                     </div>
                     <div>
                         <h4 style="margin-bottom:20px;text-align:center">Proof Of Payment</h4>
-                        {{-- <hr style="margin-bottom:20px"> --}}
-                        {{-- <table style="border-collapse:collapse;width:100%">
-                            <tbody>
-                                <tr>
-                                    <td>BANK Central Asia (BCA) • {{ env('ACCOUNT_NAME_BCA') }}</td>
-                                    <td style="text-align:right">{{ env('ACCOUNT_NUMBER_BCA') }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Bank Woori Saudara (BWS) • {{ env('ACCOUNT_NAME_BWS') }}</td>
-                                    <td style="text-align:right">{{ env('ACCOUNT_NUMBER_BWS') }}</td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
                         <img style="display: block; margin: 0 auto;"
                             src="https://tangerine.my.id/uploads/proofs/{{ $data['proof_of_payment'] }}" alt="">
                         <hr style="margin-top:30px">

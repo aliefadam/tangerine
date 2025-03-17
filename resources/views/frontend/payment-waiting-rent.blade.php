@@ -160,7 +160,7 @@
             let formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: "/upload/proof/rent",
+                url: "/wellness/upload/proof/rent",
                 data: formData,
                 processData: false,
                 contentType: false,

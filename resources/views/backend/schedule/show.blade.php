@@ -157,15 +157,14 @@
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+            <div class="relative bg-white rounded-lg shadow-sm">
                 <!-- Modal header -->
-                <div
-                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                    <h3 id="title-modal" class="text-base font-semibold text-gray-900 dark:text-white">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
+                    <h3 id="title-modal" class="text-base font-semibold text-gray-900">
                         Add Schedule
                     </h3>
                     <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                         data-modal-toggle="crud-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
@@ -183,7 +182,7 @@
                     <input type="hidden" name="plan">
                     <div class="mb-4">
                         <div class="mb-5">
-                            <label for="member_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="member_id" class="block mb-2 text-sm font-medium text-gray-900">
                                 Member
                             </label>
                             <select id="member_id" name="member_id"
@@ -195,8 +194,7 @@
                             </select>
                         </div>
                         <div class="mb-5">
-                            <label for="member_class_plan"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="member_class_plan" class="block mb-2 text-sm font-medium text-gray-900">
                                 Member Class Plan
                             </label>
                             <select id="member_class_plan" name="member_class_plan"
@@ -205,7 +203,7 @@
                             </select>
                         </div>
                         <div class="mb-5">
-                            <label for="trainer_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="trainer_id" class="block mb-2 text-sm font-medium text-gray-900">
                                 Trainer
                             </label>
                             <select id="trainer_id" name="trainer_id"
@@ -214,7 +212,7 @@
                             </select>
                         </div>
                         <div class="mb-5">
-                            <label for="room_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="room_id" class="block mb-2 text-sm font-medium text-gray-900">
                                 Room
                             </label>
                             <select id="room_id" name="room_id"

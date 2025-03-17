@@ -14,7 +14,7 @@
     <form action="{{ route('admin.course.update', $course->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="bg-white w-1/2 rounded-md shadow-md p-5 mt-5">
+        <div class="bg-white w-full lg:w-1/2 rounded-md shadow-md p-5 mt-5">
             <div class="mb-5">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Class Name

@@ -13,8 +13,8 @@
 
     <div class="mt-5">
         <div class="relative overflow-x-auto rounded-md bg-white shadow-md">
-            <table id="data-table" class="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-400">
-                <thead class="text-xs text-stone-600 uppercase bg-white dark:bg-gray-700 dark:text-gray-400">
+            <table id="data-table" class="w-full text-sm text-left rtl:text-right text-gray-700">
+                <thead class="text-xs text-stone-600 uppercase bg-white">
                     <tr class="bg-white border-b border-t border-gray-200">
                         <th scope="col" class="px-6 py-4">
                             No
@@ -59,7 +59,7 @@
                                 {{ $trainer->for_class }}
                             </td>
                             {{-- <td class="px-6 py-4">
-                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside">
                                     <li>
                                         Facebook :
                                         @if ($trainer->facebook_link)
