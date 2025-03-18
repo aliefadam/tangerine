@@ -21,7 +21,7 @@
                         <th scope="col" class="px-6 py-4">Session</th>
                         <th scope="col" class="px-6 py-4">Queue Number</th>
                         <th scope="col" class="px-6 py-4">Created At</th>
-                        <th scope="col" class="px-6 py-4">Proof of Payment</th>
+                        {{-- <th scope="col" class="px-6 py-4">Proof of Payment</th> --}}
                         <th scope="col" class="px-6 py-4">Status</th>
                         <th scope="col" class="px-6 py-4">Action</th>
                     </tr>
@@ -38,7 +38,7 @@
                             <td class="px-6 py-4 capitalize">{{ $transaction->session }}</td>
                             <td class="px-6 py-4">{{ $transaction->queue_number }}</td>
                             <td class="px-6 py-4">{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
-                            <td class="px-6 py-4">
+                            {{-- <td class="px-6 py-4">
                                 @if ($transaction->payment_proof)
                                     <a href="{{ asset('uploads/proof/' . $transaction->payment_proof) }}" target="_blank">
                                         <img src="{{ asset('uploads/proof/' . $transaction->payment_proof) }}"
@@ -47,7 +47,7 @@
                                 @else
                                     <span class="text-red-500">No Proof</span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td class="px-6 py-4">
                                 <span
                                     class="px-3 py-1 rounded-md text-white text-xs font-semibold

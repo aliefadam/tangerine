@@ -171,7 +171,7 @@
 
 
     {{-- Testimonial --}}
-    <div class="px-4 sm:px-6 lg:px-8 py-28 bg-white">
+    {{-- <div class="px-4 sm:px-6 lg:px-8 py-28 bg-white">
         <div class="w-[90%] mx-auto">
             <h1 class="text-4xl text-stone-700 text-center poppins-semibold" data-aos="fade-up" data-aos-duration="1000">
                 Testimony Success Stories
@@ -239,14 +239,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- End Testimonial --}}
 
     {{-- Rooms --}}
-    <div class="px-4 sm:px-6 lg:px-8 py-28 bg-stone-100">
+    <div class="px-4 sm:px-6 lg:px-8 py-28 bg-white">
         <div class="w-[90%] mx-auto">
-            <h1 class="text-4xl text-stone-700 text-center poppins-semibold" data-aos="fade-down"
-                data-aos-duration="1000">
+            <h1 class="text-4xl text-stone-700 text-center poppins-semibold" data-aos="fade-down" data-aos-duration="1000">
                 Our Rooms
             </h1>
             <div class="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -268,7 +267,6 @@
                     data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <img src="/imgs/room-salon/Salon8.jpg" class="w-full h-[300px] object-cover rounded-md shadow-md"
                     data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-
             </div>
         </div>
     </div>

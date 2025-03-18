@@ -29,7 +29,7 @@ class BookingSalonController extends Controller
             'booking_salons.queue_number',
             'booking_salons.created_at',
             'booking_salons.status',
-            'booking_salons.payment_proof',
+            // 'booking_salons.payment_proof',
             'booking_salons.phone_number',
         )
             ->join('services', 'booking_salons.service_id', '=', 'services.id')
@@ -51,7 +51,7 @@ class BookingSalonController extends Controller
                 'service_id' => 'required|exists:services,id',
                 'name' => 'required|string|max:255',
                 'whatsapp' => 'required|regex:/^\d{10,15}$/',
-                'payment_proof' => 'required|image|mimes:jpg,jpeg,png',
+                // 'payment_proof' => 'required|image|mimes:jpg,jpeg,png',
                 'session' => 'required|in:morning,afternoon,evening',
                 'date' => 'required|date'
             ]);
@@ -67,9 +67,9 @@ class BookingSalonController extends Controller
                 ->where('booking_date', $request->date)
                 ->count() + 1;
 
-            $file = $request->file("payment_proof");
-            $fileName = "PROOF_IMAGE_" . date("Ymdhis") . "." . $file->extension();
-            $file->move(public_path("uploads/proof"), $fileName);
+            // $file = $request->file("payment_proof");
+            // $fileName = "PROOF_IMAGE_" . date("Ymdhis") . "." . $file->extension();
+            // $file->move(public_path("uploads/proof"), $fileName);
 
             // Simpan booking ke database
             $booking = BookingSalon::create([
@@ -80,7 +80,7 @@ class BookingSalonController extends Controller
                 'booking_date' => $request->date,
                 'customer_name' => $request->name,
                 'phone_number' => $request->whatsapp,
-                'payment_proof' => $fileName,
+                // 'payment_proof' => $fileName,
                 'queue_number' => $queueNumber,
                 'status' => 'pending'
             ]);
@@ -94,7 +94,7 @@ class BookingSalonController extends Controller
                 "session" => $request->session,
                 "queue_number" => $queueNumber,
                 "total" => Service::find($request->service_id)->price,
-                "proof_of_payment" => $fileName
+                // "proof_of_payment" => $fileName
             ];
 
             Mail::to(Auth::user()->email)->queue(new SendInvoiceBookingSalon($data));
@@ -102,10 +102,11 @@ class BookingSalonController extends Controller
 
             return response()->json(['redirect_url' => route('services.salon')]);
         } catch (\Exception $e) {
-            Log::error('Error in storeBooking:', ['error' => $e->getMessage()]);
+            // Log::error('Error in storeBooking:', ['error' => $e->getMessage()]);
+            // notificationFlash("error", $e->getMessage());
             return response()->json([
-                'redirect_url' => route('services'),
-                'queue_number' => $booking->queue_number
+                'redirect_url' => route('services.salon'),
+                // 'queue_number' => $booking->queue_number
             ]);
         }
     }

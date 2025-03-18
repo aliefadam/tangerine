@@ -92,12 +92,12 @@
                         </table>
                         <hr style="margin-top:10px">
                     </div>
-                    <div>
+                    {{-- <div>
                         <h4 style="margin-bottom:20px;text-align:center">Proof Of Payment</h4>
                         <img style="display: block; margin: 0 auto;"
                             src="https://tangerine.my.id/uploads/proofs/{{ $data['proof_of_payment'] }}" alt="">
                         <hr style="margin-top:30px">
-                    </div>
+                    </div> --}}
                     <br>
                     <p style="font-size:14px;margin-bottom:30px">Having trouble with this transaction? Contact us
                         at <a href="mailto:website@tangerine.my.id" target="_blank">website@<span

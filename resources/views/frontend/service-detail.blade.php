@@ -63,12 +63,14 @@
 
             <!-- Payment Proof Upload -->
             <div class="mt-8">
-                <label class="block mb-2 text-sm font-medium text-gray-900" for="payment_proof">
-                    Upload Payment Proof
-                </label>
-                <input type="file" id="payment_proof" name="payment_proof" accept="image/*"
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                    required>
+                {{-- <div class="">
+                    <label class="block mb-2 text-sm font-medium text-gray-900" for="payment_proof">
+                        Upload Payment Proof
+                    </label>
+                    <input type="file" id="payment_proof" name="payment_proof" accept="image/*"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                        required>
+                </div> --}}
 
                 <div class="mt-5">
                     <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
@@ -187,8 +189,6 @@
             });
         });
 
-
-
         function copyToClipboard(elementId) {
             const text = document.getElementById(elementId).innerText;
             navigator.clipboard.writeText(text.replace(/\s/g, '')).then(() => {
@@ -213,7 +213,7 @@
                 const whatsapp = $("input[name='whatsapp']").val().trim();
                 const plan = $("input[name='service_id']").val();
                 const date = $("input[name='date']").val();
-                const paymentProof = $("#payment_proof")[0].files[0];
+                // const paymentProof = $("#payment_proof")[0].files[0];
                 const session = $("input[name='session']").val();
 
                 if (!name) {
@@ -261,14 +261,14 @@
                     return;
                 }
 
-                if (!paymentProof) {
-                    Swal.fire({
-                        icon: "error",
-                        title: 'Payment Proof Required',
-                        text: 'Please upload your payment proof'
-                    });
-                    return;
-                }
+                // if (!paymentProof) {
+                //     Swal.fire({
+                //         icon: "error",
+                //         title: 'Payment Proof Required',
+                //         text: 'Please upload your payment proof'
+                //     });
+                //     return;
+                // }
 
                 const formData = new FormData(this);
                 formData.append("session", session);

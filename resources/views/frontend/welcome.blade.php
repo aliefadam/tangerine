@@ -254,7 +254,7 @@
     {{-- End Schedule --}}
 
     {{-- Testimonial --}}
-    <div class="px-4 sm:px-6 lg:px-8 py-28 bg-white">
+    {{-- <div class="px-4 sm:px-6 lg:px-8 py-28 bg-white">
         <div class="w-[90%] mx-auto">
             <h1 class="text-4xl text-stone-700 text-center poppins-semibold" data-aos="fade-up" data-aos-duration="1000">
                 Testimony Success Stories
@@ -322,11 +322,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- End Testimonial --}}
 
     {{-- Rooms --}}
-    <div class="px-4 sm:px-6 lg:px-8 py-28 bg-stone-100">
+    <div class="px-4 sm:px-6 lg:px-8 py-28 bg-white">
         <div class="w-[90%] mx-auto">
             <h1 class="text-4xl text-stone-700 text-center poppins-semibold" data-aos="fade-down"
                 data-aos-duration="1000">

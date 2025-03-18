@@ -1,5 +1,5 @@
 <footer
-    class="px-4 sm:px-6 lg:px-12 py-16 {{ request()->routeIs('classes') || request()->routeIs('member.checkout') || request()->routeIs('payment.waiting') || request()->routeIs('class.detail') || request()->routeIs('profile') || request()->routeIs('transaction') || request()->routeIs('gate') || request()->routeIs('rent-transaction') || request()->routeIs('services.salon') || request()->routeIs('booking-salon') || request()->routeIs('service.detail.salon') ? 'bg-stone-100' : 'bg-white' }}">
+    class="px-4 sm:px-6 lg:px-12 py-16 {{ request()->routeIs('classes') || request()->routeIs('member.checkout') || request()->routeIs('payment.waiting') || request()->routeIs('class.detail') || request()->routeIs('profile') || request()->routeIs('transaction') || request()->routeIs('gate') || request()->routeIs('room-rental') || request()->routeIs('rent-transaction') || request()->routeIs('services.salon') || request()->routeIs('booking-salon') || request()->routeIs('service.detail.salon') || request()->routeIs('home') || request()->routeIs('home.salon') ? 'bg-stone-100' : 'bg-white' }}">
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-4 w-[90%] mx-auto">
         <div class="flex flex-col text-stone-700 h-fit">
             <h1 class="poppins-medium text-base">Tangerine</h1>

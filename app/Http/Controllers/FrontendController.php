@@ -262,7 +262,7 @@ class FrontendController extends Controller
             'booking_salons.queue_number',
             'booking_salons.created_at',
             'booking_salons.status',
-            'booking_salons.payment_proof',
+            // 'booking_salons.payment_proof',
             'booking_salons.phone_number',
         )
             ->where("user_id", Auth::user()->id)

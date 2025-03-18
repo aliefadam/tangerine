@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('booking_date');
             $table->string('customer_name');
             $table->string('phone_number');
-            $table->string('payment_proof');
+            // $table->string('payment_proof');
             $table->integer('queue_number')->nullable();
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();

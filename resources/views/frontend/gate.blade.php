@@ -4,9 +4,9 @@
     <div class="absolute top-10 left-0 right-0 flex justify-center">
         <img class="drop-shadow-lg w-[80px] object-cover" src="{{ asset('imgs/Logo Tangerine-black.png') }}" alt="">
     </div>
-    <div class="bg-white h-screen flex flex-col justify-center items-center">
+    <div class="bg-white h-screen flex flex-col justify-center items-center px-10">
         <h1 class="text-3xl text-center text-stone-700 poppins-bold">Where are you going in?</h1>
-        <div class="flex justify-center mt-16 items-center gap-10">
+        <div class="grid grid-cols-2 mt-16 items-center gap-10">
             <a href="{{ route('home') }}"
                 class="border-2 border-stone-700 text-stone-700 hover:bg-stone-50 flex flex-col items-center rounded-md p-10">
                 <i class="fa-solid fa-dumbbell text-6xl"></i>
