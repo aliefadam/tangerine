@@ -16,4 +16,9 @@ class BookingSalon extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function schedule_service()
+    {
+        return $this->belongsTo(ScheduleService::class, 'schedule_id');
+    }
 }

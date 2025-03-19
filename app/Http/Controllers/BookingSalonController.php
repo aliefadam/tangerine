@@ -121,13 +121,14 @@ class BookingSalonController extends Controller
             ]);
 
             $title = "Your transaction has been " . $request->status;
+
             $data = [
                 "invoice" => $transaction->invoice,
                 "transaction_date" => $transaction->created_at,
                 "label" => Service::find(id: $transaction->service_id)->name,
                 "customer_name" => $transaction->customer_name,
                 "booking_date" => $transaction->booking_date,
-                "session" => $request->session,
+                "session" => $transaction->schedule_service->session,
                 "queue_number" => $transaction->queue_number,
                 "total" => Service::find($transaction->service_id)->price,
                 "proof_of_payment" => $transaction->payment_proof,

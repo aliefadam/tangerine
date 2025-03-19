@@ -46,7 +46,7 @@
                                 {{ $beautician->description }}
                             </td>
                             <td class="px-6 py-4">
-                                <img src="/uploads/Beauticians/{{ $beautician->image }}"
+                                <img src="/uploads/beauticians/{{ $beautician->image }}"
                                     class="size-20 object-cover rounded-md shadow-md">
                             </td>
                             <td class="px-6 py-4">

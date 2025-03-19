@@ -7,7 +7,7 @@
         <div class="absolute inset-0 bg-stone-800/50 bg-opacity-60"></div>
         <div class="absolute ps-5 top-0 left-0 text-white flex flex-col justify-center items-center w-full h-full">
             <h2 class="text-4xl lg:text-5xl poppins-bold">Class Program</h2>
-            <p class="text-lg text-white mt-2">Home Class</p>
+            {{-- <p class="text-lg text-white mt-2">Home Class</p> --}}
         </div>
     </div>
     {{-- EndHero --}}

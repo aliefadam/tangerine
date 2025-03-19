@@ -7,12 +7,10 @@
         <div class="absolute inset-0 bg-stone-800/50 bg-opacity-60"></div>
         <div class="absolute ps-5 top-0 left-0 text-white flex flex-col justify-center items-center w-full h-full">
             <h2 class="text-4xl lg:text-5xl poppins-bold">Our Professional Trainer</h2>
-            <p class="text-lg text-white">Home Trainer</p>
+            {{-- <p class="text-lg text-white">Home Trainer</p> --}}
         </div>
     </div>
     {{-- EndHero --}}
-
-
 
     {{-- Rooms --}}
     <div class="px-4 sm:px-6 lg:px-8 py-28 bg-stone-100">
@@ -40,10 +38,10 @@
                                     class="bg-stone-700 text-white flex justify-center items-center w-12 h-12 rounded-full">
                                     <i class="fa-brands fa-instagram"></i>
                                 </a>
-                                <a href="{{ $trainer->twitter_link }}" target="_blank"
+                                {{-- <a href="{{ $trainer->twitter_link }}" target="_blank"
                                     class="bg-stone-700 text-white flex justify-center items-center w-12 h-12 rounded-full">
                                     <i class="fa-brands fa-x-twitter"></i>
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>

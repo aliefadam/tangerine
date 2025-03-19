@@ -79,13 +79,13 @@
                 <input type="text" id="instagram_link" name="instagram_link"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
             </div>
-            <div class="mb-5">
+            {{-- <div class="mb-5">
                 <label for="twitter_link" class="block mb-2 text-sm font-medium text-gray-900 ">
                     Twitter Link • <span class="text-gray-600 text-xs">Opsional</span>
                 </label>
                 <input type="text" id="twitter_link" name="twitter_link"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-stone-500 focus:border-stone-500 block w-full p-2.5" />
-            </div>
+            </div> --}}
             <div class="mb-5">
                 <label class="block mb-2 text-sm font-medium text-gray-900 " for="image">
                     Photo

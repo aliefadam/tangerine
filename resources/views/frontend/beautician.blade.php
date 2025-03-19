@@ -20,10 +20,10 @@
             <h1 class="text-4xl text-stone-700 text-center poppins-semibold">
                 Our Hairstylist & Therapist
             </h1>
-            <div class="mt-20 grid grid-cols-1 lg:grid-cols-4 gap-12">
+            <div class="mt-20 grid grid-cols-1 lg:grid-cols-4 gap-10">
                 @foreach ($beauticians as $beautician)
-                    <div class="bg-white rounded-md shadow-md overflow-hidden my-11" data-aos="fade-up"
-                        data-aos-duration="1000" data-aos-delay="100">
+                    <div class="bg-white rounded-md shadow-md overflow-hidden" data-aos="fade-up" data-aos-duration="1000"
+                        data-aos-delay="100">
                         <img src="/uploads/beauticians/{{ $beautician->image }}" class="w-full h-[350px] object-cover">
                         <div class=" flex flex-col p-5">
                             <h1 class="text-lg text-stone-700 poppins-semibold">{{ $beautician->name }}</h1>

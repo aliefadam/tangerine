@@ -105,20 +105,20 @@
             </div>
         </div>
         <div class="p-4 bg-white rounded-lg shadow">
-            <h4 class="text-lg font-semibold mb-4">Transaction by Class</h4>
-            <div id="categoryChart" style="width: 100%; height: 300px"></div>
-        </div>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-        <div class="p-4 bg-white rounded-lg shadow">
             <h4 class="text-lg font-semibold mb-4">Transaction Rent Room at {{ date('Y') }}</h4>
             <div id="yearlyChartRent" style="width: 100%; height: 300px">
             </div>
         </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
         <div class="p-4 bg-white rounded-lg shadow">
             <h4 class="text-lg font-semibold mb-4">Transaction Salon at {{ date('Y') }}</h4>
             <div id="yearlyChartSalon" style="width: 100%; height: 300px">
             </div>
+        </div>
+        <div class="p-4 bg-white rounded-lg shadow">
+            <h4 class="text-lg font-semibold mb-4">Transaction Wellness by Class</h4>
+            <div id="categoryChart" style="width: 100%; height: 300px"></div>
         </div>
     </div>
 @endsection

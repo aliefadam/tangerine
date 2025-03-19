@@ -1,5 +1,5 @@
 <a href="{{ route('gate') }}" data-tooltip-target="tooltip-default" data-tooltip-placement="right"
-    class="fixed bottom-7 left-7 bg-stone-700 hover:bg-stone-800 hover:scale-[105%] text-white rounded-full w-14 h-14 flex justify-center items-center">
+    class="fixed z-10 bottom-7 left-7 bg-stone-700 hover:bg-stone-800 hover:scale-[105%] text-white rounded-full w-14 h-14 flex justify-center items-center">
     <i class="fa-solid fa-house-user text-xl"></i>
 </a>
 
