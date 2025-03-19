@@ -17,7 +17,8 @@ class UserMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && Auth::user()->role != "user") {
-            return redirect()->back();
+            notificationFlash("error", "To access the user page, use an account other than administrator, please log out first.");
+            return redirect()->route("admin.dashboard");
         }
         return $next($request);
     }
