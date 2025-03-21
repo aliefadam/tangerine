@@ -24,7 +24,7 @@
                 $isRentedRoom = isRentedRoom($selectedDate, $hour);
                 $notAbailableLabel = '';
                 if ($notAvailableSchedule) {
-                    $notAbailableLabel = 'Capacity Full';
+                    $notAbailableLabel = 'Not Available';
                 }
 
                 if ($isRentedRoom) {

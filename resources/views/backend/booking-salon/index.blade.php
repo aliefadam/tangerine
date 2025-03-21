@@ -103,41 +103,26 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('admin.transaction.update.salon', ':id') }}"
+                            url: "{{ route('admin.booking-salon.update', ':id') }}"
                                 .replace(
                                     ':id', transactionID),
-                            type: "POST", // Laravel menerima method PUT/PATCH melalui POST dengan _method
+                            type: "PUT",
                             data: {
                                 _token: "{{ csrf_token() }}",
-                                _method: "PUT", // Laravel butuh ini agar dianggap sebagai PUT
                                 status: status
                             },
-                            success: function(response) {
-                                if (response.success) {
-                                    Swal.fire({
-                                        icon: "success",
-                                        title: "Success",
-                                        text: `Transaction has been ${status}!`,
-                                        confirmButtonText: "OK"
-                                    }).then(() => {
-                                        location.reload();
-                                    });
-                                } else {
-                                    Swal.fire({
-                                        icon: "error",
-                                        title: "Error",
-                                        text: "Failed to update transaction."
-                                    });
-                                }
-                            },
-                            error: function(xhr) {
+                            beforeSend: function() {
                                 Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: xhr.responseJSON?.message ||
-                                        "Something went wrong!"
+                                    title: 'Loading',
+                                    text: 'Please wait...',
+                                    didOpen: () => {
+                                        Swal.showLoading()
+                                    }
                                 });
-                            }
+                            },
+                            success: function(response) {
+                                window.location.reload();
+                            },
                         });
                     }
                 });

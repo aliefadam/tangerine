@@ -108,94 +108,18 @@ class TransactionController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user_id = Auth::user()->id;
+            $status = $request->status;
             $transaction = Transaction::find($id);
             $transaction->update([
-                "payment_status" => "confirmed"
+                "payment_status" => $status
             ]);
 
-            $member = null;
-            if (Member::where("user_id", $transaction->user_id)->exists()) {
-                $member = Member::where("user_id", $transaction->user_id)->first();
+            if ($status == "confirmed") {
+                confirmTransaction($transaction);
             } else {
-                $member = Member::create([
-                    "user_id" => $transaction->user_id,
-                ]);
+                cancelTransaction($transaction);
             }
-
-            $type = trim(explode(" - ", $transaction->plan)[2]);
-            $subscribed_date = Carbon::parse(now());
-            $remaining_session = 0;
-            if ($type == "10 Session") {
-                $expired_date = $subscribed_date->copy()->addMonths(4);
-                $extend_expired_date_month = 4;
-                $remaining_session = 10;
-            } else if ($type == "20 Session") {
-                $expired_date = $subscribed_date->copy()->addMonths(6);
-                $extend_expired_date_month = 6;
-                $remaining_session = 20;
-            } else {
-                $expired_date = $subscribed_date->copy()->addDay();
-                $extend_expired_date_month = 1;
-                $remaining_session = 1;
-            }
-
-            // Tambah Session Member Plan
-            if (MemberPlan::where("member_id", $member->id)->where("plan", $transaction->plan)->exists()) {
-                $memberPlan = MemberPlan::where("member_id", $member->id)->where("plan", $transaction->plan)->first();
-                $memberPlan->update([
-                    "expired_date" => $memberPlan->expired_date->addMonths($extend_expired_date_month),
-                    "remaining_session" => $remaining_session + $memberPlan->remaining_session,
-                ]);
-            } else {
-                $memberPlan = MemberPlan::create([
-                    "member_id" => $member->id,
-                    "trainer_id" => $transaction->trainer_id,
-                    "room_id" => $transaction->room_id,
-                    "plan" => $transaction->plan,
-                    // "day" => $transaction->day,
-                    // "time" => $transaction->time,
-                    "subscribed_date" => $subscribed_date,
-                    "expired_date" => $expired_date,
-                    "remaining_session" => $remaining_session,
-                    "status" => "active",
-                ]);
-            }
-
-            $plan = $transaction->plan;
-            $course_name = trim(explode(" - ", $plan)[0]);
-            $course_detail_name = trim(explode(" - ", $plan)[1]);
-            $course_detail = CourseDetail::where('name', $course_detail_name)->whereHas("course", function ($query) use ($course_name) {
-                $query->where('name', $course_name);
-            })->first();
-
-            if ($transaction->date) {
-                Schedule::create([
-                    'member_id' => $transaction->user->member->id,
-                    "member_plan_id" => $memberPlan->id,
-                    'room_id' => $transaction->room_id,
-                    'course_detail_id' => $course_detail->id,
-                    'course_id' => $course_detail->course_id,
-                    'trainer_id' => $transaction->trainer_id,
-                    'date' => $transaction->date,
-                    'time' => $transaction->time,
-                    'capacity' => $transaction->capacity,
-                ]);
-            }
-
             DB::commit();
-
-            // Kebutuhan Email
-            $data = [
-                "invoice" => $transaction->invoice,
-                "transaction_date" => $transaction->created_at,
-                "label" => $transaction->plan,
-                "total" => $transaction->total,
-                "proof_of_payment" => $transaction->proof_of_payment,
-            ];
-            Mail::to($transaction->user->email)->queue(new SendPaymentConfirm($data));
-
-            notificationFlash("success", "Successfully Confirm Payment");
             return response()->json(["success" => true]);
         } catch (\Exception $e) {
             DB::rollBack();

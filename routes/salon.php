@@ -17,11 +17,10 @@ Route::prefix("salon")->group(function () {
 
     Route::get('/product', [FrontendController::class, "product"])->name("product.salon");
     Route::get('/checkout', [FrontendController::class, "checkout"])->name("checkout.salon");
-    Route::put('/admin/transaction/{id}/update', [BookingSalonController::class, 'update'])
-        ->name('admin.transaction.update.salon');
 
     Route::middleware(["auth", "verified"])->group(function () {
         Route::post("/service/booking", [BookingSalonController::class, "storeBooking"])->name("service.booking");
+
         // Route::get("/payment/waiting/{invoice}", [FrontendController::class, "payment_waiting"])->name("payment.waiting");
         // Route::post("/upload/proof", [TransactionController::class, "upload_proof"])->name("payment.upload.proof");
     });

@@ -135,7 +135,6 @@ class BookingSalonController extends Controller
                 "title" => $title,
             ];
 
-
             Mail::to($transaction->user->email)->queue(new SendReplyFromAdminBookingSalon($data, $title));
             DB::commit();
 
