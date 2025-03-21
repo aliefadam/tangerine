@@ -238,10 +238,24 @@ if (!function_exists("isNotAvailableTrainer")) {
 if (!function_exists("isRentedRoom")) {
     function isRentedRoom($date, $hour)
     {
+        $isRented = false;
+
         $rentDetail = RentTransactionDetail::whereDate("date", $date->format('Y-m-d'))
             ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
-            ->exists();
-        return $rentDetail;
+            ->first();
+
+        if ($rentDetail) {
+            $isRented = $rentDetail->whereHas("rentTransaction", function ($query) {
+                $query->whereIn('status', ['waiting', 'paid']);
+            })->exists();
+        }
+
+        // $rentDetail = RentTransactionDetail::whereDate("date", $date->format('Y-m-d'))
+        //     ->whereTime("time", str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00:00')
+        //     ->exists();
+        // return $rentDetail;
+
+        return $isRented;
     }
 }
 

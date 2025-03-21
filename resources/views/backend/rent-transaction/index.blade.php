@@ -30,7 +30,7 @@
                         <th scope="col" class="px-6 py-4">
                             Total
                         </th>
-                        <th scope="col" class="px-6 py-4 w-[250px]">
+                        <th scope="col" class="px-6 py-4">
                             Payment Status
                         </th>
                         <th scope="col" class="px-6 py-4">
@@ -76,10 +76,14 @@
                                     <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-1 rounded-sm">
                                         Paid
                                     </span>
-                                @else
+                                @elseif($transaction->status == 'confirmed')
                                     <span
                                         class="bg-emerald-100 text-emerald-800 text-xs font-medium px-2.5 py-1 rounded-sm">
                                         Confirmed
+                                    </span>
+                                @else
+                                    <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-1 rounded-sm">
+                                        Cancelled
                                     </span>
                                 @endif
                             </td>
@@ -91,6 +95,13 @@
                                         <i class="fa-regular fa-arrow-up-right-from-square mr-1"></i>
                                         Detail
                                     </a>
+                                    @if ($transaction->status == 'waiting')
+                                        <a href="javascript:void(0)" data-transaction-id="{{ $transaction->id }}"
+                                            class="btn-cancel-transaction text-sm text-red-700 poppins-medium hover:blue-800">
+                                            <i class="fa-regular fa-ban mr-1"></i>
+                                            Cancel Transaction
+                                        </a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -130,6 +141,7 @@
 
 @section('script')
     <script>
+        $(".btn-cancel-transaction").click(cancelTransaction);
         $(".btn-show-detail").click(showDetail);
 
         function showDetail() {
@@ -154,6 +166,43 @@
             })
         }
 
+        function cancelTransaction() {
+            const transactionID = $(this).data("transaction-id");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, confirm it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('admin.rent-transaction.update', ':id') }}".replace(':id',
+                            transactionID),
+                        type: "PUT",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            status: "cancelled",
+                        },
+                        beforeSend: function() {
+                            Swal.fire({
+                                title: 'Loading',
+                                text: 'Please wait...',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                }
+                            });
+                        },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        }
+
         function confirmPayment() {
             const transactionID = $(this).data("transaction-id");
             Swal.fire({
@@ -172,6 +221,7 @@
                         type: "PUT",
                         data: {
                             _token: "{{ csrf_token() }}",
+                            status: "confirmed",
                         },
                         beforeSend: function() {
                             Swal.fire({

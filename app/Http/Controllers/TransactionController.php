@@ -45,13 +45,13 @@ class TransactionController extends Controller
             return response()->json(["redirect_url" => "", "message" => "Capacity is over"]);
         }
 
-        $isNotAvailableTrainer = Transaction::where("trainer_id", $request->trainer_id)->where("date", $request->date)->where("time", $request->time)->exists();
-        if ($isNotAvailableTrainer) {
-            $trainerName = Trainer::find($request->trainer_id)->name;
-            $formatedDate = Carbon::parse($request->date)->format("l, d M Y");
-            notificationFlash("error", "Trainer {$trainerName} is not available on {$formatedDate} - {$request->time}");
-            return response()->json(["redirect_url" => "", "message" => "Trainer is not available"]);
-        }
+        // $isNotAvailableTrainer = Transaction::where("trainer_id", $request->trainer_id)->where("date", $request->date)->where("time", $request->time)->exists();
+        // if ($isNotAvailableTrainer) {
+        //     $trainerName = Trainer::find($request->trainer_id)->name;
+        //     $formatedDate = Carbon::parse($request->date)->format("l, d M Y");
+        //     notificationFlash("error", "Trainer {$trainerName} is not available on {$formatedDate} - {$request->time}");
+        //     return response()->json(["redirect_url" => "", "message" => "Trainer is not available"]);
+        // }
 
         DB::beginTransaction();
         try {
@@ -67,7 +67,7 @@ class TransactionController extends Controller
                 "payment_status" => "waiting",
                 "notes" => $request->notes,
                 "total" => $dataCheckout["total"],
-                "expirated_date" => now()->addDay(),
+                "expirated_date" => now()->addHours(2),
             ]);
             DB::commit();
 

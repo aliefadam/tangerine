@@ -17,10 +17,14 @@ class SendPaymentConfirmRentRoom extends Mailable
      * Create a new message instance.
      */
     public $data;
+    protected $status;
+    protected $subjects;
 
-    public function __construct($data)
+    public function __construct($data, $status)
     {
         $this->data = $data;
+        $this->status = $status;
+        $this->subjects = $status == "confirmed" ? "Your payment has been confirmed" : "Your transaction has been cancelled";
     }
 
     /**
@@ -29,7 +33,7 @@ class SendPaymentConfirmRentRoom extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your payment has been confirmed',
+            subject: $this->subjects,
         );
     }
 

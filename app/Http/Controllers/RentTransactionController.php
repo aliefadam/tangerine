@@ -44,6 +44,7 @@ class RentTransactionController extends Controller
                 "hour" => $dataTransaction["hour"],
                 "total" => $total,
                 "status" => "waiting",
+                "expirated_date" => now()->addHours(2),
             ]);
             foreach ($dataTransaction["time"] as $time) {
                 RentTransactionDetail::create([
@@ -88,10 +89,10 @@ class RentTransactionController extends Controller
     {
         DB::beginTransaction();
         try {
-            $user_id = Auth::user()->id;
+            $status = $request->status;
             $transaction = RentTransaction::find($id);
             $transaction->update([
-                "status" => "confirmed"
+                "status" => $status
             ]);
             DB::commit();
 
@@ -102,10 +103,11 @@ class RentTransactionController extends Controller
                 "schedule" => Carbon::parse($transaction->rentTransactionDetails[0]->date)->format("l, d F Y") . " • " . $transaction->rentTransactionDetails()->first()->time . " - " . $transaction->rentTransactionDetails()->latest()->first()->time,
                 "total" => $transaction->total,
                 "proof_of_payment" => $transaction->proof_of_payment,
+                "status" => $status,
             ];
-            Mail::to($transaction->user->email)->queue(new SendPaymentConfirmRentRoom($data));
+            Mail::to($transaction->user->email)->queue(new SendPaymentConfirmRentRoom($data, $status));
 
-            notificationFlash("success", "Successfully Confirm Payment");
+            notificationFlash("success", "Successfully {$status} Transaction");
             return response()->json(["success" => true]);
         } catch (\Exception $e) {
             DB::rollBack();

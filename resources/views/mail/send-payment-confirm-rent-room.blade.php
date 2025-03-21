@@ -38,11 +38,23 @@
                 <div style="background-color:#fff;padding:20px 30px 30px 30px;text-align:left">
                     <div>
                         <h4 style="font-weight:normal">Hi Tangerine Hi Tangerine Customer,</h4>
-                        <p style="margin-bottom:5px">
+                        {{-- <p style="margin-bottom:5px">
                             Your payment has been confirmed by admin, thank you for making a purchase at <span
                                 style="font-weight: 600">Tangerine</span>. Here
                             are your transaction details:
-                        </p>
+                        </p> --}}
+                        @if ($data['status'] == 'confirmed')
+                            <p style="margin-bottom:5px">
+                                Your payment has been confirmed by admin, thank you for making a purchase at <span
+                                    style="font-weight: 600">Tangerine</span>. Here
+                                are your transaction details:
+                            </p>
+                        @else
+                            <p style="margin-bottom:5px">
+                                Your transaction has been cancelled by admin, please do not make any payment. Here
+                                are your transaction details:
+                            </p>
+                        @endif
                     </div>
                     <br>
                     <div>
@@ -81,12 +93,15 @@
                         </table>
                         <hr style="margin-top:10px">
                     </div>
-                    <div>
-                        <h4 style="margin-bottom:20px;text-align:center">Proof Of Payment</h4>
-                        <img style="display: block; margin: 0 auto;"
-                            src="https://tangerine.my.id/uploads/proofs/{{ $data['proof_of_payment'] }}" alt="">
-                        <hr style="margin-top:30px">
-                    </div>
+                    @if ($data['status'] == 'confirmed')
+                        <div>
+                            <h4 style="margin-bottom:20px;text-align:center">Proof Of Payment</h4>
+                            <img style="display: block; margin: 0 auto;"
+                                src="https://tangerine.my.id/uploads/proofs/{{ $data['proof_of_payment'] }}"
+                                alt="">
+                            <hr style="margin-top:30px">
+                        </div>
+                    @endif
                     <br>
                     <p style="font-size:14px;margin-bottom:30px">Having trouble with this transaction? Contact us
                         at <a href="mailto:website@tangerine.my.id" target="_blank">website@<span

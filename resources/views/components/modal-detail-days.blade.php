@@ -25,17 +25,17 @@
                 $notAvailableSchedule = isAvailableSchedule($selectedDate, $hour, $capacity, $roomID);
                 $notAvailableTrainer = isNotAvailableTrainer($trainerID, $selectedDate, $hour);
                 $isRentedRoom = isRentedRoom($selectedDate, $hour);
-                $notAbailableLabel = '';
+                $notAvailableLabel = '';
                 if ($notAvailableSchedule) {
-                    $notAbailableLabel = 'Capacity Full';
+                    $notAvailableLabel = 'Capacity Full';
                 }
 
                 if ($notAvailableTrainer) {
-                    $notAbailableLabel = 'Not Available Trainer';
+                    $notAvailableLabel = 'Not Available Trainer';
                 }
 
                 if ($isRentedRoom) {
-                    $notAbailableLabel = 'Rented Room';
+                    $notAvailableLabel = 'Rented Room';
                 }
             @endphp
 
@@ -57,7 +57,7 @@
                         <span class="text-red-700">
                             <i class="fa-regular fa-empty-set"></i>
                             {{-- Not Available --}}
-                            {{ $notAbailableLabel }}
+                            {{ $notAvailableLabel }}
                         </span>
                     @endif
                 </div>
