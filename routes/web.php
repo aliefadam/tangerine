@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Middleware\CheckSessionUser;
 use App\Http\Middleware\NavbarSalon;
 use App\Http\Middleware\NavbarWellness;
 use App\Http\Middleware\UpdateMembershipStatus;
@@ -25,7 +26,7 @@ Route::middleware([UpdateRemainingSession::class, UpdateMembershipStatus::class]
             include_once __DIR__ . "/salon.php";
         });
 
-        Route::middleware(["auth", "verified"])->group(function () {
+        Route::middleware(["auth", "verified", CheckSessionUser::class])->group(function () {
             Route::prefix("profile")->group(function () {
                 Route::get("/", [FrontendController::class, "profile"])->name("profile");
                 Route::put("/", [FrontendController::class, "edit_profile"])->name("profile.update");

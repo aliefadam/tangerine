@@ -18,25 +18,6 @@ class UpdateRemainingSession
      */
     public function handle(Request $request, Closure $next)
     {
-        // $schedules = Schedule::all();
-        // foreach ($schedules as $schedule) {
-        //     if ($schedule) {
-        //         $yesterday = Carbon::parse($schedule->date)->subDay();
-        //         $today = Carbon::today();
-
-        //         if ($yesterday->equalTo($today)) {
-        //             $memberPlan = $schedule->memberPlan;
-
-        //             if ($memberPlan->last_deducted_at !== $today->toDateString()) {
-        //                 $memberPlan->update([
-        //                     'remaining_session' => $memberPlan->remaining_session - 1,
-        //                     'last_deducted_at' => $today->toDateString()
-        //                 ]);
-        //             }
-        //         }
-        //     }
-        // }
-
         $schedules = Schedule::all();
         foreach ($schedules as $schedule) {
             if ($schedule) {
@@ -56,7 +37,6 @@ class UpdateRemainingSession
             }
         }
 
-        // exit;
         return $next($request);
     }
 }

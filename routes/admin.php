@@ -17,11 +17,14 @@ use App\Http\Controllers\TimeTableController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Models\RentTransaction;
+use App\Http\Middleware\CheckSessionUser;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(AdminMiddleware::class)->group(function () {
+Route::middleware(["auth", AdminMiddleware::class, CheckSessionUser::class])->group(function () {
     Route::prefix("admin")->group(function () {
+        Route::get("/", function () {
+            return to_route("admin.dashboard");
+        });
         Route::get("/dashboard", [BackendController::class, "dashboard"])->name("admin.dashboard");
 
         Route::prefix("member")->group(function () {

@@ -5,6 +5,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RentTransactionController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Middleware\CheckSessionUser;
 use App\Http\Middleware\UserMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ Route::prefix("wellness")->group(function () {
     Route::get('/schedule', [FrontendController::class, "schedule"])->name("schedule");
     Route::get('/room-rental', [FrontendController::class, "room_rental"])->name("room-rental");
 
-    Route::middleware(["auth", "verified"])->group(function () {
+    Route::middleware(["auth", "verified", CheckSessionUser::class])->group(function () {
         Route::middleware(UserMiddleware::class)->group(function () {
             Route::prefix("schedule")->group(function () {
                 Route::post("/", [ScheduleController::class, "store_from_member"])->name("schedule.store");
